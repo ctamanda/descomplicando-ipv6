@@ -1,0 +1,235 @@
+/* Texto do manual: títulos, parágrafos, listas, tabelas, código e blocos didáticos. */
+
+.prosa {
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+
+.titulo-secao {
+  margin: 0 0 1.5rem;
+  color: var(--titulo);
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 1.2rem + 1.8vw, 2.35rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  hyphens: manual;
+}
+
+.prosa h2,
+.prosa h3 {
+  margin: 1.8em 0 0.5em;
+  color: var(--titulo);
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  line-height: 1.25;
+  hyphens: manual;
+}
+.prosa h2 {
+  font-size: 1.45em;
+}
+.prosa h3,
+.prosa--secao h2 {
+  font-size: 1.22em;
+}
+.prosa--secao h3 {
+  font-size: 1.08em;
+}
+
+.prosa p,
+.prosa ul,
+.prosa ol {
+  margin: 0 0 0.9em;
+}
+.prosa ul,
+.prosa ol {
+  padding-left: 1.4em;
+}
+.prosa li + li {
+  margin-top: 0.3em;
+}
+.prosa strong {
+  font-weight: 700;
+}
+.prosa sup {
+  font-size: 0.7em;
+  line-height: 0;
+}
+
+.prosa code {
+  padding: 0.08em 0.3em;
+  border-radius: 4px;
+  background: var(--codigo-fundo);
+  font-family: var(--fonte-codigo);
+  font-size: 0.86em;
+  overflow-wrap: anywhere;
+  hyphens: none;
+}
+
+.prosa blockquote {
+  margin: 1.2em 0;
+  padding-left: 1em;
+  border-left: 3px solid var(--linha);
+  color: var(--texto-2);
+  font-style: italic;
+}
+
+/* Tabelas: rolam para o lado dentro da própria página */
+.tabela {
+  max-width: 100%;
+  margin: 1.2em 0;
+  overflow-x: auto;
+  border: 1px solid var(--linha);
+  border-radius: 6px;
+  hyphens: none;
+}
+.tabela table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85em;
+  line-height: 1.4;
+}
+.tabela th,
+.tabela td {
+  padding: 0.5em 0.75em;
+  border-bottom: 1px solid var(--linha);
+  text-align: left;
+  vertical-align: top;
+}
+.tabela th {
+  background: var(--azul-fundo);
+  color: var(--titulo);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.tabela tr:last-child td {
+  border-bottom: 0;
+}
+.tabela code {
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+
+/* Blocos didáticos */
+.bloco {
+  margin: 1.4em 0;
+  padding: 1em 1.15em;
+  border-left: 4px solid var(--neutro-borda);
+  border-radius: 0 6px 6px 0;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.bloco > :last-child {
+  margin-bottom: 0;
+}
+.bloco__rotulo {
+  margin: 0 0 0.45em !important;
+  color: var(--neutro-rotulo);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.bloco--conceito,
+.bloco--lembrar {
+  border-color: var(--azul-borda);
+  background: var(--azul-fundo);
+}
+.bloco--conceito .bloco__rotulo,
+.bloco--lembrar .bloco__rotulo {
+  color: var(--azul-rotulo);
+}
+
+.bloco--praticar {
+  border-color: var(--verde-borda);
+  background: var(--verde-fundo);
+}
+.bloco--praticar .bloco__rotulo {
+  color: var(--verde-rotulo);
+}
+
+.bloco--atencao {
+  border-color: var(--amarelo-borda);
+  background: var(--amarelo-fundo);
+}
+.bloco--atencao .bloco__rotulo {
+  color: var(--amarelo-rotulo);
+}
+
+/* Exemplo e Você sabia?: só a borda, sem fundo */
+.bloco--exemplo,
+.bloco--sabia {
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+}
+
+/* Gabarito e resolução */
+.resposta {
+  margin-top: 0.9em;
+}
+.resposta > summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.4em 0.9em;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  color: var(--verde-rotulo);
+  font-size: 0.88em;
+  font-weight: 700;
+  cursor: pointer;
+  list-style: none;
+}
+.resposta > summary::-webkit-details-marker {
+  display: none;
+}
+.resposta > summary::before {
+  content: '';
+  width: 0.4em;
+  height: 0.4em;
+  border-right: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+  transform: rotate(-45deg);
+}
+.resposta[open] > summary {
+  margin-bottom: 0.8em;
+}
+.resposta[open] > summary::before {
+  transform: rotate(45deg);
+}
+.resposta > summary:hover {
+  background: var(--verde-fundo);
+}
+.resposta > :last-child {
+  margin-bottom: 0;
+}
+/* Resoluções soltas (seção 4.7) ficam fora de bloco colorido */
+.prosa > .resposta > summary {
+  color: var(--link);
+}
+.prosa > .resposta > summary:hover {
+  background: var(--azul-fundo);
+}
+
+/* Termo do glossário: link discreto, só um sublinhado pontilhado */
+.termo-glossario {
+  color: inherit;
+  text-decoration: underline dotted var(--azul-claro);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.22em;
+}
+.termo-glossario:hover {
+  color: var(--link);
+  text-decoration-style: solid;
+}
+
+/* Nota ao pé do conteúdo de uma página */
+.folha__nota {
+  margin: 2.5rem 0 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--linha);
+  color: var(--texto-2);
+  font-size: 0.92rem;
+}

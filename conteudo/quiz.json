@@ -1,0 +1,842 @@
+[
+  {
+    "id": "q-basico-001",
+    "nivel": "basico",
+    "secao": "1.1",
+    "enunciado": "Segundo o manual, o que é a Internet?",
+    "alternativas": [
+      "Uma rede de redes, formada por milhares de redes independentes",
+      "Uma única rede gigante, controlada por uma empresa",
+      "A rede local de um provedor de Internet",
+      "Um roteador central que liga todos os países"
+    ],
+    "correta": 0,
+    "explicacao": "A Internet não é uma rede única: é uma rede de redes, que funciona porque milhares de redes independentes usam os mesmos protocolos. Ela não tem dono nem sede."
+  },
+  {
+    "id": "q-basico-002",
+    "nivel": "basico",
+    "secao": "1.2",
+    "enunciado": "Quais informações de endereço todo pacote carrega no cabeçalho?",
+    "alternativas": [
+      "Apenas o endereço de destino",
+      "O endereço de origem e o endereço de destino",
+      "Apenas o endereço do roteador da rede",
+      "O nome do aplicativo e o endereço de destino"
+    ],
+    "correta": 1,
+    "explicacao": "Como uma carta com remetente e destinatário, cada pacote leva no cabeçalho o endereço de origem e o endereço de destino."
+  },
+  {
+    "id": "q-basico-003",
+    "nivel": "basico",
+    "secao": "1.3",
+    "enunciado": "Qual é a diferença entre o endereço MAC e o endereço IP?",
+    "alternativas": [
+      "O MAC é o endereço público e o IP é o endereço privado",
+      "O MAC muda a cada rede e o IP é gravado de fábrica",
+      "O MAC identifica a placa; o IP identifica onde ela está na rede",
+      "O MAC e o IP são dois nomes para o mesmo número"
+    ],
+    "correta": 2,
+    "explicacao": "O MAC é gravado na placa pelo fabricante e a identifica fisicamente; o IP diz onde a interface está na rede. Os dois trabalham juntos, com funções diferentes."
+  },
+  {
+    "id": "q-basico-004",
+    "nivel": "basico",
+    "secao": "1.3",
+    "enunciado": "Um roteador liga a rede de uma casa à rede do provedor. Quantos endereços IP ele tem, no mínimo?",
+    "alternativas": [
+      "Um, apenas o endereço público",
+      "Um, compartilhado pelas duas redes",
+      "Um para cada dispositivo da casa",
+      "Dois, um em cada rede que ele conecta"
+    ],
+    "correta": 3,
+    "explicacao": "Um roteador liga redes diferentes e por isso tem pelo menos um endereço em cada rede: por exemplo, um na rede da casa e um na rede do provedor."
+  },
+  {
+    "id": "q-basico-005",
+    "nivel": "basico",
+    "secao": "1.4",
+    "enunciado": "Quantos bits tem um endereço IPv4?",
+    "alternativas": [
+      "32",
+      "16",
+      "64",
+      "128"
+    ],
+    "correta": 0,
+    "explicacao": "O IPv4 usa endereços de 32 bits, escritos como quatro números de 0 a 255 separados por ponto. 128 bits é o tamanho do IPv6."
+  },
+  {
+    "id": "q-basico-006",
+    "nivel": "basico",
+    "secao": "1.4",
+    "enunciado": "Qual destes endereços IPv4 é inválido?",
+    "alternativas": [
+      "10.0.0.1",
+      "172.16.300.5",
+      "8.8.8.8",
+      "192.168.1.0"
+    ],
+    "correta": 1,
+    "explicacao": "Cada número de um endereço IPv4 vai de 0 a 255, porque tem 8 bits. 172.16.300.5 tem uma parte igual a 300, então não existe."
+  },
+  {
+    "id": "q-basico-007",
+    "nivel": "basico",
+    "secao": "1.5",
+    "enunciado": "Na rede 192.168.1.0/24, qual destes endereços está na mesma rede que 192.168.1.77?",
+    "alternativas": [
+      "192.168.2.77",
+      "192.169.1.77",
+      "192.168.1.200",
+      "10.168.1.77"
+    ],
+    "correta": 2,
+    "explicacao": "Com /24, os três primeiros números identificam a rede. Só 192.168.1.200 compartilha 192.168.1 com 192.168.1.77; os outros estão em redes diferentes."
+  },
+  {
+    "id": "q-basico-008",
+    "nivel": "basico",
+    "secao": "1.5",
+    "enunciado": "Para que serve o servidor DNS?",
+    "alternativas": [
+      "Emprestar endereços IP aos dispositivos por um tempo",
+      "Separar a parte da rede da parte do dispositivo",
+      "Encaminhar os pacotes para fora da rede local",
+      "Traduzir nomes, como google.com, em endereços IP"
+    ],
+    "correta": 3,
+    "explicacao": "O DNS traduz nomes em endereços. Emprestar endereços é papel do DHCP, separar rede e dispositivo é papel da máscara e encaminhar para fora é papel do gateway."
+  },
+  {
+    "id": "q-basico-009",
+    "nivel": "basico",
+    "secao": "1.6",
+    "enunciado": "Em que ano a IANA entregou seus últimos blocos de endereços IPv4, esgotando o estoque central do mundo?",
+    "alternativas": [
+      "2011",
+      "1996",
+      "2017",
+      "2020"
+    ],
+    "correta": 0,
+    "explicacao": "Em 3 de fevereiro de 2011 a IANA entregou seus últimos blocos. Em 2020 foi o LACNIC, registro da América Latina, que esgotou o seu estoque."
+  },
+  {
+    "id": "q-basico-010",
+    "nivel": "basico",
+    "secao": "1.6",
+    "enunciado": "Qual afirmação sobre NAT e IPv6 está correta?",
+    "alternativas": [
+      "O IPv6 é uma versão mais eficiente do NAT",
+      "O NAT esconde vários dispositivos atrás de um endereço; o IPv6 dá um endereço público a cada dispositivo",
+      "O IPv6 precisa de NAT para funcionar em redes domésticas",
+      "O NAT e o IPv6 são dois nomes para a mesma técnica"
+    ],
+    "correta": 1,
+    "explicacao": "NAT e IPv6 são respostas opostas ao mesmo problema: o NAT esconde muitos dispositivos atrás de um endereço, e o IPv6 elimina a necessidade de esconder ao dar endereço público a cada um."
+  },
+  {
+    "id": "q-basico-011",
+    "nivel": "basico",
+    "secao": "2.1",
+    "enunciado": "Quantos bits tem um endereço IPv6?",
+    "alternativas": [
+      "32",
+      "64",
+      "128",
+      "256"
+    ],
+    "correta": 2,
+    "explicacao": "Os endereços IPv6 têm 128 bits, quatro vezes os 32 bits do IPv4."
+  },
+  {
+    "id": "q-basico-012",
+    "nivel": "basico",
+    "secao": "2.1",
+    "enunciado": "Por que o IPv6 usa endereços de 128 bits, e não de 64?",
+    "alternativas": [
+      "Porque 64 bits não bastariam para numerar os dispositivos do mundo",
+      "Porque o cabeçalho precisava ter exatamente 128 bytes",
+      "Porque era preciso manter compatibilidade com o IPv4",
+      "Para dividir o endereço em duas metades: 64 bits para a rede e 64 para o dispositivo"
+    ],
+    "correta": 3,
+    "explicacao": "Segundo o manual, 64 bits teriam sido mais do que suficientes para numerar dispositivos. Os 128 bits foram escolhidos para dividir o endereço em uma metade de rede e outra de dispositivo, base da autoconfiguração."
+  },
+  {
+    "id": "q-basico-013",
+    "nivel": "basico",
+    "secao": "2.2",
+    "enunciado": "Por que não existe IPv5?",
+    "alternativas": [
+      "O número 5 já tinha sido usado por um protocolo experimental, o ST-II",
+      "O IPv5 foi lançado, mas abandonado por falta de endereços",
+      "A IETF pulou o 5 para indicar o dobro de bits do IPv4",
+      "IPv5 era o nome provisório do IPv6 durante o projeto"
+    ],
+    "correta": 0,
+    "explicacao": "O número 5 já tinha sido usado pelo ST-II, um protocolo experimental para áudio e vídeo em tempo real que nunca virou padrão. Por isso a nova versão pulou para o 6."
+  },
+  {
+    "id": "q-basico-014",
+    "nivel": "basico",
+    "secao": "2.2",
+    "enunciado": "Qual destes é um dos motivos citados no manual para a adoção lenta do IPv6?",
+    "alternativas": [
+      "O IPv6 exige trocar todos os cabos de rede",
+      "O IPv4 e o IPv6 não conversam diretamente, o que obriga a rodar os dois ao mesmo tempo",
+      "O IPv6 só foi especificado pela primeira vez em 2017",
+      "O IPv6 não funciona em redes de celular"
+    ],
+    "correta": 1,
+    "explicacao": "Como os dois protocolos não se comunicam diretamente, ninguém quer migrar primeiro e todos precisam rodar os dois, o que custa caro. A primeira especificação do IPv6 é de 1995; 2017 é o ano da RFC 8200."
+  },
+  {
+    "id": "q-basico-015",
+    "nivel": "basico",
+    "secao": "2.3",
+    "enunciado": "No IPv6, quem pode fragmentar um pacote grande demais?",
+    "alternativas": [
+      "Qualquer roteador do caminho",
+      "Apenas o roteador mais próximo do destino",
+      "Apenas a origem do pacote",
+      "Apenas o roteador da rede local"
+    ],
+    "correta": 2,
+    "explicacao": "No IPv6 os roteadores do caminho não fragmentam: só quem enviou o pacote pode fragmentar. No IPv4, ao contrário, os roteadores podiam cortar o pacote no caminho."
+  },
+  {
+    "id": "q-basico-016",
+    "nivel": "basico",
+    "secao": "2.3",
+    "enunciado": "Como é o cabeçalho do pacote IPv6?",
+    "alternativas": [
+      "20 bytes, de tamanho variável",
+      "32 bytes, de tamanho fixo",
+      "40 bytes, de tamanho variável",
+      "40 bytes, de tamanho fixo"
+    ],
+    "correta": 3,
+    "explicacao": "O cabeçalho IPv6 tem sempre 40 bytes, com menos campos e sem checksum. O de 20 bytes e tamanho variável é o do IPv4."
+  },
+  {
+    "id": "q-basico-017",
+    "nivel": "basico",
+    "secao": "2.4",
+    "enunciado": "O que significa a palavra \"stateless\" em SLAAC?",
+    "alternativas": [
+      "Que nenhum servidor guarda registro de quem tem qual endereço",
+      "Que o endereço nunca muda depois de configurado",
+      "Que o dispositivo não precisa ouvir nenhum roteador",
+      "Que o endereço é entregue por um servidor DHCP"
+    ],
+    "correta": 0,
+    "explicacao": "Stateless significa que ninguém guarda registro de quem tem qual endereço: não há servidor nem tabela. O dispositivo monta o próprio endereço a partir do prefixo anunciado pelo roteador."
+  },
+  {
+    "id": "q-basico-018",
+    "nivel": "basico",
+    "secao": "2.4",
+    "enunciado": "Qual é o nome, no IPv6, do campo equivalente ao TTL do IPv4?",
+    "alternativas": [
+      "Rótulo de fluxo",
+      "Hop Limit (limite de saltos)",
+      "Classe de tráfego",
+      "Tipo do próximo cabeçalho"
+    ],
+    "correta": 1,
+    "explicacao": "No IPv6 o TTL se chama Hop Limit: cada roteador diminui o valor em 1 e, quando chega a zero, o pacote é descartado. O nome mudou porque sempre foi uma contagem de saltos."
+  },
+  {
+    "id": "q-basico-019",
+    "nivel": "basico",
+    "secao": "2.5",
+    "enunciado": "Para qual endereço multicast um dispositivo envia a pergunta \"existe um roteador aqui?\"",
+    "alternativas": [
+      "ff02::1",
+      "fe80::1",
+      "ff02::2",
+      "::1"
+    ],
+    "correta": 2,
+    "explicacao": "ff02::2 é o grupo de todos os roteadores do enlace, então só os roteadores recebem a pergunta. ff02::1 é o grupo de todos os dispositivos do enlace."
+  },
+  {
+    "id": "q-basico-020",
+    "nivel": "basico",
+    "secao": "2.5",
+    "enunciado": "Em uma comunicação anycast, para quem o pacote é entregue?",
+    "alternativas": [
+      "Para todos os dispositivos da rede, como no broadcast",
+      "Para todas as interfaces inscritas no grupo",
+      "Para o roteador padrão da rede local",
+      "Para a interface mais próxima dentre as do grupo"
+    ],
+    "correta": 3,
+    "explicacao": "No anycast vários servidores compartilham o mesmo endereço e o pacote vai só para o mais próximo de quem enviou. Entregar a todas as interfaces do grupo é o multicast."
+  },
+  {
+    "id": "q-intermediario-001",
+    "nivel": "intermediario",
+    "secao": "3.1",
+    "enunciado": "Qual destes grupos de um endereço IPv6 é inválido?",
+    "alternativas": [
+      "12g4",
+      "0db8",
+      "abcd",
+      "ffff"
+    ],
+    "correta": 0,
+    "explicacao": "Cada grupo usa dígitos hexadecimais, de 0 a 9 e de a a f. A letra g não é um dígito hexadecimal, por isso 12g4 não existe."
+  },
+  {
+    "id": "q-intermediario-002",
+    "nivel": "intermediario",
+    "secao": "3.2",
+    "enunciado": "No endereço 2804:14d:1234:5678:abcd:ef01:2345:6789, com a divisão padrão /64, qual é o identificador de interface?",
+    "alternativas": [
+      "2804:14d:1234:5678",
+      "abcd:ef01:2345:6789",
+      "2345:6789",
+      "ef01:2345:6789"
+    ],
+    "correta": 1,
+    "explicacao": "Com /64, os grupos 1 a 4 são o prefixo de rede e os grupos 5 a 8 são o identificador de interface: abcd:ef01:2345:6789."
+  },
+  {
+    "id": "q-intermediario-003",
+    "nivel": "intermediario",
+    "secao": "3.3",
+    "enunciado": "Quantos bits cada dígito hexadecimal representa?",
+    "alternativas": [
+      "2",
+      "8",
+      "4",
+      "16"
+    ],
+    "correta": 2,
+    "explicacao": "Cada dígito hexadecimal corresponde exatamente a 4 bits. Por isso um grupo de quatro dígitos tem 16 bits."
+  },
+  {
+    "id": "q-intermediario-004",
+    "nivel": "intermediario",
+    "secao": "3.3",
+    "enunciado": "Como fica o grupo binário 0000110110111000 em hexadecimal?",
+    "alternativas": [
+      "0da8",
+      "db80",
+      "0cb8",
+      "0db8"
+    ],
+    "correta": 3,
+    "explicacao": "Separando em blocos de 4 bits: 0000 = 0, 1101 = d, 1011 = b, 1000 = 8. O resultado é 0db8."
+  },
+  {
+    "id": "q-intermediario-005",
+    "nivel": "intermediario",
+    "secao": "3.4",
+    "enunciado": "Como se escreve o endereço 2001:db8::1 em uma URL, na porta 8080?",
+    "alternativas": [
+      "http://[2001:db8::1]:8080/",
+      "http://2001:db8::1:8080/",
+      "http://[2001:db8::1:8080]/",
+      "http://2001:db8::1/8080"
+    ],
+    "correta": 0,
+    "explicacao": "Em URLs o endereço IPv6 vai entre colchetes, para o navegador saber onde termina o endereço e começa a porta. A porta fica fora dos colchetes."
+  },
+  {
+    "id": "q-intermediario-006",
+    "nivel": "intermediario",
+    "secao": "3.4",
+    "enunciado": "No endereço fe80::a1b2:c3d4%wlan0, o que é wlan0?",
+    "alternativas": [
+      "A parte final do identificador de interface",
+      "O identificador de zona: a interface pela qual o endereço link-local vale",
+      "O tamanho do prefixo do endereço",
+      "O nome do roteador que criou o endereço"
+    ],
+    "correta": 1,
+    "explicacao": "A parte depois do % não faz parte do endereço: é o identificador de zona, o nome da interface de rede por onde esse endereço link-local vale."
+  },
+  {
+    "id": "q-intermediario-007",
+    "nivel": "intermediario",
+    "secao": "3.5",
+    "enunciado": "Qual é a forma abreviada recomendada pela RFC 5952 para 2001:0db8:0000:0000:0000:ff00:0042:8329?",
+    "alternativas": [
+      "2001:db8:0:0:0:ff00:42:8329",
+      "2001:db8::ff00:0042:8329",
+      "2001:db8::ff00:42:8329",
+      "2001:db8::ff:42:8329"
+    ],
+    "correta": 2,
+    "explicacao": "Removem-se os zeros à esquerda de cada grupo (0042 vira 42) e a sequência de grupos zerados vira ::. Zeros do fim do grupo ficam, por isso ff00 não pode virar ff."
+  },
+  {
+    "id": "q-intermediario-008",
+    "nivel": "intermediario",
+    "secao": "3.5",
+    "enunciado": "Qual é a forma recomendada pela RFC 5952 para o endereço 2001:db8:0:0:1:0:0:1?",
+    "alternativas": [
+      "2001:db8:0:0:1::1",
+      "2001:db8::1::1",
+      "2001:db8:0:0:1:0:0:1",
+      "2001:db8::1:0:0:1"
+    ],
+    "correta": 3,
+    "explicacao": "Há duas sequências de dois zeros, um empate, e a regra manda comprimir a primeira. Usar :: duas vezes, como em 2001:db8::1::1, é inválido."
+  },
+  {
+    "id": "q-intermediario-009",
+    "nivel": "intermediario",
+    "secao": "3.6",
+    "enunciado": "Ao expandir 2001:db8::ff00:42:8329, quantos grupos de zeros o :: representa?",
+    "alternativas": [
+      "3",
+      "2",
+      "4",
+      "5"
+    ],
+    "correta": 0,
+    "explicacao": "Há 5 grupos escritos (2001, db8, ff00, 42 e 8329). Como o endereço tem sempre 8 grupos, o :: representa 8 menos 5 = 3 grupos zerados."
+  },
+  {
+    "id": "q-intermediario-010",
+    "nivel": "intermediario",
+    "secao": "3.6",
+    "enunciado": "Qual é a forma completa do endereço 2001:db8:1:0:2:0:3:4?",
+    "alternativas": [
+      "2001:0db8:0001:0000:0000:0002:0000:0003:0004",
+      "2001:0db8:0001:0000:0002:0000:0003:0004",
+      "2001:0db8:1000:0000:2000:0000:3000:4000",
+      "2001:db80:0001:0000:0002:0000:0003:0004"
+    ],
+    "correta": 1,
+    "explicacao": "O endereço não tem :: e já tem oito grupos, então basta completar os zeros à esquerda. Acrescentar grupos gera um endereço inválido, e os zeros vão à esquerda, não à direita."
+  },
+  {
+    "id": "q-intermediario-011",
+    "nivel": "intermediario",
+    "secao": "3.7",
+    "enunciado": "De que tipo é um endereço que começa com fd, como fd12:3456:789a::1?",
+    "alternativas": [
+      "Global unicast",
+      "Link-local",
+      "Unique local (ULA)",
+      "Multicast"
+    ],
+    "correta": 2,
+    "explicacao": "Endereços que começam com fd pertencem a fc00::/7, os unique local (ULA), equivalentes aos endereços privados do IPv4. Multicast começa com ff e link-local com fe80."
+  },
+  {
+    "id": "q-intermediario-012",
+    "nivel": "intermediario",
+    "secao": "3.7",
+    "enunciado": "Qual é o endereço de loopback do IPv6, equivalente ao 127.0.0.1 do IPv4?",
+    "alternativas": [
+      "::",
+      "fe80::1",
+      "ff02::1",
+      "::1"
+    ],
+    "correta": 3,
+    "explicacao": "::1 aponta para o próprio dispositivo e serve para testar a pilha IPv6. Já :: é o endereço não especificado, usado quando o dispositivo ainda não tem endereço."
+  },
+  {
+    "id": "q-intermediario-013",
+    "nivel": "intermediario",
+    "secao": "3.8",
+    "enunciado": "O gateway padrão IPv6 de um notebook aparece como fe80::1. O que isso indica?",
+    "alternativas": [
+      "É o normal: o gateway IPv6 costuma ser o endereço link-local do roteador",
+      "O IPv6 não conseguiu obter um endereço de verdade",
+      "O notebook está configurado para funcionar como roteador",
+      "O roteador ficou sem endereço global e precisa ser reiniciado"
+    ],
+    "correta": 0,
+    "explicacao": "Ver fe80:: como gateway é normal e correto: o roteador se anuncia pelo seu endereço link-local, e o endereço global do dispositivo aparece em outra linha."
+  },
+  {
+    "id": "q-intermediario-014",
+    "nivel": "intermediario",
+    "secao": "4.1",
+    "enunciado": "No IPv6, o que substitui a máscara de rede escrita em decimal do IPv4?",
+    "alternativas": [
+      "Uma máscara escrita em hexadecimal, separada por dois-pontos",
+      "A notação de prefixo com barra, como /64",
+      "O identificador de zona, como %eth0",
+      "O endereço do gateway padrão"
+    ],
+    "correta": 1,
+    "explicacao": "No IPv6 não existe máscara escrita com números; só existe a notação com barra, que diz quantos bits da esquerda identificam a rede."
+  },
+  {
+    "id": "q-intermediario-015",
+    "nivel": "intermediario",
+    "secao": "4.2",
+    "enunciado": "Qual é a rede do endereço 2001:db8:1234:5678::9 com prefixo /56?",
+    "alternativas": [
+      "2001:db8:1234::/56",
+      "2001:db8:1234:5678::/56",
+      "2001:db8:1234:5600::/56",
+      "2001:db8:1234:5670::/56"
+    ],
+    "correta": 2,
+    "explicacao": "O /56 fixa 56 ÷ 4 = 14 dígitos: os três primeiros grupos e os dois primeiros dígitos do quarto (56). O restante é zerado. 5670 seria a rede /60."
+  },
+  {
+    "id": "q-intermediario-016",
+    "nivel": "intermediario",
+    "secao": "4.3",
+    "enunciado": "Uma sala de aula tem 30 computadores. Qual tamanho de prefixo a rede dela deve receber?",
+    "alternativas": [
+      "/120, porque bastam poucos endereços",
+      "/126, como em alguns links entre roteadores",
+      "/96, para economizar endereços",
+      "/64, como toda rede com dispositivos"
+    ],
+    "correta": 3,
+    "explicacao": "Rede com dispositivos é sempre /64, independentemente da quantidade. Redes menores quebram a autoconfiguração e não economizam nada de útil."
+  },
+  {
+    "id": "q-intermediario-017",
+    "nivel": "intermediario",
+    "secao": "4.4",
+    "enunciado": "Qual é a rede /64 do endereço 2001:db8:1:2:3:4:5:6?",
+    "alternativas": [
+      "2001:db8:1:2::/64",
+      "2001:db8::/64",
+      "2001:db8:1:2:3::/64",
+      "2001:db8:1::/64"
+    ],
+    "correta": 0,
+    "explicacao": "O /64 fixa 16 dígitos, exatamente os quatro primeiros grupos (2001:0db8:0001:0002). Zerando o resto e abreviando, fica 2001:db8:1:2::/64."
+  },
+  {
+    "id": "q-intermediario-018",
+    "nivel": "intermediario",
+    "secao": "4.5",
+    "enunciado": "Um endereço tem o identificador de interface 021a:2bff:fe3c:4d5e. Qual é a origem mais provável desse identificador?",
+    "alternativas": [
+      "Configurado manualmente por um administrador",
+      "Derivado do endereço MAC (EUI-64)",
+      "Sorteado como endereço temporário de privacidade",
+      "Entregue pelo servidor DNS da rede"
+    ],
+    "correta": 1,
+    "explicacao": "O ff:fe no meio do identificador é a marca do EUI-64, derivado do MAC. Identificadores manuais costumam ser curtos, e os aleatórios não têm padrão reconhecível."
+  },
+  {
+    "id": "q-intermediario-019",
+    "nivel": "intermediario",
+    "secao": "4.6",
+    "enunciado": "Uma casa recebe um bloco /56. Quantas redes /64 ela pode criar?",
+    "alternativas": [
+      "8",
+      "56",
+      "256",
+      "65.536"
+    ],
+    "correta": 2,
+    "explicacao": "Há 64 menos 56 = 8 bits para numerar sub-redes, e 2^8 = 256. O número 65.536 corresponde a um /48 dividido em /64."
+  },
+  {
+    "id": "q-intermediario-020",
+    "nivel": "intermediario",
+    "secao": "4.7",
+    "enunciado": "Os endereços 2001:db8:1:2::10 e 2001:db8:1:3::10 estão na mesma rede?",
+    "alternativas": [
+      "Sim, estão na mesma /64 e na mesma /48",
+      "Não, não estão nem na mesma /64 nem na mesma /48",
+      "Estão na mesma /64, mas não na mesma /48",
+      "Estão em /64 diferentes, mas na mesma /48"
+    ],
+    "correta": 3,
+    "explicacao": "O quarto grupo difere (0002 e 0003), então as redes /64 são diferentes. Os três primeiros grupos (2001:0db8:0001) são iguais, então estão na mesma /48."
+  },
+  {
+    "id": "q-avancado-001",
+    "nivel": "avancado",
+    "secao": "5.1",
+    "enunciado": "Qual par de mensagens do Neighbor Discovery substitui o ARP do IPv4?",
+    "alternativas": [
+      "Neighbor Solicitation e Neighbor Advertisement",
+      "Router Solicitation e Router Advertisement",
+      "Duplicate Address Detection e Neighbor Unreachability Detection",
+      "DHCPv6 stateful e DHCPv6 stateless"
+    ],
+    "correta": 0,
+    "explicacao": "Para descobrir o MAC de um vizinho, o dispositivo envia um Neighbor Solicitation e recebe um Neighbor Advertisement. O par RS e RA serve para descobrir roteadores e prefixos."
+  },
+  {
+    "id": "q-avancado-002",
+    "nivel": "avancado",
+    "secao": "5.1",
+    "enunciado": "Na Detecção de Endereço Duplicado (DAD), qual endereço de origem o dispositivo usa no Neighbor Solicitation?",
+    "alternativas": [
+      "ff02::1",
+      "::",
+      "::1",
+      "fe80::1"
+    ],
+    "correta": 1,
+    "explicacao": "O dispositivo usa o endereço não especificado (::), porque ainda não tem endereço confirmado: o que ele pretende usar é justamente o que está sendo testado."
+  },
+  {
+    "id": "q-avancado-003",
+    "nivel": "avancado",
+    "secao": "5.1",
+    "enunciado": "O notebook 2001:db8:1:2::a precisa do MAC da impressora 2001:db8:1:2::b. Para qual grupo multicast ele envia o Neighbor Solicitation?",
+    "alternativas": [
+      "ff02::1",
+      "ff02::2",
+      "ff02::1:ff00:b",
+      "ff02::b"
+    ],
+    "correta": 2,
+    "explicacao": "O Neighbor Solicitation vai para o grupo solicited-node do endereço procurado, formado pelos 24 últimos bits do endereço anexados a ff02::1:ff00:0/104. Assim só a impressora processa a pergunta."
+  },
+  {
+    "id": "q-avancado-004",
+    "nivel": "avancado",
+    "secao": "5.2",
+    "enunciado": "Um Router Advertisement chega com a bandeira A ligada e as bandeiras M e O desligadas. O que o dispositivo faz?",
+    "alternativas": [
+      "Pede o endereço a um servidor DHCPv6",
+      "Fica apenas com o endereço link-local",
+      "Monta o endereço com SLAAC e usa DHCPv6 só para o DNS",
+      "Monta o endereço com SLAAC, sem usar DHCPv6"
+    ],
+    "correta": 3,
+    "explicacao": "A bandeira A manda montar o endereço com o prefixo anunciado (SLAAC). Com M e O desligadas, o DHCPv6 não é usado; essa é a combinação mais comum em casas e redes de celular."
+  },
+  {
+    "id": "q-avancado-005",
+    "nivel": "avancado",
+    "secao": "5.2",
+    "enunciado": "Um serviço configurado com um endereço IPv6 global fixo parou de responder depois que o roteador de casa reiniciou. Qual é a causa provável?",
+    "alternativas": [
+      "O prefixo entregue pelo provedor mudou, e o endereço antigo deixou de ser válido",
+      "O endereço link-local do serviço foi apagado pelo roteador",
+      "O roteador passou a bloquear consultas de registro AAAA",
+      "O provedor trocou o identificador de interface do serviço"
+    ],
+    "correta": 0,
+    "explicacao": "Em muitas casas o prefixo IPv6 muda quando o roteador reinicia ou a delegação é renovada. Para serviços internos, o manual recomenda ULA ou link-local; para serviços expostos, DNS dinâmico."
+  },
+  {
+    "id": "q-avancado-006",
+    "nivel": "avancado",
+    "secao": "5.3",
+    "enunciado": "Numa rede com DHCPv6 stateful, de onde o dispositivo obtém o gateway?",
+    "alternativas": [
+      "Do servidor DHCPv6, junto com o endereço",
+      "Do Router Advertisement, porque o DHCPv6 não entrega gateway",
+      "Do servidor DNS, pela opção RDNSS",
+      "Obrigatoriamente de uma configuração manual"
+    ],
+    "correta": 1,
+    "explicacao": "Diferente do DHCP do IPv4, o DHCPv6 não entrega gateway. O gateway vem sempre do Router Advertisement; uma rede com DHCPv6 e sem RA não funciona."
+  },
+  {
+    "id": "q-avancado-007",
+    "nivel": "avancado",
+    "secao": "5.3",
+    "enunciado": "Como o roteador da sua casa recebe do provedor um bloco inteiro, como um /56, para dividir em redes /64?",
+    "alternativas": [
+      "Por SLAAC, a partir do RA do provedor",
+      "Por DHCPv6 stateless, ativado pela bandeira O",
+      "Por DHCPv6 Prefix Delegation (delegação de prefixo)",
+      "Por NAT64, na borda da rede do provedor"
+    ],
+    "correta": 2,
+    "explicacao": "Na delegação de prefixo, o provedor entrega via DHCPv6 um bloco inteiro ao roteador de casa, que o divide em /64 e os anuncia por RA. O DHCPv6 stateless só entrega informações extras, como DNS."
+  },
+  {
+    "id": "q-avancado-008",
+    "nivel": "avancado",
+    "secao": "5.4",
+    "enunciado": "Na linha default via fe80::1 dev eth0 proto ra, o que significa proto ra?",
+    "alternativas": [
+      "Que a rota foi configurada manualmente pelo administrador",
+      "Que a rota foi aprendida por um protocolo dinâmico, como o OSPF",
+      "Que o próximo salto é um endereço anycast",
+      "Que a rota foi aprendida por Router Advertisement"
+    ],
+    "correta": 3,
+    "explicacao": "proto ra indica que a rota foi aprendida por Router Advertisement, e não configurada à mão. Rotas manuais aparecem como static, e as de protocolos dinâmicos como ospf ou bgp."
+  },
+  {
+    "id": "q-avancado-009",
+    "nivel": "avancado",
+    "secao": "5.5",
+    "enunciado": "Um site tem registro A e não tem registro AAAA. Como um dispositivo com pilha dupla o acessa?",
+    "alternativas": [
+      "Por IPv4, porque não há endereço IPv6 para conectar",
+      "Por IPv6, usando o endereço do registro A",
+      "Não acessa, porque a pilha dupla sempre exige IPv6",
+      "Por IPv6, consultando o domínio ip6.arpa"
+    ],
+    "correta": 0,
+    "explicacao": "O registro A guarda o endereço IPv4 e o AAAA guarda o IPv6. Sem AAAA não há endereço IPv6 para conectar, então o dispositivo com pilha dupla usa o IPv4."
+  },
+  {
+    "id": "q-avancado-010",
+    "nivel": "avancado",
+    "secao": "5.5",
+    "enunciado": "Por qual opção do Router Advertisement o roteador pode anunciar os servidores DNS?",
+    "alternativas": [
+      "DUID",
+      "RDNSS",
+      "AAAA",
+      "Happy Eyeballs"
+    ],
+    "correta": 1,
+    "explicacao": "A opção RDNSS (RFC 8106) permite anunciar os servidores DNS no próprio RA. DUID é o identificador do cliente DHCPv6, AAAA é um tipo de registro e Happy Eyeballs é uma técnica dos navegadores."
+  },
+  {
+    "id": "q-avancado-011",
+    "nivel": "avancado",
+    "secao": "5.6",
+    "enunciado": "Na saída de ip -6 addr show no Linux, o que indica scope link?",
+    "alternativas": [
+      "Um endereço global montado por SLAAC",
+      "Um endereço temporário de privacidade",
+      "Um endereço link-local",
+      "Um endereço configurado manualmente"
+    ],
+    "correta": 2,
+    "explicacao": "scope link indica o endereço link-local. Endereços globais aparecem como scope global, e o temporário de privacidade é marcado com temporary."
+  },
+  {
+    "id": "q-avancado-012",
+    "nivel": "avancado",
+    "secao": "5.7",
+    "enunciado": "Um computador tem link-local, endereço global e gateway, e o ping no gateway funciona, mas ping 2001:4860:4860::8888 falha. Onde provavelmente está o problema?",
+    "alternativas": [
+      "O IPv6 está desativado no sistema",
+      "O servidor DNS não está resolvendo registros AAAA",
+      "Falta o identificador de zona no comando ping",
+      "Entre o roteador e a Internet: sem saída IPv6 ou prefixo não roteado pelo provedor"
+    ],
+    "correta": 3,
+    "explicacao": "Se o gateway responde mas um endereço externo não, a falha está no passo 5 do roteiro: o roteador não tem saída IPv6 ou o provedor não roteia o prefixo. O teste por endereço nem usa DNS."
+  },
+  {
+    "id": "q-avancado-013",
+    "nivel": "avancado",
+    "secao": "5.8",
+    "enunciado": "Qual comando Linux mostra o cache de vizinhos IPv6, o equivalente IPv6 da tabela ARP?",
+    "alternativas": [
+      "ip -6 neigh show",
+      "ip -6 maddr show",
+      "ip -6 route show",
+      "arp -a"
+    ],
+    "correta": 0,
+    "explicacao": "ip -6 neigh show lista os vizinhos com endereço IPv6 e MAC. ip -6 maddr mostra grupos multicast, e o manual recomenda não usar comandos antigos como arp no Linux."
+  },
+  {
+    "id": "q-avancado-014",
+    "nivel": "avancado",
+    "secao": "6.1",
+    "enunciado": "Um roteador tem rotas para 2001:db8::/32, 2001:db8:1::/48 e ::/0. Qual delas ele usa para o destino 2001:db8:1:5::9?",
+    "alternativas": [
+      "2001:db8::/32",
+      "2001:db8:1::/48",
+      "::/0",
+      "Nenhuma, e o pacote é descartado"
+    ],
+    "correta": 1,
+    "explicacao": "As três rotas combinam com o destino, e o roteador escolhe a de prefixo mais longo, a mais específica: 2001:db8:1::/48. A rota ::/0 só é usada quando nenhuma outra serve."
+  },
+  {
+    "id": "q-avancado-015",
+    "nivel": "avancado",
+    "secao": "6.2",
+    "enunciado": "Quantas vezes o endereço de destino de um pacote IPv6 é alterado no caminho até o servidor?",
+    "alternativas": [
+      "Uma vez, no roteador de casa, pelo NAT",
+      "Uma vez em cada roteador do caminho",
+      "Nenhuma: origem e destino viajam intactos",
+      "Duas vezes: uma na ida e outra na volta"
+    ],
+    "correta": 2,
+    "explicacao": "No IPv6 não há NAT: o pacote chega ao servidor com os mesmos endereços com que saiu. Cada roteador só diminui o Hop Limit em 1."
+  },
+  {
+    "id": "q-avancado-016",
+    "nivel": "avancado",
+    "secao": "6.3",
+    "enunciado": "Qual comando cria, num roteador Linux, uma rota estática para a rede 2001:db8:cafe:2::/64 através do vizinho 2001:db8:cafe:ff::2?",
+    "alternativas": [
+      "ip -6 addr add 2001:db8:cafe:2::/64 dev eth0",
+      "ip -6 route add default via 2001:db8:cafe:2::/64",
+      "ip -6 neigh add 2001:db8:cafe:2::/64 via 2001:db8:cafe:ff::2",
+      "ip -6 route add 2001:db8:cafe:2::/64 via 2001:db8:cafe:ff::2"
+    ],
+    "correta": 3,
+    "explicacao": "Rotas são criadas com ip -6 route add, seguido do prefixo de destino e de via com o próximo salto. Como o próximo salto é global, não é preciso indicar a interface com dev."
+  },
+  {
+    "id": "q-avancado-017",
+    "nivel": "avancado",
+    "secao": "6.4",
+    "enunciado": "Conexões IPv6 travam em transferências grandes, enquanto pings e páginas pequenas funcionam. Qual é uma causa típica apontada pelo manual?",
+    "alternativas": [
+      "Um firewall bloqueando a mensagem ICMPv6 \"pacote grande demais\", usada pelo Path MTU Discovery",
+      "Roteadores do caminho fragmentando os pacotes grandes",
+      "Falta de registro AAAA no servidor DNS",
+      "Um checksum inválido no cabeçalho IPv6"
+    ],
+    "correta": 0,
+    "explicacao": "O Path MTU Discovery depende de o erro ICMPv6 \"pacote grande demais\" chegar à origem. Se um firewall o bloqueia, transferências grandes travam. Roteadores IPv6 não fragmentam e o cabeçalho não tem checksum."
+  },
+  {
+    "id": "q-avancado-018",
+    "nivel": "avancado",
+    "secao": "6.5",
+    "enunciado": "Uma operadora tem rede só IPv6 e precisa que os celulares acessem sites que só têm IPv4. Qual mecanismo resolve?",
+    "alternativas": [
+      "Pilha dupla",
+      "NAT64 com DNS64",
+      "Túnel 6to4",
+      "DS-Lite"
+    ],
+    "correta": 1,
+    "explicacao": "O DNS64 sintetiza um AAAA com o IPv4 dentro do prefixo 64:ff9b::/96, e o NAT64 traduz o pacote para IPv4. Pilha dupla exige IPv4 no celular, 6to4 é obsoleto e DS-Lite leva IPv4 ao cliente por dentro do IPv6."
+  },
+  {
+    "id": "q-avancado-019",
+    "nivel": "avancado",
+    "secao": "6.6",
+    "enunciado": "Segundo o manual, qual é o caminho recomendado para praticar IPv6 em uma rede emulada?",
+    "alternativas": [
+      "Configurar BGP no roteador de casa",
+      "Instalar um túnel Teredo no computador",
+      "O Laboratório de IPv6 do NIC.br, começando pela experiência 1.1",
+      "Desativar o IPv4 do computador por um mês"
+    ],
+    "correta": 2,
+    "explicacao": "O livro Laboratório de IPv6 do NIC.br, gratuito em lab.ipv6.br, traz uma máquina virtual com o emulador CORE. O manual recomenda começar pela experiência 1.1 e seguir a ordem."
+  },
+  {
+    "id": "q-avancado-020",
+    "nivel": "avancado",
+    "secao": "4.6",
+    "enunciado": "Um provedor recebeu um bloco /32 e entrega um /56 a cada cliente residencial. Quantos clientes ele consegue atender?",
+    "alternativas": [
+      "256",
+      "65.536",
+      "24",
+      "16.777.216"
+    ],
+    "correta": 3,
+    "explicacao": "Há 56 menos 32 = 24 bits para numerar os blocos, e 2^24 = 16.777.216. O valor 65.536 seria o de blocos /48, e 24 é só a quantidade de bits."
+  }
+]

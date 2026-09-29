@@ -1,0 +1,23 @@
+---
+/**
+ * Sumário em painel: sobe da parte de baixo no celular e abre pela esquerda
+ * nas telas maiores (nas páginas sem a lateral fixa).
+ */
+import Icone from '../ui/Icone.astro';
+import Sumario from '../livro/Sumario.astro';
+
+interface Props {
+  atual?: string;
+}
+const { atual } = Astro.props;
+---
+<dialog class="gaveta" id="gaveta" data-gaveta aria-labelledby="gaveta-titulo">
+  <div class="gaveta__alca" aria-hidden="true"></div>
+  <div class="gaveta__topo">
+    <h2 id="gaveta-titulo">Sumário</h2>
+    <button class="botao-icone" type="button" data-fechar-gaveta aria-label="Fechar o sumário">
+      <Icone nome="fechar" />
+    </button>
+  </div>
+  <Sumario atual={atual} />
+</dialog>

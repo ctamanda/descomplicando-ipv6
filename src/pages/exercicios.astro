@@ -1,0 +1,167 @@
+---
+import '../styles/prosa.css';
+import Base from '../layouts/Base.astro';
+import Livro from '../components/livro/Livro.astro';
+import { getExercicios } from '../lib/conteudo/exercicios';
+import { rotas } from '../lib/rotas';
+
+const partes = await getExercicios();
+const blocos = partes.flatMap((p) => p.grupos.flatMap((g) => g.exercicios)).filter((e) => e.titulo === 'Vamos praticar').length;
+const numerados = partes.flatMap((p) => p.grupos.flatMap((g) => g.exercicios)).length - blocos;
+---
+<Base titulo="Exercícios" descricao="Todos os exercícios do manual Descomplicando o IPv6, com gabarito, organizados por parte.">
+  <Livro chave="exercicios">
+      <p class="chapeu">Apêndice A · Praticar</p>
+      <h1 class="titulo-secao">Exercícios</h1>
+      <p class="exercicios__intro">
+        Todos os exercícios do manual em um só lugar: {blocos} blocos “Vamos praticar” e {numerados} exercícios de
+        interpretação e cálculo. Tente responder antes de abrir o gabarito; se travar, volte à seção de origem.
+      </p>
+
+      {partes.filter((p) => p.grupos.length).map(({ parte, grupos }) => (
+        <section class="exercicios__parte" data-parte-ex>
+          <button type="button" class="exercicios__resumo" aria-expanded="false" aria-controls={`ex-parte-${parte.data.numero}`}>
+            <span class="exercicios__num">{parte.data.numero}</span>
+            <span class="exercicios__titulo">{parte.data.titulo}</span>
+            <span class="exercicios__conta">
+              {grupos.reduce((n, g) => n + g.exercicios.length, 0)} exercícios
+            </span>
+          </button>
+          <div class="exercicios__conteudo" id={`ex-parte-${parte.data.numero}`} hidden>
+
+          {grupos.map(({ secao, exercicios }) => (
+            <section class="exercicios__secao" aria-labelledby={`ex-${secao.id.replace('.', '-')}`}>
+              <div class="exercicios__cabeca">
+                <h2 id={`ex-${secao.id.replace('.', '-')}`}>{secao.data.numero} {secao.data.titulo}</h2>
+                <a href={rotas.secao(secao.data)}>Ler a seção</a>
+              </div>
+              {exercicios.map((ex) => (
+                <div class="exercicio prosa" id={ex.id}>
+                  {ex.titulo !== 'Vamos praticar' && <h3 class="exercicio__titulo">{ex.titulo}</h3>}
+                  <Fragment set:html={ex.html} />
+                </div>
+              ))}
+            </section>
+          ))}
+          </div>
+        </section>
+      ))}
+  </Livro>
+</Base>
+
+<script>
+  // Abrir/fechar uma parte; o livro recalcula as páginas e fica na página do botão
+  document.addEventListener('astro:page-load', () => {
+    document.querySelectorAll<HTMLButtonElement>('.exercicios__resumo').forEach((botao) => {
+      botao.addEventListener('click', () => {
+        const aberto = botao.getAttribute('aria-expanded') === 'true';
+        botao.setAttribute('aria-expanded', String(!aberto));
+        document.getElementById(botao.getAttribute('aria-controls')!)!.hidden = aberto;
+        botao.dispatchEvent(new Event('livro:reposicionar', { bubbles: true }));
+      });
+    });
+  });
+</script>
+
+<style>
+  .folha--exercicios {
+    max-width: 48rem;
+  }
+  .exercicios__intro {
+    margin: 0 0 2rem;
+    color: var(--texto-2);
+  }
+
+  .exercicios__parte {
+    border-top: 1px solid var(--linha);
+  }
+  .exercicios__parte:last-of-type {
+    border-bottom: 1px solid var(--linha);
+  }
+  .exercicios__resumo {
+    width: 100%;
+    border: 0;
+    background: none;
+    text-align: left;
+    font: inherit;
+    display: grid;
+    grid-template-columns: 2.25rem 1fr auto;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 1rem 0.25rem;
+    cursor: pointer;
+    list-style: none;
+  }
+    .exercicios__num {
+    color: var(--azul-claro);
+    font-family: var(--fonte-titulo);
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+  .exercicios__titulo {
+    color: var(--titulo);
+    font-family: var(--fonte-titulo);
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+  .exercicios__resumo:hover .exercicios__titulo {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+  .exercicios__conta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--texto-2);
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+  .exercicios__conta::after {
+    content: '';
+    width: 0.45rem;
+    height: 0.45rem;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-0.15rem) rotate(45deg);
+  }
+  .exercicios__resumo[aria-expanded="true"] .exercicios__conta::after {
+    transform: translateY(0.1rem) rotate(-135deg);
+  }
+
+  .exercicios__secao {
+    padding: 0.5rem 0 1rem;
+  }
+  .exercicios__cabeca {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+    margin-top: 1rem;
+  }
+  .exercicios__cabeca h2 {
+    margin: 0;
+    color: var(--titulo);
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .exercicios__cabeca a {
+    font-size: 0.88rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .exercicio :global(.bloco) {
+    margin-top: 0.75rem;
+  }
+  .exercicio__titulo {
+    margin: 1.25rem 0 0.35rem !important;
+    font-size: 1.02rem !important;
+  }
+  @media (max-width: 30rem) {
+    .exercicios__conta {
+      font-size: 0;
+    }
+  }
+</style>

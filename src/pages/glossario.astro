@@ -1,0 +1,228 @@
+---
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
+import Base from '../layouts/Base.astro';
+import Livro from '../components/livro/Livro.astro';
+import { getSecoes } from '../lib/conteudo/manual';
+import { rotas } from '../lib/rotas';
+import { slugify } from '../lib/slug';
+
+type Termo = { termo: string; sinonimos?: string[]; definicao: string; secao: string };
+
+const termos: Termo[] = JSON.parse(await readFile(path.resolve('conteudo/dados/glossario.json'), 'utf-8'));
+const secoes = await getSecoes();
+
+// Letra de cada termo (sem acento); números ficam juntos no fim
+const letraDe = (t: string) => {
+  const l = t.normalize('NFD').replace(/[̀-ͯ]/g, '').charAt(0).toUpperCase();
+  return /[A-Z]/.test(l) ? l : '#';
+};
+const ordenados = [...termos].sort((a, b) => a.termo.localeCompare(b.termo, 'pt-BR', { sensitivity: 'base' }));
+const grupos = new Map<string, Termo[]>();
+for (const t of ordenados) {
+  const l = letraDe(t.termo);
+  grupos.set(l, [...(grupos.get(l) ?? []), t]);
+}
+const letras = [...grupos.keys()].sort((a, b) => (a === '#' ? 1 : b === '#' ? -1 : a.localeCompare(b)));
+
+const origem = (numero: string) => {
+  const s = secoes.find((x) => x.data.numero === numero);
+  if (!s) throw new Error(`glossario.json: seção "${numero}" não existe no manual.`);
+  return s;
+};
+---
+<Base titulo="Glossário" descricao="Glossário do manual Descomplicando o IPv6: os termos de redes e IPv6 explicados em poucas palavras.">
+  <Livro chave="glossario">
+      <p class="chapeu">Apêndice C · Consultar</p>
+      <h1 class="titulo-secao">Glossário</h1>
+      <p class="glossario__intro" data-intro>
+        {termos.length} termos de redes e IPv6 em poucas palavras. Cada um aponta para a seção do manual que o explica.
+      </p>
+
+      <div class="glossario__ferramentas">
+        <label class="glossario__busca">
+          <span class="visualmente-oculto">Buscar no glossário</span>
+          <input type="search" placeholder="Buscar termo" autocomplete="off" data-busca />
+        </label>
+        <nav class="glossario__letras" aria-label="Letras">
+          {letras.map((l) => <a href={`#letra-${l === '#' ? 'numeros' : l}`} data-letra={`letra-${l === '#' ? 'numeros' : l}`}>{l === '#' ? '0-9' : l}</a>)}
+        </nav>
+      </div>
+      <p class="glossario__aviso" data-aviso aria-live="polite"></p>
+
+      {letras.map((l) => (
+        <section class="glossario__grupo" data-grupo aria-labelledby={`letra-${l === '#' ? 'numeros' : l}`}>
+          <h2 class="glossario__letra" id={`letra-${l === '#' ? 'numeros' : l}`}>{l === '#' ? '0-9' : l}</h2>
+          <dl>
+            {grupos.get(l)!.map((t) => {
+              const s = origem(t.secao);
+              return (
+                <div class="termo" id={slugify(t.termo)} data-termo={[t.termo, ...(t.sinonimos ?? [])].join(' ')} data-definicao={t.definicao}>
+                  <dt>
+                    {t.termo}
+                    {t.sinonimos?.length ? <span class="termo__sinonimos"> ({t.sinonimos.join(', ')})</span> : null}
+                  </dt>
+                  <dd>
+                    {t.definicao}{' '}
+                    <a class="termo__origem" href={rotas.secao(s.data)}>Seção {s.data.numero}</a>
+                  </dd>
+                </div>
+              );
+            })}
+          </dl>
+        </section>
+      ))}
+  </Livro>
+</Base>
+
+<script>
+  const semAcento = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+
+  document.addEventListener('astro:page-load', () => {
+    const busca = document.querySelector<HTMLInputElement>('[data-texto] [data-busca]');
+    if (!busca) return;
+
+    // Termo que trouxe a pessoa até aqui (link no texto do manual): destaca
+    const destacar = () => {
+      document.querySelectorAll('.termo.destaque').forEach((el) => el.classList.remove('destaque'));
+      const alvo = location.hash.length > 1 ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+      if (alvo?.classList.contains('termo')) alvo.classList.add('destaque');
+    };
+    destacar();
+    window.addEventListener('hashchange', destacar);
+
+    // Só os termos do texto real (as cópias da animação de folhear ficam de fora)
+    const texto = busca.closest<HTMLElement>('[data-texto]')!;
+    const termos = [...texto.querySelectorAll<HTMLElement>('[data-termo]')];
+    const grupos = [...texto.querySelectorAll<HTMLElement>('[data-grupo]')];
+    const letras = [...texto.querySelectorAll<HTMLElement>('[data-letra]')];
+    const aviso = texto.querySelector<HTMLElement>('[data-aviso]')!;
+
+    const filtrar = () => {
+      const q = semAcento(busca.value.trim());
+      // Primeiro pelo nome do termo (e sinônimos); se nenhum nome combinar, procura nas definições
+      const peloNome = termos.filter((t) => semAcento(t.dataset.termo!).includes(q));
+      const naDefinicao = peloNome.length ? [] : termos.filter((t) => semAcento(t.dataset.definicao!).includes(q));
+      const achados = new Set(!q ? termos : peloNome.length ? peloNome : naDefinicao);
+
+      termos.forEach((t) => (t.hidden = !achados.has(t)));
+      // Buscando, a introdução sai e os resultados começam logo abaixo da busca
+      texto.querySelector<HTMLElement>('[data-intro]')!.hidden = !!q;
+      grupos.forEach((g) => (g.hidden = !g.querySelector('[data-termo]:not([hidden])')));
+      letras.forEach((a) => (a.hidden = !!document.getElementById(a.dataset.letra!)?.closest<HTMLElement>('[data-grupo]')?.hidden));
+
+      const valor = busca.value.trim();
+      if (!q) aviso.textContent = '';
+      else if (peloNome.length) aviso.textContent = `${peloNome.length} ${peloNome.length === 1 ? 'termo encontrado' : 'termos encontrados'}.`;
+      else if (naDefinicao.length)
+        aviso.textContent = `Nenhum termo se chama "${valor}". ${naDefinicao.length === 1 ? 'Esta definição cita' : 'Estas definições citam'} a palavra:`;
+      else aviso.textContent = `Nenhum termo encontrado para "${valor}".`;
+
+      // O livro recalcula as páginas (a lista mudou de tamanho) e volta à primeira
+      texto.dispatchEvent(new Event('livro:atualizar'));
+      busca.focus({ preventScroll: true });
+    };
+    busca.addEventListener('input', filtrar);
+    if (busca.value) filtrar(); // o navegador pode ter guardado o texto ao voltar
+  });
+</script>
+
+<style>
+  .folha--glossario {
+    max-width: 46rem;
+  }
+  .glossario__intro {
+    margin: 0 0 1.5rem;
+    color: var(--texto-2);
+  }
+  .glossario__ferramentas {
+    margin: 0 -0.5rem 1rem;
+    padding: 0.75rem 0.5rem;
+    background: var(--pagina);
+    border-bottom: 1px solid var(--linha);
+  }
+  .glossario__busca input {
+    width: 100%;
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--linha);
+    border-radius: 8px;
+    background: var(--fundo);
+    color: var(--texto);
+    font: inherit;
+  }
+  .glossario__busca input:focus-visible {
+    outline: 2px solid var(--foco);
+    outline-offset: 1px;
+  }
+  .glossario__letras {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.15rem;
+    margin-top: 0.6rem;
+  }
+  .glossario__letras a {
+    min-width: 1.9rem;
+    padding: 0.2rem 0.35rem;
+    border-radius: 4px;
+    color: var(--link);
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-align: center;
+    text-decoration: none;
+  }
+  .glossario__letras a:hover {
+    background: var(--mesa);
+  }
+  .glossario__aviso {
+    margin: 0 0 1rem;
+    color: var(--texto-2);
+    font-size: 0.95rem;
+  }
+  .glossario__aviso:empty {
+    display: none;
+  }
+
+  .glossario__grupo {
+    scroll-margin-top: calc(var(--cabecalho) + 7.5rem);
+  }
+  .glossario__letra {
+    margin: 1.75rem 0 0.25rem;
+    color: var(--azul-claro);
+    font-family: var(--fonte-titulo);
+    font-weight: 600;
+    font-size: 1.6rem;
+    scroll-margin-top: calc(var(--cabecalho) + 7.5rem);
+  }
+  dl {
+    margin: 0;
+  }
+  .termo {
+    padding: 0.85rem 0.75rem;
+    margin: 0 -0.75rem;
+    border-bottom: 1px solid var(--linha);
+    border-radius: 6px;
+    scroll-margin-top: calc(var(--cabecalho) + 7.5rem);
+  }
+  .termo.destaque {
+    background: var(--amarelo-fundo);
+    box-shadow: inset 3px 0 0 var(--amarelo);
+  }
+  .termo dt {
+    color: var(--titulo);
+    font-weight: 700;
+  }
+  .termo__sinonimos {
+    color: var(--texto-2);
+    font-weight: 600;
+  }
+  .termo dd {
+    margin: 0.2rem 0 0;
+    color: var(--texto);
+    font-size: 0.97rem;
+  }
+  .termo__origem {
+    white-space: nowrap;
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+</style>

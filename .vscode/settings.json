@@ -1,0 +1,33 @@
+{
+  // Esconde do explorador o que é gerado automaticamente ou não se edita
+  "files.exclude": {
+    "**/.astro": true,
+    "dist": true,
+    "node_modules": true,
+    "_rascunho-antigo": true
+  },
+  "search.exclude": {
+    "dist": true,
+    "node_modules": true,
+    "package-lock.json": true,
+    "_rascunho-antigo": true
+  },
+
+  // Agrupa arquivos de configuração sob o arquivo principal
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json, astro.config.*, tsconfig.json, .gitignore",
+    "README.md": "AGENTS.md, CLAUDE.md"
+  },
+  "explorer.sortOrder": "foldersNestsFiles",
+
+  // Escrita confortável nos arquivos do manual
+  "[markdown]": {
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": { "other": false, "comments": false, "strings": false }
+  },
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  "files.insertFinalNewline": true
+}

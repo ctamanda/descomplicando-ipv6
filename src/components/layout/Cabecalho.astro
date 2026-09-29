@@ -1,0 +1,20 @@
+---
+import Icone from '../ui/Icone.astro';
+import Marca from '../ui/Marca.astro';
+import { rotas } from '../../lib/rotas';
+
+interface Props {
+  atual?: 'manual' | 'exercicios' | 'quiz' | 'glossario';
+}
+const { atual } = Astro.props;
+
+---
+<header class="cabecalho">
+  <a class="botao-icone" href={rotas.manual} data-abrir-menu aria-controls="menu" aria-expanded="false" aria-label="Abrir o menu" title="Menu">
+    <Icone nome="menu" />
+  </a>
+  <Marca href={rotas.inicio} />
+  <button class="botao-icone" type="button" data-tema aria-label="Alternar modo escuro" aria-pressed="false">
+    <Icone nome="tema" />
+  </button>
+</header>

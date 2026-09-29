@@ -1,0 +1,16 @@
+---
+import Marca from '../ui/Marca.astro';
+import { rotas } from '../../lib/rotas';
+---
+<footer class="rodape">
+  <Marca href={rotas.inicio} />
+  <nav aria-label="Rodapé">
+    <a href={rotas.download}>Baixar PDF ou EPUB</a>
+    <a href={rotas.referencias}>Referências</a>
+    <a href={rotas.sobre}>Sobre</a>
+  </nav>
+  <p>
+    Descomplicando o IPv6 · Amanda Ribeiro da Costa · Unitins, Estágio Supervisionado I, 2026 ·
+    Conteúdo baseado no livro <cite>IPv6: O Novo Protocolo da Internet</cite> e no Laboratório de IPv6 do NIC.br (CC BY-NC-SA 4.0)
+  </p>
+</footer>

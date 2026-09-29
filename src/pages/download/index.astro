@@ -1,0 +1,161 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import Livro from '../../components/livro/Livro.astro';
+import { getDownloads } from '../../lib/downloads';
+import { rotas } from '../../lib/rotas';
+import capa from '../../../conteudo/arquivos/capa.png';
+
+const { pdf, epub } = await getDownloads();
+---
+<Base titulo="Baixar o manual" descricao="Baixe o manual Descomplicando o IPv6 em PDF ou EPUB, de graça.">
+  <Livro chave="download">
+      <div class="download">
+        <Image class="download__capa" src={capa} widths={[200, 300, 400]} sizes="12rem" alt="Capa do manual Descomplicando o IPv6." />
+        <div>
+          <p class="chapeu">Apêndice D · Baixar</p>
+          <h1 class="titulo-secao">Leve o manual com você</h1>
+          <p class="download__texto">
+            O manual completo, com as seis partes, os exercícios com gabarito e as referências.
+            Gratuito, sem cadastro.
+          </p>
+        </div>
+      </div>
+
+
+      <p class="download__nota download__nota--esq">
+        Prefere ler aqui mesmo? <a href={rotas.manual}>Abra o manual online</a>, com exercícios interativos e
+        marcação das seções lidas. O conteúdo foi elaborado a partir do livro <cite>IPv6: O Novo Protocolo da Internet</cite>, do Laboratório de IPv6 do
+        NIC.br (CC BY-NC-SA 4.0) e das RFCs da IETF; veja as <a href={rotas.referencias}>referências completas</a>.
+      </p>
+
+      <ul class="formatos">
+        <li class="formato">
+          <div>
+            <h2 class="formato__nome">PDF</h2>
+            <p>A mesma diagramação do livro. Ideal para imprimir ou ler no computador.</p>
+          </div>
+          <a class="botao-principal" href={pdf.href} download={pdf.nome}>
+            Baixar PDF <span class="formato__tamanho">{pdf.tamanho}</span>
+          </a>
+        </li>
+        <li class="formato">
+          <div>
+            <h2 class="formato__nome">EPUB</h2>
+            <p>
+              O texto se ajusta à tela e ao tamanho de letra que você escolher. Ideal para celular e leitores
+              digitais: Apple Books, Google Play Livros, Kindle (pelo Enviar para Kindle) e outros.
+            </p>
+          </div>
+          <a class="botao-principal" href={epub.href} download={epub.nome}>
+            Baixar EPUB <span class="formato__tamanho">{epub.tamanho}</span>
+          </a>
+        </li>
+      </ul>
+
+      <p class="download__nota download__nota--fim">
+        Prefere ler aqui mesmo? <a href={rotas.manual}>Abra o manual online</a>, com exercícios interativos e
+        marcação das seções lidas. O conteúdo foi elaborado a partir do livro <cite>IPv6: O Novo Protocolo da Internet</cite>, do Laboratório de IPv6 do
+        NIC.br (CC BY-NC-SA 4.0) e das RFCs da IETF; veja as <a href={rotas.referencias}>referências completas</a>.
+      </p>
+
+  </Livro>
+</Base>
+
+<style>
+  .download {
+    display: grid;
+    gap: 1rem 2rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  .download__capa {
+    width: 6rem;
+    height: auto;
+    border-radius: 2px 6px 6px 2px;
+    box-shadow: var(--sombra-livro);
+  }
+  .download__texto {
+    margin: 0;
+    color: var(--texto-2);
+  }
+  @media (min-width: 36rem) {
+    .download {
+      grid-template-columns: auto 1fr;
+    }
+    .download__capa {
+      width: 11rem;
+    }
+  }
+
+  .download__nota {
+    margin: 0 0 2rem;
+    color: var(--texto-2);
+    font-size: 0.95rem;
+  }
+  /* A nota vem depois dos botões numa página só; no livro aberto, fica na
+     página da esquerda, embaixo do título (só uma das duas aparece) */
+  .download__nota--esq {
+    display: none;
+  }
+  .download__nota--fim {
+    margin: 1rem 0 0;
+  }
+
+  .formatos {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  /* Livro aberto: "Leve o manual com você" na página da esquerda,
+     PDF e EPUB começam na página da direita */
+  @media screen and (min-height: 30rem) {
+    @container principal (min-width: 68rem) {
+      :global(.js) .formatos {
+        break-before: column;
+      }
+      :global(.js) .download__nota--esq {
+        display: block;
+      }
+      :global(.js) .download__nota--fim {
+        display: none;
+      }
+      :global(.js) .formato:first-child {
+        border-top: 0;
+        padding-top: 0;
+      }
+    }
+  }
+  .formato {
+    display: grid;
+    gap: 0.75rem 1.5rem;
+    align-items: center;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--linha);
+  }
+  .formato__nome {
+    margin: 0 0 0.25rem;
+    color: var(--titulo);
+    font-family: var(--fonte-titulo);
+    font-weight: 600;
+    font-size: 1.3rem;
+  }
+  .formato p {
+    margin: 0;
+    color: var(--texto-2);
+    font-size: 0.95rem;
+  }
+  .formato .botao-principal {
+    justify-self: start;
+    white-space: nowrap;
+  }
+  .formato__tamanho {
+    margin-left: 0.35rem;
+    font-weight: 400;
+  }
+  @media (min-width: 36rem) {
+    .formato {
+      grid-template-columns: 1fr auto;
+    }
+  }
+</style>

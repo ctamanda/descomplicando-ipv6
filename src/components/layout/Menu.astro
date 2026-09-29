@@ -1,0 +1,139 @@
+---
+/**
+ * Menu do site (☰ do cabeçalho): abre pela esquerda com os lugares do livro.
+ * O sumário das seções fica no painel próprio (Gaveta), aberto pelo botão
+ * "Sumário" da barra de páginas e pelas abas.
+ */
+import Icone from '../ui/Icone.astro';
+import { rotas } from '../../lib/rotas';
+
+const itens = [
+  { marca: '', rotulo: 'Início', href: rotas.inicio },
+  { marca: '', rotulo: 'Apresentação', href: rotas.sobre },
+  { marca: '', rotulo: 'Ler o manual', href: rotas.manual },
+  { marca: '', rotulo: 'Referências', href: rotas.referencias },
+  { marca: 'A', rotulo: 'Exercícios', href: rotas.exercicios },
+  { marca: 'B', rotulo: 'Quiz', href: rotas.quiz },
+  { marca: 'C', rotulo: 'Glossário', href: rotas.glossario },
+  { marca: 'D', rotulo: 'Download', href: rotas.download },
+];
+const caminho = Astro.url.pathname.replace(/\/?$/, '/');
+const atual = (href: string) =>
+  href === rotas.inicio ? caminho === href : caminho.startsWith(href) && !(href === rotas.manual && caminho !== href);
+---
+<dialog class="gaveta menu" id="menu" data-menu aria-labelledby="menu-titulo">
+  <div class="gaveta__topo">
+    <h2 id="menu-titulo">Menu</h2>
+    <button class="botao-icone" type="button" data-fechar-menu aria-label="Fechar o menu">
+      <Icone nome="fechar" />
+    </button>
+  </div>
+  <nav aria-label="Menu do site">
+    <ul class="menu__lista">
+      {itens.map((item) => (
+        <>
+          {item.marca === 'A' && <li class="menu__grupo">Apêndices</li>}
+          <li>
+            <a class="menu__item" href={item.href} aria-current={atual(item.href) ? 'page' : undefined}>
+              <span class={`menu__marca${item.marca ? ' menu__marca--letra' : ''}`} aria-hidden="true">{item.marca}</span>
+              <span class="menu__rotulo">{item.rotulo}</span>
+            </a>
+          </li>
+        </>
+      ))}
+    </ul>
+  </nav>
+</dialog>
+
+<style>
+  /* O menu sempre abre pela esquerda, do lado do ☰, também no celular */
+  .menu.gaveta {
+    inset: 0 auto 0 0;
+    width: min(21rem, 86vw);
+    height: 100dvh;
+    max-height: none;
+    border-right: 1px solid var(--linha);
+    border-radius: 0;
+    box-shadow: none;
+  }
+  .menu.gaveta[open] {
+    animation: menu-entra 220ms cubic-bezier(0.2, 0.8, 0.3, 1);
+  }
+  @keyframes menu-entra {
+    from {
+      transform: translateX(-100%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .menu.gaveta[open] {
+      animation: none;
+    }
+  }
+
+  .menu__lista {
+    margin: 0;
+    padding: 0.5rem 0.5rem 1.5rem;
+    list-style: none;
+  }
+  .menu__grupo {
+    margin: 0.9rem 0.75rem 0.3rem;
+    color: var(--texto-2);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .menu__item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 10px;
+    color: var(--texto);
+    text-decoration: none;
+  }
+  .menu__item:hover {
+    background: var(--mesa);
+  }
+  .menu__item[aria-current='page'] {
+    background: var(--mesa);
+    box-shadow: inset 3px 0 0 var(--azul);
+  }
+  .menu__marca {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 6px;
+    background: var(--mesa);
+    color: var(--titulo);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+  .menu__marca:not(.menu__marca--letra)::before {
+    content: '';
+    width: 0.45rem;
+    height: 0.45rem;
+    border-radius: 50%;
+    background: var(--azul-claro);
+  }
+  /* Mesmas cores das abas dos apêndices */
+  .menu__marca--letra {
+    background: #fdeaa7;
+    color: #5b4300;
+  }
+  :global(:root[data-theme='escuro']) .menu__marca--letra {
+    background: #5b4a14;
+    color: #ffe38f;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='claro'])) .menu__marca--letra {
+      background: #5b4a14;
+      color: #ffe38f;
+    }
+  }
+  .menu__rotulo {
+    font-weight: 600;
+  }
+</style>

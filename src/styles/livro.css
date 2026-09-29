@@ -1,0 +1,700 @@
+/*
+ * Leitor em formato de livro.
+ *
+ * Sem JavaScript (ou em telas muito baixas), a seção é uma página comum com rolagem.
+ * Com JavaScript, o texto é diagramado em colunas CSS da largura de uma página:
+ * uma coluna no celular, duas (livro aberto) em telas largas. O script só move
+ * a rolagem horizontal de uma página (ou par de páginas) por vez.
+ */
+
+.mesa {
+  padding: clamp(0.75rem, 3vw, 2rem) clamp(0.5rem, 3vw, 2rem);
+}
+
+.livro {
+  --colunas: 1;
+  --margem: clamp(1.25rem, 5vw, 3rem);
+  --margem-topo: clamp(1.5rem, 4vh, 2.75rem);
+  --margem-base: clamp(2.25rem, 6vh, 3.5rem);
+  --texto-w: 37rem;
+
+  position: relative;
+  max-width: calc(var(--texto-w) + 2 * var(--margem));
+  margin: 0 auto;
+  padding: var(--margem-topo) var(--margem) var(--margem-base);
+  background: var(--pagina);
+  border-radius: 6px;
+  box-shadow: var(--sombra-livro);
+}
+
+.livro__num,
+.controles {
+  display: none;
+}
+
+.fim-secao {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--linha);
+  break-inside: avoid;
+}
+
+.botao-lida {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.6rem 1.1rem;
+  border: 1px solid var(--linha);
+  border-radius: 999px;
+  background: var(--pagina);
+  color: var(--texto);
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.botao-lida:hover {
+  border-color: var(--verde);
+}
+.botao-lida__marca {
+  width: 1.05rem;
+  height: 1.05rem;
+  border: 2px solid var(--neutro-borda);
+  border-radius: 50%;
+}
+.botao-lida[aria-pressed='true'] {
+  border-color: var(--verde);
+  color: var(--verde-rotulo);
+}
+.botao-lida[aria-pressed='true'] .botao-lida__marca {
+  border-color: var(--verde);
+  background: var(--verde)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    center / 100% no-repeat;
+}
+.botao-lida:not(.pronto) {
+  display: none;
+}
+
+.vizinhos {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+.vizinhos a {
+  display: block;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--linha);
+  border-radius: 8px;
+  color: var(--titulo);
+  font-weight: 700;
+  line-height: 1.35;
+  text-decoration: none;
+}
+.vizinhos a:hover {
+  border-color: var(--azul-claro);
+  background: var(--mesa);
+}
+.vizinhos span {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: var(--texto-2);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.vizinhos__proxima {
+  text-align: right;
+}
+@media (min-width: 40rem) {
+  .vizinhos {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ---------- Modo livro (JavaScript ativo e altura suficiente) ---------- */
+@media screen and (min-height: 30rem) {
+  .js .leitura__principal {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .js .mesa {
+    flex: 1;
+    min-height: 0;
+    padding-bottom: clamp(0.75rem, 2.5vh, 1.5rem);
+  }
+
+  .js .livro {
+    height: 100%;
+    width: calc(var(--colunas) * (var(--texto-w) + 2 * var(--margem)));
+    max-width: 100%;
+  }
+
+  .js .livro__texto {
+    height: 100%;
+    columns: var(--colunas);
+    column-gap: calc(2 * var(--margem));
+    column-fill: auto;
+    overflow: hidden;
+    orphans: 2;
+    widows: 2;
+  }
+
+  .js .livro__texto :is(h1, h2, h3, .chapeu) {
+    break-after: avoid;
+  }
+  /* Caixas inteiras numa página só (como num livro impresso); se forem maiores
+     que a página, o navegador parte mesmo assim. */
+  .js .livro__texto :is(.tabela, li, .resposta > summary, .fim-secao, .bloco, .exercicio, .res__errada, .termo, .alternativa) {
+    break-inside: avoid;
+  }
+  .js .livro__texto .tabela {
+    max-height: 100%;
+  }
+
+  /* Força um número par de colunas no livro aberto (ver livro.ts) */
+  .js .livro__preenchimento {
+    break-before: column;
+    height: 1px;
+  }
+
+  .js .livro__num {
+    display: block;
+    position: absolute;
+    bottom: calc(var(--margem-base) / 2 - 0.6em);
+    color: var(--texto-2);
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .js .livro__num--esq {
+    left: var(--margem);
+  }
+  .js .livro__num--dir {
+    right: var(--margem);
+  }
+  .js .livro[data-colunas='1'] .livro__num--esq {
+    display: none;
+  }
+
+  .js .controles {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    align-items: center;
+    gap: 0.75rem 1rem;
+    min-height: 3.5rem;
+    padding: 0.4rem clamp(0.75rem, 3vw, 2rem);
+    background: var(--fundo);
+    border-top: 1px solid var(--linha);
+    position: relative;
+    z-index: 5;
+  }
+}
+
+/* Livro aberto em duas páginas quando a coluna do livro é larga o bastante
+   (a largura desconta a lateral do sumário, por isso é consulta de contêiner) */
+@media screen and (min-height: 30rem) {
+  @container principal (min-width: 68rem) {
+    .js .livro {
+      --colunas: 2;
+      --margem: 2.5rem;
+      font-size: 1.0625rem;
+    }
+    /* Lombada: um vinco fino e nítido entre as páginas, por baixo da folha que vira */
+    .js .livro::after {
+      content: '';
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 1px;
+      background: var(--linha);
+      pointer-events: none;
+    }
+  }
+}
+
+/* Bordas das folhas empilhadas: a espessura mostra quanto do manual já ficou para trás */
+.livro__pilha {
+  display: none;
+}
+@media screen and (min-height: 30rem) {
+  .js .livro__pilha {
+    display: block;
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    background: repeating-linear-gradient(90deg, var(--linha) 0 1px, var(--pagina) 1px 2px);
+  }
+  .js .livro__pilha--esq {
+    right: 100%;
+    width: var(--pilha-esq, 0px);
+    border-radius: 3px 0 0 3px;
+  }
+  .js .livro__pilha--dir {
+    left: 100%;
+    width: var(--pilha-dir, 0px);
+    border-radius: 0 3px 3px 0;
+  }
+}
+
+/* ---------- Folha virando (folhear.ts) ---------- */
+.livro__viradas {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  perspective: 4200px;
+}
+.livro[data-colunas='1'] .livro__viradas {
+  perspective: 2200px;
+}
+
+.virada__face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: var(--pagina);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  /* Cada face é um papel fechado: o z-index do texto copiado não pode vazar
+     por cima da folha que vira (era o que embaralhava as palavras). */
+  isolation: isolate;
+}
+.virada__face--esq {
+  border-radius: 6px 0 0 6px;
+  box-shadow: inset -1px 0 0 var(--linha);
+}
+.virada__face--dir {
+  border-radius: 0 6px 6px 0;
+  box-shadow: inset 1px 0 0 var(--linha);
+}
+
+.virada__fixa {
+  inset: 0 auto 0 0;
+  width: 50%;
+}
+.virada__fixa.virada__face--dir {
+  left: 50%;
+}
+
+.virada__folha {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.virada__folha--dir {
+  left: 50%;
+  transform-origin: left center;
+}
+.virada__folha--esq {
+  left: 0;
+  transform-origin: right center;
+}
+.virada__folha--unica {
+  left: 0;
+  width: 100%;
+  transform-origin: left center;
+}
+.virada__folha--unica .virada__face {
+  border-radius: 6px;
+  box-shadow: none;
+}
+.virada__verso {
+  transform: rotateY(180deg);
+}
+
+.livro__copia {
+  position: absolute;
+  margin: 0;
+  overflow: visible !important;
+}
+
+.virada__sombra {
+  position: absolute;
+  inset: 0;
+  background: #0b1a2c;
+  opacity: 0;
+}
+
+.controles__status {
+  margin: 0;
+  color: var(--texto-2);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.controles__status strong {
+  color: var(--titulo);
+}
+
+.controles__regua {
+  width: 100%;
+  min-width: 0;
+  accent-color: var(--azul);
+  cursor: pointer;
+}
+:root[data-theme='escuro'] .controles__regua {
+  accent-color: var(--azul-claro);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='claro']) .controles__regua {
+    accent-color: var(--azul-claro);
+  }
+}
+
+.controles__setas {
+  display: flex;
+  gap: 0.35rem;
+}
+.controles__setas .botao-icone {
+  border: 1px solid var(--linha);
+  border-radius: 50%;
+}
+
+/* Botão Sumário na barra de baixo: só quando não há lateral fixa (celular, tablet) */
+.controles__sumario {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: 2.5rem;
+  padding: 0 0.9rem 0 0.7rem;
+  border: 1px solid var(--linha);
+  border-radius: 999px;
+  background: var(--pagina);
+  color: var(--titulo);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.controles__sumario svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+@media (min-width: 64rem) {
+  .controles__sumario {
+    display: none;
+  }
+  .js .controles {
+    grid-template-columns: auto 1fr auto;
+  }
+}
+
+@media (max-width: 36rem) {
+  .js .controles {
+    grid-template-columns: auto 1fr auto;
+  }
+  .controles__status {
+    text-align: center;
+  }
+  .controles__regua {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+
+@media print {
+  .controles,
+  .livro__num,
+  .cabecalho,
+  .rodape {
+    display: none !important;
+  }
+  .livro {
+    box-shadow: none;
+    max-width: none;
+    padding: 0;
+  }
+}
+
+/* ---------- Abertura de parte ---------- */
+.abertura {
+  margin-bottom: 2rem;
+  break-inside: avoid;
+}
+.abertura__numero {
+  margin: 0 0 0.25rem;
+  color: var(--azul-claro);
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: clamp(4.5rem, 3rem + 6vw, 7rem);
+  line-height: 0.9;
+}
+.titulo-parte {
+  margin: 0;
+  color: var(--titulo);
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: clamp(2.1rem, 1.4rem + 2.6vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.abertura__subtitulo {
+  margin: 2rem 0 0.75rem !important;
+  color: var(--texto-2) !important;
+  font-family: var(--fonte-texto) !important;
+  font-size: 0.75rem !important;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.abertura__secoes {
+  break-before: auto;
+}
+
+
+/* ======================================================================
+   Livro físico: volume, lombada curva, bordas das folhas, cabeçalho
+   corrente, cantos para virar e abas coloridas na borda.
+   ====================================================================== */
+
+@media screen and (min-height: 30rem) {
+  .js .livro {
+    --margem-topo: clamp(2.4rem, 5.5vh, 3.4rem);
+    /* sombra funda de objeto sobre a mesa + bordas das folhas embaixo */
+    box-shadow:
+      0 1px 2px rgb(18 60 107 / 0.1),
+      0 3px 0 -1px var(--pagina),
+      0 4px 0 -1px var(--linha),
+      0 6px 0 -2px var(--pagina),
+      0 7px 0 -2px var(--linha),
+      0 26px 50px -18px rgb(18 60 107 / 0.35),
+      0 50px 90px -40px rgb(18 60 107 / 0.3);
+  }
+  .js .livro__texto {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Cabeçalho corrente, como no alto das páginas de um livro impresso */
+  .js .livro__cabeca {
+    position: absolute;
+    top: calc(var(--margem-topo) / 2 - 0.45em);
+    max-width: calc(50% - 2 * var(--margem));
+    overflow: hidden;
+    color: var(--texto-2);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .js .livro__cabeca--esq {
+    left: var(--margem);
+  }
+  .js .livro__cabeca--dir {
+    right: var(--margem);
+  }
+  .js .livro[data-colunas='1'] .livro__cabeca--esq {
+    display: none;
+  }
+  .js .livro[data-colunas='1'] .livro__cabeca--dir {
+    max-width: calc(100% - 2 * var(--margem));
+  }
+
+  /* Cantos da página: passar o mouse levanta a pontinha da folha */
+  .js .livro__canto {
+    position: absolute;
+    bottom: 0;
+    z-index: 5;
+    width: 3.75rem;
+    height: 3.75rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+  }
+  .js .livro__canto--prox {
+    right: 0;
+    border-radius: 0 0 6px 0;
+  }
+  .js .livro__canto--ant {
+    left: 0;
+    border-radius: 0 0 0 6px;
+  }
+  .js .livro__canto::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 0;
+    transition:
+      width 160ms ease,
+      height 160ms ease;
+  }
+  .js .livro__canto--prox::after {
+    right: 0;
+    background: linear-gradient(135deg, #f4f7fa 0 48%, #d5dee8 50%, var(--mesa) 51%);
+    box-shadow: -3px -3px 6px rgb(18 60 107 / 0.12);
+    border-top-left-radius: 4px;
+  }
+  .js .livro__canto--ant::after {
+    left: 0;
+    background: linear-gradient(225deg, #f4f7fa 0 48%, #d5dee8 50%, var(--mesa) 51%);
+    box-shadow: 3px -3px 6px rgb(18 60 107 / 0.12);
+    border-top-right-radius: 4px;
+  }
+  .js .livro__canto:hover::after {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+  @media (hover: none) {
+    .js .livro__canto {
+      display: none;
+    }
+  }
+
+  /* No computador, a barra de páginas fica leve, sobre a mesa */
+  @media (min-width: 64rem) {
+    .js .controles {
+      background: transparent;
+      border-top: 0;
+      min-height: 3rem;
+      padding-top: 0;
+    }
+  }
+}
+
+/* Uma página só: a folha fixa (papel por baixo da virada) ocupa tudo */
+.livro[data-colunas='1'] .virada__fixa {
+  width: 100%;
+}
+
+/* ---------- Abas coloridas na borda direita ---------- */
+.abas {
+  display: none;
+}
+@media screen and (min-height: 30rem) and (min-width: 48rem) {
+  .js .mesa {
+    padding-right: calc(2.75rem + 14px);
+  }
+  .js .abas {
+    position: absolute;
+    top: 2.25rem;
+    left: calc(100% + var(--pilha-dir, 0px));
+    z-index: 6;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+}
+.aba {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.3rem;
+  height: clamp(2rem, 5.2vh, 2.85rem);
+  border-radius: 0 7px 7px 0;
+  box-shadow: 2px 2px 4px rgb(18 60 107 / 0.18);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: transform 140ms ease, width 140ms ease;
+}
+.aba:hover,
+.aba:focus-visible {
+  transform: translateX(3px);
+}
+.aba--sumario {
+  background: #d7f0e0;
+  color: #17603a;
+}
+.aba--parte {
+  background: #dce8f6;
+  color: var(--azul);
+}
+.aba--apendice {
+  background: #fdeaa7;
+  color: #5b4300;
+}
+.aba--atual {
+  width: 2.75rem;
+}
+.aba--sumario.aba--atual {
+  background: #1f8a4d;
+  color: #fff;
+}
+.aba--parte.aba--atual {
+  background: var(--azul);
+  color: #fff;
+}
+.aba--apendice.aba--atual {
+  background: var(--amarelo);
+  color: #0f2a4a;
+}
+/* Parte concluída: um visto verde no canto da aba */
+.aba--feita::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+  background: #1f8a4d
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    center / 100% no-repeat;
+  box-shadow: 0 0 0 2px var(--mesa);
+}
+/* Nome da aba: aparece ao passar o mouse, como uma etiqueta sobre a página */
+.aba__titulo {
+  position: absolute;
+  right: calc(100% + 8px);
+  top: 50%;
+  padding: 0.35rem 0.7rem;
+  border-radius: 6px;
+  background: var(--azul);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgb(18 60 107 / 0.25);
+  opacity: 0;
+  transform: translate(6px, -50%);
+  pointer-events: none;
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+.aba:hover .aba__titulo,
+.aba:focus-visible .aba__titulo {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+/* Abas no modo escuro: tons fundos da mesma família de cor */
+:root[data-theme='escuro'] .aba--sumario:not(.aba--atual) { background: #1d4a36; color: #a3e3c0; }
+:root[data-theme='escuro'] .aba--parte:not(.aba--atual) { background: #1f4673; color: #d2e2f4; }
+:root[data-theme='escuro'] .aba--apendice:not(.aba--atual) { background: #5b4a14; color: #ffe38f; }
+:root[data-theme='escuro'] .aba--parte.aba--atual { background: var(--azul-claro); color: #0f2a4a; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='claro']) .aba--sumario:not(.aba--atual) { background: #1d4a36; color: #a3e3c0; }
+  :root:not([data-theme='claro']) .aba--parte:not(.aba--atual) { background: #1f4673; color: #d2e2f4; }
+  :root:not([data-theme='claro']) .aba--apendice:not(.aba--atual) { background: #5b4a14; color: #ffe38f; }
+  :root:not([data-theme='claro']) .aba--parte.aba--atual { background: var(--azul-claro); color: #0f2a4a; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .aba,
+  .aba__titulo {
+    transition: none;
+  }
+}
+
+/* Na página de abertura (primeira do capítulo) não há cabeçalho corrente,
+   como num livro impresso: o título já está ali embaixo. */
+.livro--abertura .livro__cabeca--esq,
+.livro--abertura[data-colunas='1'] .livro__cabeca--dir {
+  display: none !important;
+}
+
+/* Camada da virada: montada com antecedência, invisível até ser usada */
+.livro__viradas.ocioso,
+.livro__viradas .oculta {
+  visibility: hidden;
+}
+.livro__copia {
+  contain: layout style;
+}

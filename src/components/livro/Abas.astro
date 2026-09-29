@@ -1,0 +1,37 @@
+---
+/**
+ * Abas coloridas saindo da borda direita do livro, como num livro de estudos:
+ * Sumário (verde), Partes 1 a 6 (azul) e Apêndices A a C (amarelo).
+ * A aba da parte concluída ganha um visto (scripts/sumario.ts).
+ */
+import { getAbas } from '../../lib/conteudo/livro';
+import { getSumario } from '../../lib/conteudo/manual';
+
+interface Props {
+  /** aba da página aberta */
+  atual: string;
+}
+const { atual } = Astro.props;
+const [abas, sumario] = await Promise.all([getAbas(), getSumario()]);
+const secoesDaParte = (chave: string) =>
+  sumario.find(({ parte }) => `parte-${parte.data.numero}` === chave)?.secoes.map((s) => s.id).join(',');
+---
+<nav class="abas" aria-label="Abas do livro">
+  {abas.map((a) => (
+    <a
+      class:list={['aba', `aba--${a.tipo}`, { 'aba--atual': a.chave === atual }]}
+      href={a.href}
+      aria-current={a.chave === atual ? 'true' : undefined}
+      data-aba-secoes={a.tipo === 'parte' ? secoesDaParte(a.chave) : undefined}
+    >
+      <span class="aba__marca" aria-hidden="true">
+        {a.tipo === 'sumario' ? (
+          <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 4h10M3 8h10M3 12h7" /></svg>
+        ) : (
+          a.marca
+        )}
+      </span>
+      <span class="aba__titulo">{a.titulo}</span>
+    </a>
+  ))}
+</nav>

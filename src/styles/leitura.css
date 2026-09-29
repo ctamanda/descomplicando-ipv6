@@ -1,0 +1,176 @@
+/*
+ * Área de leitura (a mesa sob o livro aberto) e a capa do livro fechado, na
+ * página inicial.
+ */
+
+.leitura {
+  background: var(--mesa);
+}
+
+.leitura__principal {
+  min-width: 0;
+  container: principal / inline-size;
+  /* a capa aberta e a folha virando não podem criar rolagem horizontal */
+  overflow-x: clip;
+}
+
+/* Modo livro: a área de leitura ocupa exatamente a tela abaixo do cabeçalho */
+@media screen and (min-height: 30rem) {
+  .js .leitura {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr);
+    height: calc(100dvh - var(--cabecalho));
+  }
+}
+
+/* ---------- Capa (livro fechado, página inicial) ---------- */
+.capa {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  height: 100%;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+.capa__livro {
+  position: relative;
+  height: min(100%, 44rem);
+  max-height: calc(100dvh - var(--cabecalho) - 9rem);
+  aspect-ratio: 1929 / 2721;
+  max-width: 100%;
+  container-type: inline-size;
+  perspective: 2200px;
+}
+
+/* Folha de rosto, por baixo da capa (com as bordas das folhas à direita) */
+.capa__rosto {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 12cqw;
+  background: var(--pagina);
+  border-radius: 3px 8px 8px 3px;
+  box-shadow: var(--sombra-livro), 1px 0 0 var(--linha), 3px 0 0 var(--pagina), 4px 0 0 var(--linha), 6px 0 0 var(--pagina), 7px 0 0 var(--linha);
+  text-align: center;
+}
+.capa__rosto p {
+  margin: 0;
+}
+.capa__rosto-logo {
+  --logo-anel: var(--pagina);
+  width: 20cqw;
+  height: 20cqw;
+  margin-bottom: 6cqw;
+}
+.capa__rosto-chapeu {
+  color: var(--texto-2);
+  font-size: max(0.6rem, 3cqw);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.capa__rosto-titulo {
+  margin: 4cqw 0 3cqw !important;
+  color: var(--titulo);
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: 9.5cqw;
+  line-height: 1.1;
+}
+.capa__rosto-sub {
+  color: var(--texto-2);
+  font-size: max(0.7rem, 4.2cqw);
+}
+.capa__rosto-autora {
+  margin-top: 14cqw !important;
+  color: var(--texto);
+  font-size: max(0.65rem, 3.6cqw);
+  font-weight: 600;
+}
+
+/* A capa: gira na lombada (borda esquerda) para abrir */
+.capa__frente {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  border-radius: 3px 8px 8px 3px;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform 350ms cubic-bezier(0.3, 0.1, 0.3, 1);
+  cursor: pointer;
+}
+/* Ao passar o mouse, a capa entreabre: convite para clicar */
+.capa__frente:hover,
+.capa__frente:focus-visible {
+  transform: rotateY(-16deg);
+}
+.capa__frente:focus-visible {
+  outline-offset: 6px;
+}
+.capa--abrindo .capa__frente {
+  transition: none;
+  pointer-events: none;
+}
+.capa__imagem {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  box-shadow: var(--sombra-livro);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+/* Vinco da lombada na capa */
+.capa__frente::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 3.4%;
+  width: 2px;
+  background: rgb(0 0 0 / 0.18);
+  box-shadow: 1px 0 0 rgb(255 255 255 / 0.12);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+/* Verso da capa (o lado de dentro), visível depois que ela passa de 90° */
+.capa__verso {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px 3px 3px 8px;
+  background: #1a4677;
+  box-shadow: inset -18px 0 24px -12px rgb(0 0 0 / 0.35);
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.capa--abrindo .capa__acoes {
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.capa__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem 1.25rem;
+  text-align: center;
+}
+.capa__progresso {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--texto-2);
+  font-size: 0.9rem;
+}
+.link-discreto {
+  color: var(--link);
+  font-weight: 600;
+}
+

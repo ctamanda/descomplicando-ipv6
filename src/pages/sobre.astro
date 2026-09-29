@@ -1,0 +1,46 @@
+---
+import { getEntry, render } from 'astro:content';
+import '../styles/prosa.css';
+import Base from '../layouts/Base.astro';
+import Livro from '../components/livro/Livro.astro';
+
+const pagina = (await getEntry('paginas', 'sobre'))!;
+const { Content, headings } = await render(pagina);
+const secoes = headings.filter((h) => h.depth === 2);
+---
+<Base titulo="Sobre o manual" descricao="Sobre a autora, prefácio e apresentação do manual Descomplicando o IPv6.">
+  <Livro chave="apresentacao">
+      <p class="chapeu">Sobre o projeto</p>
+      <h1 class="titulo-secao">Sobre o manual</h1>
+      {secoes.length > 1 && (
+        <nav class="indice" aria-label="Nesta página">
+          {secoes.map((h) => <a href={`#${h.slug}`}>{h.text}</a>)}
+        </nav>
+      )}
+      <div class="prosa">
+        <Content />
+      </div>
+  </Livro>
+</Base>
+
+<style>
+  .indice {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+    margin: -0.5rem 0 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--linha);
+    font-size: 0.92rem;
+    font-weight: 600;
+  }
+  .indice a {
+    text-decoration: none;
+  }
+  .indice a:hover {
+    text-decoration: underline;
+  }
+  .prosa :global(h2:first-child) {
+    margin-top: 0.5em;
+  }
+</style>

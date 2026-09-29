@@ -1,0 +1,307 @@
+---
+/**
+ * Página inicial: o livro fechado sobre a mesa e, ao lado, a abertura que
+ * explica por que o manual existe, para quem é e como estudar (a partir do
+ * Prefácio e da Apresentação). Clicar na capa abre o livro.
+ */
+import { Image } from 'astro:assets';
+import '../styles/leitura.css';
+import Base from '../layouts/Base.astro';
+import Logo from '../components/ui/Logo.astro';
+import { getSumario } from '../lib/conteudo/manual';
+import { rotas } from '../lib/rotas';
+import capa from '../../conteudo/arquivos/capa.png';
+
+const sumario = await getSumario();
+const totalSecoes = sumario.reduce((n, { secoes }) => n + secoes.length, 0);
+// Ordem de leitura, para abrir o livro "no marcador" (primeira seção não lida)
+const ordem = sumario.flatMap(({ secoes }) => secoes.map((s) => ({ id: s.id, href: rotas.secao(s.data) })));
+
+const etapas = [
+  { nome: 'Aprender', como: 'lendo a seção' },
+  { nome: 'Compreender', como: 'com os exemplos e os blocos de apoio' },
+  { nome: 'Praticar', como: 'resolvendo os exercícios' },
+  { nome: 'Avaliar', como: 'no quiz do nível; ao errar, ele indica o que revisar' },
+];
+---
+<Base titulo="Início" descricao="Descomplicando o IPv6: um guia interativo de redes para quem está começando do zero. Manual para ler como um livro, com exercícios, quiz e glossário.">
+  <div class="inicio" data-capa>
+    <!-- O livro fechado -->
+    <div class="inicio__mesa">
+      <div class="capa__livro">
+        <div class="capa__rosto" transition:name="livro-pagina" transition:animation="initial" aria-hidden="true">
+          <Logo class="capa__rosto-logo" />
+          <p class="capa__rosto-chapeu">Manual</p>
+          <p class="capa__rosto-titulo">Descomplicando o IPv6</p>
+          <p class="capa__rosto-sub">Um guia interativo de redes</p>
+          <p class="capa__rosto-autora">Amanda Ribeiro da Costa</p>
+        </div>
+        <a class="capa__frente" href={rotas.manual} data-abrir-livro aria-label="Abrir o livro Descomplicando o IPv6">
+          <Image class="capa__imagem" src={capa} widths={[320, 480, 640, 900]} sizes="(max-width: 56rem) 60vw, 26rem" loading="eager" fetchpriority="high" alt="" />
+          <span class="capa__verso" aria-hidden="true"></span>
+        </a>
+      </div>
+      <p class="inicio__dica" aria-hidden="true">Toque na capa para abrir</p>
+    </div>
+
+    <!-- A abertura -->
+    <div class="inicio__texto">
+      <p class="chapeu">Um guia interativo de redes</p>
+      <h1 class="inicio__titulo">Descomplicando o IPv6</h1>
+      <p class="inicio__lead">
+        Um manual para quem nunca estudou redes e quer entender o IPv6 de verdade, lido aqui como um livro: página a
+        página, com exercícios, quiz e glossário à mão.
+      </p>
+
+      <div class="inicio__acoes">
+        <a class="botao-principal" href={rotas.manual} data-abrir-livro data-continuar data-ordem={JSON.stringify(ordem)}>Abrir o livro</a>
+        <a class="link-discreto" href={rotas.download}>Baixar PDF ou EPUB</a>
+      </div>
+      <p class="inicio__progresso" data-progresso hidden></p>
+
+      <section class="inicio__bloco">
+        <h2>Por que este manual existe</h2>
+        <p>
+          Quem começa a estudar IPv6 costuma encontrar um muro: endereços longos e cheios de letras, textos que já
+          assumem que você sabe o que é um prefixo ou um /64, e materiais que pulam direto para a configuração.
+        </p>
+        <p>
+          Este manual faz o caminho contrário. Nada é dado como óbvio: cada conceito é explicado antes de ser usado, e
+          cada parte prepara a seguinte. E vale a pena: o IPv6 não é o futuro da Internet, é o presente, e quase metade
+          dos usuários no Brasil já o utiliza sem saber.
+        </p>
+      </section>
+
+      <section class="inicio__bloco">
+        <h2>Para quem é</h2>
+        <p>
+          Para quem nunca estudou redes de computadores, para estudantes de TI, Sistemas de Informação e cursos afins,
+          para profissionais iniciantes e para quem já conhece o assunto e quer revisar.
+        </p>
+      </section>
+
+      <section class="inicio__bloco">
+        <h2>O que tem no livro</h2>
+        <p>
+          {sumario.length} partes e {totalSecoes} seções, do que é uma rede até o roteamento e a convivência com o IPv4.
+          No fim, os apêndices: todos os exercícios com gabarito, um quiz em três níveis e o glossário.
+        </p>
+      </section>
+
+      <section class="inicio__bloco">
+        <h2>Como estudar</h2>
+        <ol class="inicio__etapas">
+          {etapas.map((e) => (
+            <li><strong>{e.nome}</strong> <span>{e.como}</span></li>
+          ))}
+        </ol>
+      </section>
+
+      <p class="inicio__assinatura">
+        Produto do Estágio Supervisionado I de Sistemas de Informação da Unitins, por Amanda Ribeiro da Costa.
+        <a href={rotas.sobre}>Leia a apresentação completa</a>.
+      </p>
+    </div>
+  </div>
+</Base>
+
+<script>
+  import { navigate } from 'astro:transitions/client';
+  import { lerLidas } from '../scripts/lidas';
+
+  const SEM_ANIMACAO = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /** Com progresso salvo, o livro abre "no marcador": a primeira seção não lida. */
+  function prepararMarcador() {
+    const botao = document.querySelector<HTMLAnchorElement>('[data-continuar][data-ordem]');
+    const aviso = document.querySelector<HTMLElement>('[data-progresso]');
+    if (!botao || !aviso) return;
+    const lidas = lerLidas();
+    if (!lidas.size) return;
+    const ordem: { id: string; href: string }[] = JSON.parse(botao.dataset.ordem!);
+    const feitas = ordem.filter((s) => lidas.has(s.id)).length;
+    const proxima = ordem.find((s) => !lidas.has(s.id));
+    aviso.hidden = false;
+    aviso.textContent = `Você já marcou ${feitas} de ${ordem.length} seções como lidas.`;
+    botao.textContent = proxima ? 'Continuar de onde parei' : 'Abrir o livro';
+    if (proxima) document.querySelectorAll<HTMLAnchorElement>('[data-abrir-livro]').forEach((a) => (a.href = proxima.href));
+  }
+
+  /** Abre a capa (gira na lombada) e só então navega; a folha de rosto vira o livro. */
+  function prepararAbertura() {
+    const raiz = document.querySelector<HTMLElement>('[data-capa]');
+    const frente = raiz?.querySelector<HTMLElement>('.capa__frente');
+    if (!raiz || !frente) return;
+    let abrindo = false;
+    raiz.querySelectorAll<HTMLAnchorElement>('[data-abrir-livro]').forEach((link) => {
+      link.addEventListener('click', async (e) => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+        if (abrindo) return;
+        abrindo = true;
+        if (SEM_ANIMACAO.matches) return navigate(link.href);
+        raiz.classList.add('capa--abrindo');
+        const tempo: KeyframeAnimationOptions = { duration: 950, easing: 'cubic-bezier(0.55, 0.05, 0.3, 1)', fill: 'forwards' };
+        const giro = frente.animate([{ transform: 'rotateY(-168deg)' }], tempo);
+        // Aberto, o livro ocupa o dobro da largura: desliza para a direita o necessário
+        const livro = frente.parentElement!;
+        const r = livro.getBoundingClientRect();
+        const desvio = Math.max(0, Math.min(r.width - r.left + 24, window.innerWidth - r.right - 24));
+        if (desvio > 0) livro.animate([{ transform: `translateX(${desvio}px)` }], tempo);
+        // O fim da curva quase não se move: a navegação começa um pouco antes,
+        // para o livro não parecer parado esperando
+        await Promise.race([giro.finished.catch(() => {}), new Promise((r) => setTimeout(r, 780))]);
+        navigate(link.href);
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    prepararMarcador();
+    prepararAbertura();
+  });
+</script>
+
+<style>
+  .inicio {
+    display: grid;
+    gap: 2.5rem clamp(2rem, 6vw, 6rem);
+    align-items: start;
+    min-height: calc(100dvh - var(--cabecalho));
+    padding: clamp(1.5rem, 5vw, 4rem) clamp(1rem, 6vw, 6rem) 4rem;
+    background: var(--mesa);
+    overflow-x: clip;
+  }
+  @media (min-width: 56rem) {
+    .inicio {
+      grid-template-columns: minmax(16rem, 5fr) 7fr;
+    }
+    .inicio__mesa {
+      position: sticky;
+      top: calc(var(--cabecalho) + 2.5rem);
+    }
+  }
+
+  .inicio__mesa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .inicio__mesa .capa__livro {
+    width: min(100%, 26rem);
+    height: auto;
+    max-height: none;
+  }
+  @media (max-width: 55.99rem) {
+    .inicio__mesa .capa__livro {
+      width: min(62vw, 18rem);
+    }
+  }
+  .inicio__dica {
+    margin: 0;
+    color: var(--texto-2);
+    font-size: 0.82rem;
+  }
+
+  .inicio__texto {
+    max-width: 38rem;
+  }
+  .inicio__titulo {
+    margin: 0;
+    color: var(--titulo);
+    font-family: var(--fonte-titulo);
+    font-weight: 600;
+    font-size: clamp(2.4rem, 1.6rem + 3.5vw, 4rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .inicio__lead {
+    margin: 1.1rem 0 1.75rem;
+    color: var(--texto-2);
+    font-size: 1.15em;
+  }
+  .inicio__acoes {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.5rem;
+  }
+  .inicio__progresso {
+    margin: 0.75rem 0 0;
+    color: var(--texto-2);
+    font-size: 0.9rem;
+  }
+  /* Abrindo: a capa passa por cima da introdução, que sai de cena */
+  .inicio__mesa {
+    z-index: 2;
+  }
+  @media (max-width: 55.99rem) {
+    .inicio__mesa {
+      position: relative;
+    }
+  }
+  .inicio__texto,
+  .inicio__dica {
+    transition: opacity 320ms ease;
+  }
+  .capa--abrindo .inicio__texto,
+  .capa--abrindo .inicio__dica {
+    opacity: 0;
+  }
+
+  .inicio__bloco {
+    margin-top: 2.25rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--linha);
+  }
+  .inicio__bloco h2 {
+    margin: 0 0 0.6rem;
+    color: var(--titulo);
+    font-family: var(--fonte-titulo);
+    font-weight: 600;
+    font-size: 1.35rem;
+  }
+  .inicio__bloco p {
+    margin: 0 0 0.8rem;
+  }
+  .inicio__etapas {
+    display: grid;
+    gap: 0.6rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: etapa;
+  }
+  .inicio__etapas li {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    column-gap: 0.5rem;
+    counter-increment: etapa;
+  }
+  .inicio__etapas li::before {
+    content: counter(etapa);
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 50%;
+    background: var(--verde-fundo);
+    color: var(--verde-rotulo);
+    font-weight: 700;
+    font-size: 0.85rem;
+  }
+  .inicio__etapas strong {
+    color: var(--titulo);
+  }
+  .inicio__etapas span {
+    color: var(--texto-2);
+  }
+  .inicio__assinatura {
+    margin: 2.5rem 0 0;
+    color: var(--texto-2);
+    font-size: 0.9rem;
+  }
+</style>

@@ -1,0 +1,95 @@
+---
+import '../../styles/quiz.css';
+import Base from '../../layouts/Base.astro';
+import Livro from '../../components/livro/Livro.astro';
+import { NIVEIS, QUESTOES_POR_RODADA, getQuestoes } from '../../lib/conteudo/quiz';
+import { url } from '../../lib/rotas';
+
+const todas = await getQuestoes();
+// Para "seção que você mais erra": número -> título e link
+const secoes = Object.fromEntries(todas.map((q) => [q.secao, { titulo: q.secaoTitulo, href: q.href }]));
+const partesTexto = (p: readonly number[]) => p.join(', ').replace(/, (\d)$/, ' e $1');
+---
+<Base titulo="Quiz" descricao="Quiz de IPv6 em três níveis: 10 questões sorteadas, retorno imediato e dados sobre o que revisar.">
+  <Livro chave="quiz">
+      <p class="chapeu">Apêndice B · Avaliar</p>
+      <h1 class="titulo-secao">Quiz</h1>
+      <p class="quiz__intro">
+        Escolha um nível. Cada rodada sorteia {QUESTOES_POR_RODADA} questões, você vê na hora se acertou e por quê, e no fim
+        recebe o que revisar no manual. No modo normal não há tempo nem pontos negativos; quem quiser se testar pode
+        escolher o modo desafio, com 60 segundos por questão. Seus resultados ficam só neste navegador.
+      </p>
+
+      <ul class="niveis">
+        {NIVEIS.map((n) => {
+          const qtd = todas.filter((q) => q.id.startsWith(`q-${n.id}-`)).length;
+          return (
+            <li class="nivel" data-nivel={n.id}>
+              <div class="nivel__texto">
+                <h2 class="nivel__nome">{n.nome}</h2>
+                <p class="nivel__partes">Partes {partesTexto(n.partes)} · {qtd} questões no banco</p>
+                <p class="nivel__descricao">{n.descricao}</p>
+                <p class="nivel__progresso" data-progresso-nivel>Ainda não feito.</p>
+              </div>
+              <div class="nivel__acoes">
+                <a class="botao-principal" href={url(`quiz/${n.id}/`)} data-comecar>Começar</a>
+                <a class="nivel__desafio" href={url(`quiz/${n.id}/?desafio=1`)}>Modo desafio · 60 s</a>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+
+      <p class="folha__nota">
+        <button type="button" class="botao-texto" data-limpar hidden>Limpar meus resultados do quiz</button>
+      </p>
+  </Livro>
+</Base>
+
+<script type="application/json" id="secoes-quiz" set:html={JSON.stringify(secoes).replace(/</g, '\\u003c')} />
+
+<script>
+  import { limparProgresso, melhor, secoesMaisErradas, tentativasDoNivel } from '../../scripts/quiz-progresso';
+
+  const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+  function pintar() {
+    const secoes: Record<string, { titulo: string; href: string }> = JSON.parse(
+      document.getElementById('secoes-quiz')?.textContent ?? '{}',
+    );
+    let algum = false;
+    document.querySelectorAll<HTMLElement>('[data-nivel]').forEach((el) => {
+      const tentativas = tentativasDoNivel(el.dataset.nivel!);
+      const alvo = el.querySelector<HTMLElement>('[data-progresso-nivel]')!;
+      const botao = el.querySelector<HTMLElement>('[data-comecar]')!;
+      if (!tentativas.length) {
+        alvo.textContent = 'Ainda não feito.';
+        botao.textContent = 'Começar';
+        return;
+      }
+      algum = true;
+      const m = melhor(tentativas)!;
+      const ultima = tentativas.at(-1)!;
+      const [maisErrada] = secoesMaisErradas(tentativas);
+      const s = maisErrada && secoes[maisErrada[0]];
+      alvo.innerHTML =
+        `<strong>Melhor nota: ${m.acertos} de ${m.total}</strong> · última: ${ultima.acertos} de ${ultima.total} · ` +
+        `${tentativas.length} ${tentativas.length === 1 ? 'tentativa' : 'tentativas'}` +
+        (s ? `<br />Seção que você mais erra: <a href="${s.href}">${esc(maisErrada[0])} ${esc(s.titulo)}</a>` : '');
+      botao.textContent = 'Refazer';
+    });
+    const limpar = document.querySelector<HTMLButtonElement>('[data-limpar]');
+    if (limpar) limpar.hidden = !algum;
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    const limpar = document.querySelector<HTMLButtonElement>('[data-limpar]');
+    if (!limpar) return;
+    pintar();
+    limpar.addEventListener('click', () => {
+      if (!confirm('Apagar todos os seus resultados do quiz neste navegador?')) return;
+      limparProgresso();
+      pintar();
+    });
+  });
+</script>

@@ -1,0 +1,90 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import '../styles/base.css';
+import Cabecalho from '../components/layout/Cabecalho.astro';
+import Gaveta from '../components/layout/Gaveta.astro';
+import Menu from '../components/layout/Menu.astro';
+import Rodape from '../components/layout/Rodape.astro';
+import { url } from '../lib/rotas';
+
+interface Props {
+  titulo: string;
+  descricao?: string;
+  menu?: 'manual' | 'exercicios' | 'quiz' | 'glossario';
+  /** página aberta no sumário: "3.5", "parte-3" ou "capa" */
+  atual?: string;
+}
+const { titulo, descricao = 'Um guia interativo de redes para quem está começando do zero.', menu, atual } = Astro.props;
+
+// Endereço completo da página e da imagem de compartilhamento (WhatsApp, redes sociais)
+const enderecoPagina = new URL(Astro.url.pathname, Astro.site).href;
+const imagemCompartilhamento = new URL(url('imagem-compartilhamento.png'), Astro.site).href;
+const tituloCompleto = `${titulo} · Descomplicando o IPv6`;
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{tituloCompleto}</title>
+    <meta name="description" content={descricao} />
+    <link rel="canonical" href={enderecoPagina} />
+    <link rel="icon" href={url('favicon.ico')} sizes="48x48" />
+    <link rel="icon" href={url('icones/favicon-32.png')} type="image/png" sizes="32x32" />
+    <link rel="icon" href={url('icones/favicon-192.png')} type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href={url('icones/apple-touch-icon-180.png')} />
+    <link rel="manifest" href={url('site.webmanifest')} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Descomplicando o IPv6" />
+    <meta property="og:title" content={tituloCompleto} />
+    <meta property="og:description" content={descricao} />
+    <meta property="og:url" content={enderecoPagina} />
+    <meta property="og:image" content={imagemCompartilhamento} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Logo Descomplicando o IPv6: um guia interativo de redes" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#123c6b" />
+    <script is:inline>
+      // Antes de pintar: modo livro (classe js), tema e lateral recolhida.
+      // Reaplicado depois de cada navegação, que troca os atributos do <html>.
+      (function () {
+        var raiz = document.documentElement;
+        function aplicar() {
+          raiz.classList.add('js');
+          try {
+            var tema = localStorage.getItem('ipv6:tema');
+            if (tema === 'claro' || tema === 'escuro') raiz.dataset.theme = tema;
+            if (localStorage.getItem('ipv6:lateral') === 'recolhida') raiz.dataset.lateral = 'recolhida';
+          } catch (e) {}
+        }
+        aplicar();
+        document.addEventListener('astro:after-swap', aplicar);
+      })();
+    </script>
+    <ClientRouter />
+  </head>
+  <body>
+    <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+    <Cabecalho atual={menu} />
+    <Menu />
+    <Gaveta atual={atual} />
+    <main id="conteudo" tabindex="-1">
+      <slot />
+    </main>
+    <Rodape />
+    <script>
+      import { iniciarGaveta, iniciarTema } from '../scripts/interface';
+      import { iniciarLidas } from '../scripts/lidas';
+      import { atualizarSumario, mostrarAtualNaLateral } from '../scripts/sumario';
+      document.addEventListener('astro:page-load', () => {
+        iniciarGaveta();
+        iniciarTema();
+        iniciarLidas();
+        atualizarSumario();
+        mostrarAtualNaLateral();
+      });
+    </script>
+  </body>
+</html>

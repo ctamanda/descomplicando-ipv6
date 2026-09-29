@@ -1,0 +1,103 @@
+/* Cores e tipografia derivadas da capa do manual. */
+:root {
+  --azul: #123c6b;
+  --verde: #2fb36a;
+  --amarelo: #f2b705;
+  --azul-claro: #8fb4dd;
+
+  --fundo: #ffffff;
+  --mesa: #eef2f6;
+  --pagina: #ffffff;
+  --texto: #1c2733;
+  --texto-2: #566372;
+  --linha: #dde4ec;
+  --titulo: var(--azul);
+  --link: #1b4f8a;
+  --foco: #1b4f8a;
+  --codigo-fundo: #eef2f7;
+  --sombra-livro: 0 1px 2px rgb(18 60 107 / 0.06), 0 14px 36px rgb(18 60 107 / 0.1);
+
+  /* Blocos didáticos: borda, fundo, cor do rótulo */
+  --azul-borda: var(--azul);
+  --azul-fundo: #f1f6fc;
+  --azul-rotulo: var(--azul);
+  --verde-borda: var(--verde);
+  --verde-fundo: #eef8f2;
+  --verde-rotulo: #1a6e3f;
+  --amarelo-borda: var(--amarelo);
+  --amarelo-fundo: #fff8e3;
+  --amarelo-rotulo: #6f5200;
+  --neutro-borda: #c5cfda;
+  --neutro-rotulo: #566372;
+
+  /* Resposta errada no quiz (sempre junto de ícone e texto) */
+  --erro: #a8251b;
+  --erro-fundo: #fdeeec;
+
+  --fonte-titulo: 'Fraunces', Georgia, serif;
+  --fonte-texto: 'Manrope', 'Segoe UI', sans-serif;
+  --fonte-codigo: ui-monospace, 'Cascadia Mono', Consolas, 'Liberation Mono', monospace;
+
+  --cabecalho: 3.5rem;
+
+  /* Logo: traços do globo e anel do selo v6 */
+  --logo-traco: #123c6b;
+  --logo-anel: var(--fundo);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='claro']) {
+    --fundo: #0f2a4a;
+    --mesa: #0b2140;
+    --pagina: #102d4f;
+    --texto: #e6edf5;
+    --texto-2: #a9b9cb;
+    --linha: #24466d;
+    --titulo: #ffffff;
+    --link: #a9c8ea;
+    --foco: #8fb4dd;
+    --codigo-fundo: #173a61;
+    --sombra-livro: 0 1px 2px rgb(0 0 0 / 0.3), 0 14px 36px rgb(0 0 0 / 0.35);
+    --azul-borda: var(--azul-claro);
+    --azul-fundo: rgb(143 180 221 / 0.1);
+    --azul-rotulo: #b9d2ee;
+    --verde-fundo: rgb(47 179 106 / 0.12);
+    --verde-rotulo: #7fdca8;
+    --amarelo-fundo: rgb(242 183 5 / 0.1);
+    --amarelo-rotulo: #f5cd52;
+    --neutro-borda: #3d5f86;
+    --neutro-rotulo: #a9b9cb;
+    --erro: #ffb4a9;
+    --erro-fundo: rgb(255 180 169 / 0.1);
+    --logo-traco: #ffffff;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='escuro'] {
+  --fundo: #0f2a4a;
+  --mesa: #0b2140;
+  --pagina: #102d4f;
+  --texto: #e6edf5;
+  --texto-2: #a9b9cb;
+  --linha: #24466d;
+  --titulo: #ffffff;
+  --link: #a9c8ea;
+  --foco: #8fb4dd;
+  --codigo-fundo: #173a61;
+  --sombra-livro: 0 1px 2px rgb(0 0 0 / 0.3), 0 14px 36px rgb(0 0 0 / 0.35);
+  --azul-borda: var(--azul-claro);
+  --azul-fundo: rgb(143 180 221 / 0.1);
+  --azul-rotulo: #b9d2ee;
+  --verde-fundo: rgb(47 179 106 / 0.12);
+  --verde-rotulo: #7fdca8;
+  --amarelo-fundo: rgb(242 183 5 / 0.1);
+  --amarelo-rotulo: #f5cd52;
+  --neutro-borda: #3d5f86;
+  --neutro-rotulo: #a9b9cb;
+  --erro: #ffb4a9;
+  --erro-fundo: rgb(255 180 169 / 0.1);
+  --logo-traco: #ffffff;
+  color-scheme: dark;
+}

@@ -1,0 +1,20 @@
+---
+/**
+ * Logo horizontal (símbolo + "DESCOMPLICANDO / o IPv6"), como em
+ * src/assets/logo/logo-horizontal.svg, mas com texto de verdade.
+ */
+import Logo from './Logo.astro';
+
+interface Props {
+  href: string;
+  tamanho?: 'normal' | 'grande';
+}
+const { href, tamanho = 'normal' } = Astro.props;
+---
+<a class:list={['marca', `marca--${tamanho}`]} href={href}>
+  <Logo class="marca__simbolo" />
+  <span class="marca__texto">
+    <span class="marca__linha1">Descomplicando</span>
+    <span class="marca__linha2">o IPv6</span>
+  </span>
+</a>

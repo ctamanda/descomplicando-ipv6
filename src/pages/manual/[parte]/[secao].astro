@@ -1,0 +1,31 @@
+---
+import { render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import Livro from '../../../components/livro/Livro.astro';
+import { getSecoes } from '../../../lib/conteudo/manual';
+
+export async function getStaticPaths() {
+  const secoes = await getSecoes();
+  return secoes.map((secao) => ({
+    params: { parte: `parte-${secao.data.parte}`, secao: secao.data.slug },
+    props: { secao },
+  }));
+}
+
+const { secao } = Astro.props;
+const { numero, titulo, parte, parteTitulo } = secao.data;
+const { Content } = await render(secao);
+---
+<Base titulo={`${numero} ${titulo}`} descricao={`Parte ${parte}, ${parteTitulo}: ${titulo}.`} atual={secao.id}>
+  <Livro chave={secao.id} cabecaEsq={`Parte ${parte} · ${parteTitulo}`} cabecaDir={`${numero} ${titulo}`}>
+    <p class="chapeu">Parte {parte} · {parteTitulo}</p>
+    <h1 class="titulo-secao">{numero} {titulo}</h1>
+    <div class="prosa prosa--secao">
+      <Content />
+    </div>
+    <button slot="fim" class="botao-lida" type="button" data-marcar-lida={secao.id} aria-pressed="false">
+      <span class="botao-lida__marca" aria-hidden="true"></span>
+      <span data-rotulo>Marcar como lida</span>
+    </button>
+  </Livro>
+</Base>

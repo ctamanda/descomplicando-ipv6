@@ -1,0 +1,527 @@
+/* Quiz: escolha de nível, questão com retorno imediato e resultado. */
+
+.livro__texto .chapeu a {
+  color: inherit;
+}
+.quiz__intro {
+  margin: 0 0 1.5rem;
+  color: var(--texto-2);
+}
+
+/* ---------- Níveis ---------- */
+.niveis {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.nivel {
+  display: grid;
+  gap: 0.75rem 1.5rem;
+  align-items: center;
+  padding: 1.35rem 0;
+  border-top: 1px solid var(--linha);
+}
+.nivel__nome {
+  margin: 0;
+  color: var(--titulo);
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: 1.45rem;
+}
+.nivel__partes {
+  margin: 0.1rem 0 0.4rem;
+  color: var(--texto-2);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.nivel__descricao {
+  margin: 0 0 0.5rem;
+  font-size: 0.97rem;
+}
+.nivel__progresso {
+  margin: 0;
+  color: var(--texto-2);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.nivel__progresso strong {
+  color: var(--verde-rotulo);
+}
+.nivel .botao-principal {
+  justify-self: start;
+}
+@media (min-width: 36rem) {
+  .nivel {
+    grid-template-columns: 1fr auto;
+  }
+}
+
+/* ---------- Questão ---------- */
+.quiz__topo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.25rem 0 1.5rem;
+}
+.quiz__contador {
+  margin: 0;
+  color: var(--texto-2);
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.quiz__barra {
+  flex: 1;
+}
+
+.quiz__enunciado {
+  margin: 0 0 1.25rem;
+  color: var(--titulo);
+  font-family: var(--fonte-texto);
+  font-weight: 700;
+  font-size: clamp(1.15rem, 1rem + 0.6vw, 1.35rem);
+  line-height: 1.4;
+}
+.quiz__enunciado:focus {
+  outline: none;
+}
+
+.quiz__alternativas {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.alternativa {
+  display: grid;
+  grid-template-columns: 2rem 1fr 1.5rem;
+  gap: 0.75rem;
+  align-items: center;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1.5px solid var(--linha);
+  border-radius: 10px;
+  background: var(--pagina);
+  color: var(--texto);
+  text-align: left;
+  line-height: 1.4;
+  cursor: pointer;
+  transition:
+    border-color 150ms,
+    background 150ms;
+}
+.alternativa:hover:not(:disabled) {
+  border-color: var(--azul-claro);
+  background: var(--azul-fundo);
+}
+.alternativa:disabled {
+  cursor: default;
+}
+.alternativa__letra {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--mesa);
+  color: var(--titulo);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.alternativa__estado {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+}
+.alternativa:disabled:not(.alternativa--correta):not(.alternativa--errada) {
+  opacity: 0.6;
+}
+.alternativa--correta {
+  border-color: var(--verde);
+  background: var(--verde-fundo);
+}
+.alternativa--correta .alternativa__letra {
+  background: var(--verde);
+  color: #fff;
+}
+.alternativa--correta .alternativa__estado {
+  background: #1f8a4d
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    center / 100% no-repeat;
+}
+.alternativa--errada {
+  border-color: var(--erro);
+  background: var(--erro-fundo);
+}
+.alternativa--errada .alternativa__letra {
+  background: #a8251b;
+  color: #fff;
+}
+.alternativa--errada .alternativa__estado {
+  background: #a8251b
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M5 5l6 6M11 5l-6 6' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E")
+    center / 100% no-repeat;
+}
+
+.quiz__retorno:empty {
+  display: none;
+}
+.quiz__retorno {
+  margin-top: 1.25rem;
+  padding: 1rem 1.15rem;
+  border-left: 4px solid var(--neutro-borda);
+  border-radius: 0 8px 8px 0;
+  font-size: 0.97rem;
+}
+.quiz__retorno p {
+  margin: 0 0 0.5rem;
+}
+.quiz__retorno p:last-child {
+  margin-bottom: 0;
+}
+.quiz__retorno--certo {
+  border-color: var(--verde);
+  background: var(--verde-fundo);
+}
+.quiz__retorno--errado {
+  border-color: var(--erro);
+  background: var(--erro-fundo);
+}
+.quiz__veredito {
+  font-weight: 700;
+}
+.quiz__retorno--certo .quiz__veredito {
+  color: var(--verde-rotulo);
+}
+.quiz__retorno--errado .quiz__veredito {
+  color: var(--erro);
+}
+.quiz__retorno a {
+  font-weight: 600;
+}
+.quiz__acoes {
+  margin-top: 1.25rem;
+}
+.quiz__dica {
+  margin: 1.5rem 0 0;
+  color: var(--texto-2);
+  font-size: 0.82rem;
+}
+@media (hover: none) {
+  .quiz__dica {
+    display: none;
+  }
+}
+
+/* ---------- Resultado ---------- */
+.res:focus {
+  outline: none;
+}
+.res__cabeca {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--linha);
+}
+.res__nota {
+  margin: 0.25rem 0 0;
+  color: var(--texto-2);
+  font-family: var(--fonte-titulo);
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.res__nota strong {
+  color: var(--titulo);
+  font-size: 4.5rem;
+  font-weight: 600;
+}
+.res__pct {
+  margin: 0.4rem 0 0.9rem;
+  color: var(--texto-2);
+  font-weight: 600;
+}
+.res__faixa {
+  display: inline-block;
+  margin: 0 0 0.6rem;
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.res__faixa--otimo {
+  background: var(--verde-fundo);
+  color: var(--verde-rotulo);
+}
+.res__faixa--medio {
+  background: var(--amarelo-fundo);
+  color: var(--amarelo-rotulo);
+}
+.res__faixa--revisar {
+  background: var(--azul-fundo);
+  color: var(--azul-rotulo);
+}
+.res__mensagem {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.res__bloco {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--linha);
+}
+.res__bloco h2 {
+  margin: 0 0 0.75rem;
+  color: var(--titulo);
+  font-family: var(--fonte-titulo);
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+.res__bloco h3 {
+  margin: 1.5rem 0 0.5rem;
+  color: var(--titulo);
+  font-size: 1rem;
+}
+.res__bloco > p {
+  margin: 0 0 0.75rem;
+}
+
+/* Barras (uma série só): azul-marinho no claro, azul-claro no escuro, valor sempre escrito */
+.livro__texto .quiz__barra > span,
+.livro__texto .res__barra > span,
+.livro__texto .res__coluna > span {
+  background: var(--azul);
+}
+:root[data-theme="escuro"] .livro__texto .quiz__barra > span,
+:root[data-theme="escuro"] .livro__texto .res__barra > span,
+:root[data-theme="escuro"] .livro__texto .res__coluna > span {
+  background: var(--azul-claro);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="claro"]) .livro__texto .quiz__barra > span,
+  :root:not([data-theme="claro"]) .livro__texto .res__barra > span,
+  :root:not([data-theme="claro"]) .livro__texto .res__coluna > span {
+    background: var(--azul-claro);
+  }
+}
+
+.res__partes {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.res__partes li {
+  display: grid;
+  grid-template-columns: 1fr 4.5rem;
+  gap: 0.3rem 1rem;
+  align-items: center;
+}
+.res__rotulo {
+  grid-column: 1 / -1;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+.res__barra {
+  height: 10px;
+  border-radius: 5px;
+}
+.res__valor {
+  color: var(--texto);
+  font-size: 0.88rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+@media (min-width: 36rem) {
+  .res__partes li {
+    grid-template-columns: 16rem 1fr 4.5rem;
+  }
+  .res__rotulo {
+    grid-column: auto;
+  }
+}
+
+.res__secoes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.res__secoes li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.75rem;
+  align-items: baseline;
+  padding: 0.55rem 0;
+  border-bottom: 1px dotted var(--linha);
+}
+.res__secoes a {
+  font-weight: 700;
+}
+.res__detalhe {
+  color: var(--texto-2);
+  font-size: 0.85rem;
+}
+
+.res__lista-erradas {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.res__errada {
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--linha);
+  border-radius: 10px;
+  font-size: 0.95rem;
+}
+.res__errada p {
+  margin: 0 0 0.4rem;
+}
+.res__errada p:last-child {
+  margin: 0;
+}
+.res__enunciado {
+  color: var(--titulo);
+  font-weight: 700;
+}
+.res__marca {
+  font-weight: 700;
+}
+.res__marca--errada {
+  color: var(--erro);
+}
+.res__marca--certa {
+  color: var(--verde-rotulo);
+}
+.res__explicacao {
+  color: var(--texto-2);
+}
+
+/* Evolução: colunas das últimas tentativas, com a nota escrita embaixo */
+.res__evolucao {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
+  height: 9.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.res__evolucao li {
+  display: flex;
+  flex: 1;
+  max-width: 3.5rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  height: 100%;
+}
+.res__coluna {
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 1.75rem;
+}
+.livro__texto .res__coluna > span {
+  display: block;
+  width: 100%;
+  height: calc(max(var(--p), 0.03) * 100%);
+  border-radius: 4px 4px 0 0;
+  opacity: 0.55;
+}
+.res__agora .res__coluna > span {
+  opacity: 1;
+}
+.res__evolucao .res__valor {
+  text-align: center;
+  font-size: 0.8rem;
+}
+.res__data {
+  color: var(--texto-2);
+  font-size: 0.72rem;
+}
+.res__agora .res__data {
+  color: var(--titulo);
+  font-weight: 700;
+}
+.res__nota-rodape {
+  color: var(--texto-2);
+}
+
+.res__acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  padding-top: 1.5rem;
+}
+
+/* ---------- Modo desafio (tempo por questão) ---------- */
+.nivel__acoes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+@media (min-width: 36rem) {
+  .nivel__acoes {
+    align-items: flex-end;
+  }
+}
+.nivel__desafio {
+  color: var(--link);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.quiz__tempo {
+  display: grid;
+  grid-template-columns: auto 1fr 3.25rem;
+  align-items: center;
+  gap: 0.75rem;
+  margin: -0.75rem 0 1.25rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  background: var(--amarelo-fundo);
+}
+.quiz__tempo-rotulo {
+  color: var(--amarelo-rotulo);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.quiz__tempo-barra > span {
+  background: var(--amarelo);
+  transition: width 250ms linear;
+}
+.quiz__tempo-texto {
+  color: var(--texto);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.quiz__tempo.acabando .quiz__tempo-texto {
+  color: var(--erro);
+}
+.quiz__tempo.acabando .quiz__tempo-barra > span {
+  background: var(--erro);
+}
+.alternativa--esgotada {
+  border-style: dashed;
+}
+.res__tempos {
+  margin: 0.5rem 0 0;
+  padding-left: 1.2rem;
+}
+.res__tempos li {
+  margin: 0.3rem 0;
+}
+/* Nota ao pé da página sem conteúdo visível (ex.: botão de limpar escondido) */
+.folha__nota:not(:has(> :not([hidden]))) {
+  display: none;
+}

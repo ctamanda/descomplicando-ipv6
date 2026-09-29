@@ -1,0 +1,99 @@
+---
+/**
+ * O livro aberto sobre a mesa. Toda página do site (menos a capa) é uma página
+ * dele: o conteúdo entra pelo slot; o slot "fim" aparece antes de Anterior/Próxima.
+ * Anterior, Próxima, a espessura das folhas e a aba ativa saem da ordem do livro
+ * (lib/conteudo/livro.ts), pela `chave` da página.
+ */
+import '../../styles/prosa.css';
+import '../../styles/livro.css';
+import Icone from '../ui/Icone.astro';
+import Abas from './Abas.astro';
+import Leitura from './Leitura.astro';
+import { getPaginaDoLivro, type Destino } from '../../lib/conteudo/livro';
+import { rotas } from '../../lib/rotas';
+
+interface Props {
+  /** chave da página na ordem do livro: "sumario", "parte-3", "3.5", "quiz"... */
+  chave: string;
+  /** rótulo curto na barra de páginas (padrão: o da ordem do livro) */
+  rotulo?: string;
+  /** cabeçalho corrente no alto das páginas, como num livro impresso */
+  cabecaEsq?: string;
+  cabecaDir?: string;
+  anterior?: Destino;
+  proxima?: Destino;
+}
+const props = Astro.props;
+const livro = await getPaginaDoLivro(props.chave);
+const rotulo = props.rotulo ?? livro.pagina.rotulo;
+const anterior = props.anterior ?? livro.anterior;
+const proxima = props.proxima ?? livro.proxima;
+const cabecaEsq = props.cabecaEsq ?? 'Descomplicando o IPv6';
+const cabecaDir = props.cabecaDir ?? livro.pagina.titulo;
+
+const PILHA = 9; // px, espessura máxima das folhas de cada lado
+const pilhas = `--pilha-esq: ${Math.round(livro.progresso * PILHA) + 2}px; --pilha-dir: ${Math.round((1 - livro.progresso) * PILHA) + 2}px`;
+// Ordem das páginas, para o script saber para que lado virar (a capa vem antes de tudo)
+const ordem = [rotas.inicio, ...livro.hrefs];
+---
+<Leitura>
+  <div class="mesa">
+    <article
+      class="livro"
+      transition:name="livro-pagina"
+      transition:animation="initial"
+      data-livro
+      style={pilhas}
+      data-numero={rotulo}
+      data-indice={livro.indice + 1}
+      data-anterior={anterior.href}
+      data-anterior-titulo={anterior.titulo}
+      data-proxima={proxima.href}
+      data-proxima-titulo={proxima.titulo}
+    >
+      <span class="livro__cabeca livro__cabeca--esq" aria-hidden="true">{cabecaEsq}</span>
+      <span class="livro__cabeca livro__cabeca--dir" aria-hidden="true">{cabecaDir}</span>
+      <div class="livro__texto" data-texto>
+        <slot />
+        <footer class="fim-secao">
+          <slot name="fim" />
+          <nav class="vizinhos" aria-label="Navegação entre páginas do livro">
+            <a href={anterior.href}><span>{anterior.rotulo}</span>{anterior.titulo}</a>
+            <a class="vizinhos__proxima" href={proxima.href}><span>{proxima.rotulo}</span>{proxima.titulo}</a>
+          </nav>
+        </footer>
+      </div>
+      <span class="livro__pilha livro__pilha--esq" aria-hidden="true"></span>
+      <span class="livro__pilha livro__pilha--dir" aria-hidden="true"></span>
+      <span class="livro__num livro__num--esq" data-num-esq aria-hidden="true"></span>
+      <span class="livro__num livro__num--dir" data-num-dir aria-hidden="true"></span>
+      <!-- Cantos da página: clicar vira a folha (o teclado usa as setas da barra) -->
+      <button class="livro__canto livro__canto--ant" type="button" data-canto="anterior" tabindex="-1" aria-hidden="true"></button>
+      <button class="livro__canto livro__canto--prox" type="button" data-canto="proxima" tabindex="-1" aria-hidden="true"></button>
+      <Abas atual={livro.pagina.aba} />
+    </article>
+  </div>
+
+  <div class="controles" data-controles>
+    <button class="controles__sumario" type="button" data-abrir-gaveta aria-controls="gaveta" aria-expanded="false">
+      <Icone nome="menu" />
+      <span>Sumário</span>
+    </button>
+    <p class="controles__status" data-status aria-live="polite"><strong>{rotulo}</strong></p>
+    <input class="controles__regua" type="range" min="1" max="1" value="1" step="1" data-regua aria-label="Página" />
+    <div class="controles__setas">
+      <button class="botao-icone" type="button" data-virar="anterior" aria-label="Página anterior"><Icone nome="anterior" /></button>
+      <button class="botao-icone" type="button" data-virar="proxima" aria-label="Próxima página"><Icone nome="proxima" /></button>
+    </div>
+  </div>
+</Leitura>
+
+<script type="application/json" id="ordem-livro" set:html={JSON.stringify(ordem)} />
+
+<script>
+  import { iniciarLivro } from '../../scripts/livro';
+  // after-swap: diagrama a página nova antes de ela aparecer na transição (sem pulos)
+  document.addEventListener('astro:after-swap', () => iniciarLivro());
+  document.addEventListener('astro:page-load', () => iniciarLivro());
+</script>

@@ -1,0 +1,169 @@
+---
+import Base from '../../layouts/Base.astro';
+import Livro from '../../components/livro/Livro.astro';
+import { getSumario } from '../../lib/conteudo/manual';
+import { rotas } from '../../lib/rotas';
+
+const sumario = await getSumario();
+const total = sumario.reduce((n, { secoes }) => n + secoes.length, 0);
+const apendices = [
+  { marca: 'A', titulo: 'Exercícios', descricao: 'todos os exercícios do manual, com gabarito', href: rotas.exercicios },
+  { marca: 'B', titulo: 'Quiz', descricao: 'avaliação em três níveis', href: rotas.quiz },
+  { marca: 'C', titulo: 'Glossário', descricao: 'os termos técnicos em poucas palavras', href: rotas.glossario },
+  { marca: 'D', titulo: 'Download', descricao: 'o manual em PDF e EPUB', href: rotas.download },
+];
+---
+<Base titulo="Sumário" descricao="Sumário do manual Descomplicando o IPv6: seis partes, do básico de redes ao roteamento, com exercícios, quiz e glossário." atual="capa">
+  <Livro chave="sumario" cabecaDir="Sumário">
+    <p class="chapeu">Descomplicando o IPv6</p>
+    <h1 class="titulo-secao">Sumário</h1>
+
+    <div class="toc" data-sumario>
+      <div class="toc__progresso sumario__progresso">
+        <p><strong data-lidas-total>0</strong> de {total} seções lidas</p>
+        <span class="barra" aria-hidden="true"><span></span></span>
+      </div>
+
+      <ol class="toc__lista">
+        <li class="toc__frente"><a href={rotas.sobre}>Apresentação <span>sobre a autora, prefácio e como estudar</span></a></li>
+        {sumario.map(({ parte, secoes }) => (
+          <li class="toc__parte" data-parte={parte.data.numero}>
+            <a class="toc__parte-titulo" href={rotas.parte(parte.data.numero)}>
+              <span class="toc__num">{parte.data.numero}</span>
+              <span class="toc__nome">{parte.data.titulo}</span>
+              <span class="toc__conta" data-conta><span class="visualmente-oculto">Lidas: </span>0/{secoes.length}</span>
+            </a>
+            <span class="barra barra--mini" aria-hidden="true"><span></span></span>
+            <ol class="lista-secoes">
+              {secoes.map((s) => (
+                <li>
+                  <a href={rotas.secao(s.data)} data-secao-id={s.id}>
+                    <span class="marcador" aria-hidden="true"></span>
+                    <span class="lista-secoes__num">{s.data.numero}</span>
+                    <span>{s.data.titulo}</span>
+                    <span class="visualmente-oculto" data-estado></span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </li>
+        ))}
+        <li class="toc__grupo">Apêndices</li>
+        {apendices.map((a) => (
+          <li class="toc__apendice">
+            <a href={a.href}><span class="toc__letra">{a.marca}</span><span><strong>{a.titulo}</strong>, {a.descricao}</span></a>
+          </li>
+        ))}
+        <li class="toc__frente"><a href={rotas.referencias}>Referências</a></li>
+      </ol>
+    </div>
+  </Livro>
+</Base>
+
+<style>
+  .toc__progresso {
+    padding: 0 0 1.25rem;
+    border-bottom: 1px solid var(--linha);
+    margin-bottom: 0.5rem;
+    break-inside: avoid;
+  }
+  .toc__lista {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .toc__frente a,
+  .toc__apendice a {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.2rem 0.6rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px dotted var(--linha);
+    color: var(--titulo);
+    font-weight: 700;
+    text-decoration: none;
+    break-inside: avoid;
+  }
+  .toc__frente span {
+    color: var(--texto-2);
+    font-weight: 400;
+    font-size: 0.9em;
+  }
+  .toc__frente a:hover,
+  .toc__apendice a:hover {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+  .toc__parte {
+    padding: 1.1rem 0 0.4rem;
+  }
+  .toc__parte-titulo {
+    display: grid;
+    grid-template-columns: 2rem 1fr auto;
+    align-items: baseline;
+    gap: 0.5rem;
+    color: var(--titulo);
+    text-decoration: none;
+    break-after: avoid;
+  }
+  .toc__parte-titulo:hover .toc__nome {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+  .toc__num {
+    color: var(--azul-claro);
+    font-family: var(--fonte-titulo);
+    font-weight: 600;
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+  .toc__nome {
+    font-family: var(--fonte-titulo);
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+  .toc__conta {
+    color: var(--texto-2);
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .toc__parte.completa .toc__conta {
+    color: var(--verde-rotulo);
+  }
+  .toc__parte .barra--mini {
+    margin: 0.35rem 0 0.4rem 2.5rem;
+    break-after: avoid;
+  }
+  .toc__parte .lista-secoes {
+    margin-left: 2.5rem;
+  }
+  .toc__grupo {
+    margin: 1.5rem 0 0.25rem;
+    color: var(--texto-2);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    break-after: avoid;
+  }
+  .toc__apendice strong {
+    color: var(--titulo);
+  }
+  .toc__apendice span:last-child {
+    color: var(--texto-2);
+    font-weight: 400;
+  }
+  .toc__letra {
+    display: inline-grid;
+    place-items: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: 4px;
+    background: var(--amarelo-fundo);
+    color: var(--amarelo-rotulo);
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+</style>

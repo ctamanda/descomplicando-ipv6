@@ -1,0 +1,30 @@
+---
+import { getEntry, render } from 'astro:content';
+import '../styles/prosa.css';
+import Base from '../layouts/Base.astro';
+import Livro from '../components/livro/Livro.astro';
+
+const pagina = (await getEntry('paginas', 'referencias'))!;
+const { Content } = await render(pagina);
+---
+<Base titulo={pagina.data.titulo} descricao="Livros, RFCs e materiais usados na elaboração do manual Descomplicando o IPv6.">
+  <Livro chave="referencias">
+      <p class="chapeu">Fontes do manual</p>
+      <h1 class="titulo-secao">{pagina.data.titulo}</h1>
+      <div class="prosa referencias">
+        <Content />
+      </div>
+  </Livro>
+</Base>
+
+<style>
+  /* Recuo deslocado, como em lista de referências impressa */
+  .referencias :global(p) {
+    padding-left: 1.5em;
+    text-indent: -1.5em;
+    font-size: 0.95em;
+  }
+  .referencias :global(a) {
+    overflow-wrap: anywhere;
+  }
+</style>

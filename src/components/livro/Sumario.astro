@@ -1,0 +1,67 @@
+---
+/**
+ * Sumário do manual com o progresso de leitura. Usado na lateral (computador)
+ * e no painel do celular. O progresso vem do localStorage e é pintado por
+ * scripts/sumario.ts; sem JavaScript, o sumário funciona só como lista de links.
+ */
+import { getSumario } from '../../lib/conteudo/manual';
+import { rotas } from '../../lib/rotas';
+
+interface Props {
+  /** "3.5", "parte-3" ou "capa" */
+  atual?: string;
+}
+const { atual } = Astro.props;
+const sumario = await getSumario();
+const total = sumario.reduce((soma, { secoes }) => soma + secoes.length, 0);
+const parteAtual = atual?.startsWith('parte-') ? Number(atual.slice(6)) : Number(atual?.split('.')[0]);
+---
+<nav class="sumario" aria-label="Sumário do manual" data-sumario>
+  <div class="sumario__progresso">
+    <p><strong data-lidas-total>0</strong> de {total} seções lidas</p>
+    <span class="barra" aria-hidden="true"><span></span></span>
+  </div>
+
+  <a class="sumario__capa" href={rotas.inicio}>Capa</a>
+  <a class="sumario__capa" href={rotas.manual}>Sumário do livro</a>
+  <a class="sumario__capa" href={rotas.sobre}>Apresentação</a>
+
+  {sumario.map(({ parte, secoes }) => (
+    <details class="sumario__parte" data-parte={parte.data.numero} open={parte.data.numero === parteAtual}>
+      <summary>
+        <span class="sumario__num">{parte.data.numero}</span>
+        <span class="sumario__parte-titulo">
+          {parte.data.titulo}
+          <span class="barra barra--mini" aria-hidden="true"><span></span></span>
+        </span>
+        <span class="sumario__conta" data-conta>
+          <span class="visualmente-oculto">Lidas: </span>0/{secoes.length}
+        </span>
+      </summary>
+      <ol>
+        <li>
+          <a class="sumario__abertura" href={rotas.parte(parte.data.numero)} aria-current={atual === parte.id ? 'page' : undefined}>
+            Antes de começar
+          </a>
+        </li>
+        {secoes.map((s) => (
+          <li>
+            <a href={rotas.secao(s.data)} data-secao-id={s.id} aria-current={atual === s.id ? 'page' : undefined}>
+              <span class="marcador" aria-hidden="true"></span>
+              <span class="sumario__secao-num">{s.data.numero}</span>
+              <span class="sumario__secao-titulo">{s.data.titulo}</span>
+              <span class="visualmente-oculto" data-estado></span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </details>
+  ))}
+
+  <p class="sumario__grupo">Apêndices</p>
+  <a class="sumario__capa" href={rotas.exercicios}>A · Exercícios</a>
+  <a class="sumario__capa" href={rotas.quiz}>B · Quiz</a>
+  <a class="sumario__capa" href={rotas.glossario}>C · Glossário</a>
+  <a class="sumario__capa" href={rotas.download}>D · Download</a>
+  <a class="sumario__capa" href={rotas.referencias}>Referências</a>
+</nav>

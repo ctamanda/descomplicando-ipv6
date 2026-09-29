@@ -1,0 +1,71 @@
+---
+import '../../styles/quiz.css';
+import Base from '../../layouts/Base.astro';
+import Livro from '../../components/livro/Livro.astro';
+import { getPartes } from '../../lib/conteudo/manual';
+import { NIVEIS, QUESTOES_POR_RODADA, getQuestoes } from '../../lib/conteudo/quiz';
+import { rotas, url } from '../../lib/rotas';
+
+export function getStaticPaths() {
+  return NIVEIS.map((nivel, i) => ({ params: { nivel: nivel.id }, props: { nivel, proximo: NIVEIS[i + 1] ?? null } }));
+}
+
+const { nivel, proximo } = Astro.props;
+const questoes = await getQuestoes(nivel.id);
+const partes = Object.fromEntries((await getPartes()).map((p) => [p.data.numero, p.data.titulo]));
+
+const dados = {
+  nivel: nivel.id,
+  nome: nivel.nome,
+  porRodada: Math.min(QUESTOES_POR_RODADA, questoes.length),
+  questoes,
+  partes,
+  urlNiveis: rotas.quiz,
+  proximo: proximo ? { nome: proximo.nome, href: url(`quiz/${proximo.id}/`) } : null,
+};
+---
+<Base titulo={`Quiz, nível ${nivel.nome}`} descricao={`Quiz de IPv6, nível ${nivel.nome}: ${nivel.descricao}`}>
+  <Livro
+    chave="quiz"
+    rotulo={`Quiz · ${nivel.nome}`}
+    cabecaDir={`Apêndice B · Quiz, nível ${nivel.nome}`}
+    anterior={{ href: rotas.quiz, rotulo: 'Voltar ao', titulo: 'Quiz: escolher outro nível' }}
+  >
+      <p class="chapeu">Apêndice B · <a href={rotas.quiz}>Quiz</a> · Nível {nivel.nome} · Partes {nivel.partes.join(', ').replace(/, (\d)$/, ' e $1')}</p>
+
+      <div class="quiz" data-quiz>
+        <noscript>
+          <p>O quiz precisa de JavaScript ativado no navegador. Enquanto isso, você pode praticar com os <a href={rotas.exercicios}>exercícios do manual</a>.</p>
+        </noscript>
+
+        <section data-tela="questao" hidden aria-label="Questão">
+          <div class="quiz__topo">
+            <p class="quiz__contador" data-contador></p>
+            <span class="barra quiz__barra" aria-hidden="true"><span data-barra></span></span>
+          </div>
+          <div class="quiz__tempo" data-tempo hidden>
+            <span class="quiz__tempo-rotulo">Modo desafio</span>
+            <span class="barra quiz__tempo-barra" aria-hidden="true"><span data-tempo-barra></span></span>
+            <span class="quiz__tempo-texto" data-tempo-texto>60 s</span>
+            <span class="visualmente-oculto" data-tempo-aviso aria-live="assertive"></span>
+          </div>
+          <h1 class="quiz__enunciado" data-enunciado tabindex="-1"></h1>
+          <ol class="quiz__alternativas" data-alternativas></ol>
+          <div class="quiz__retorno" id="quiz-retorno" data-feedback aria-live="polite"></div>
+          <div class="quiz__acoes">
+            <button type="button" class="botao-principal" data-avancar hidden>Próxima questão</button>
+          </div>
+          <p class="quiz__dica">Dica: use as teclas A, B, C e D para responder.</p>
+        </section>
+
+        <section class="res" data-tela="resultado" hidden tabindex="-1" aria-label="Resultado"></section>
+      </div>
+  </Livro>
+</Base>
+
+<script type="application/json" id="dados-quiz" set:html={JSON.stringify(dados).replace(/</g, '\\u003c')} />
+
+<script>
+  import { iniciarQuiz } from '../../scripts/quiz';
+  document.addEventListener('astro:page-load', iniciarQuiz);
+</script>

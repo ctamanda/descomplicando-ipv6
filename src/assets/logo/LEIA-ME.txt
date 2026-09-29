@@ -1,0 +1,17 @@
+Logo Descomplicando o IPv6 - arquivos
+
+Cores: azul-marinho #123C6B, verde #2FB36A, amarelo #F2B705. Fontes: Fraunces (título) e Manrope (texto), Google Fonts.
+
+logo-icone.svg                       símbolo sozinho, fundo claro (use no cabeçalho do site, ao lado do nome)
+logo-icone-fundo-escuro.svg          símbolo para fundo azul/escuro
+logo-horizontal.svg                  símbolo + "Descomplicando o IPv6", fundo claro
+logo-horizontal-fundo-escuro.svg     idem para fundo escuro (modo escuro do site)
+logo-horizontal-1240.png             versão PNG das duas acima
+logo-horizontal-fundo-escuro-1240.png
+favicon.ico                          favicon clássico (16, 32 e 48 px)
+favicon-16.png ... favicon-512.png   favicon em PNG por tamanho (o 192 e o 512 servem para o manifest do site)
+apple-touch-icon-180.png             ícone para iPhone/iPad (fundo branco)
+imagem-compartilhamento-1200x630.png imagem que aparece ao compartilhar o link (og:image)
+
+Os SVG usam as fontes pelo nome; no site elas já são carregadas do Google Fonts, então renderizam certo.
+Onde colocar no projeto do Claude Code: pasta public/ (favicons e imagem de compartilhamento) e src/assets/ (logos SVG).

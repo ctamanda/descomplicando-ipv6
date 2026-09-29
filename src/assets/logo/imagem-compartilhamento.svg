@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+<rect width="1200" height="630" fill="#123c6b"/>
+<rect x="0" y="0" width="28" height="210" fill="#2fb36a"/><rect x="0" y="210" width="28" height="210" fill="#ffffff"/><rect x="0" y="420" width="28" height="210" fill="#f2b705"/>
+<g transform="translate(110 200) scale(1.9)">
+<circle cx="56" cy="56" r="44" fill="none" stroke="#ffffff" stroke-width="7"/>
+<ellipse cx="56" cy="56" rx="18" ry="44" fill="none" stroke="#ffffff" stroke-width="4" opacity="0.5"/>
+<line x1="12" y1="56" x2="100" y2="56" stroke="#ffffff" stroke-width="4" opacity="0.5"/>
+<path d="M18 34 Q56 46 94 34" fill="none" stroke="#ffffff" stroke-width="4" opacity="0.5"/>
+<path d="M18 78 Q56 66 94 78" fill="none" stroke="#ffffff" stroke-width="4" opacity="0.5"/>
+<g stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round"><line x1="30" y1="40" x2="62" y2="27"/><line x1="62" y1="27" x2="84" y2="44"/><line x1="30" y1="40" x2="42" y2="70"/><line x1="42" y1="70" x2="84" y2="44"/></g>
+<circle cx="62" cy="27" r="8" fill="#f2b705"/><circle cx="30" cy="40" r="7" fill="#2fb36a"/><circle cx="84" cy="44" r="7" fill="#2fb36a"/><circle cx="42" cy="70" r="8" fill="#f2b705"/>
+<circle cx="88" cy="88" r="26" fill="#f2b705" stroke="#123c6b" stroke-width="5"/>
+<text x="88" y="97" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-weight="800" font-size="26" fill="#123c6b">v6</text>
+</g>
+<text x="380" y="270" font-family="Manrope, system-ui, sans-serif" font-weight="800" font-size="26" letter-spacing="9" fill="#ffffff">DESCOMPLICANDO</text>
+<text x="374" y="390" font-family="Fraunces, Georgia, serif" font-weight="800" font-size="130" letter-spacing="-4" fill="#ffffff">o IPv6</text>
+<text x="382" y="450" font-family="Manrope, system-ui, sans-serif" font-weight="500" font-size="30" fill="#d6e3f3">Um guia interativo de redes</text>
+</svg>

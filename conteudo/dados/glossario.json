@@ -1,0 +1,395 @@
+[
+  {
+    "termo": "/64",
+    "definicao": "Divisão padrão de um endereço IPv6 em que os 64 primeiros bits são o prefixo de rede e os 64 últimos são o identificador de interface. É o tamanho de toda rede IPv6 com dispositivos, porque os 64 bits livres permitem que cada dispositivo gere o próprio identificador sem risco de colisão.",
+    "secao": "4.3"
+  },
+  {
+    "termo": "6rd",
+    "definicao": "Túnel automático operado pelo próprio provedor para dar IPv6 a quem só tem IPv4. É usado por algumas operadoras como etapa intermediária.",
+    "secao": "6.5"
+  },
+  {
+    "termo": "6to4",
+    "definicao": "Túnel automático que carregava IPv6 dentro de IPv4 usando o bloco 2002::/16. Hoje é obsoleto: se aparecer, é sinal de configuração antiga que deve ser removida.",
+    "secao": "6.5"
+  },
+  {
+    "termo": "agregação",
+    "sinonimos": [
+      "agregação de rotas"
+    ],
+    "definicao": "Anúncio de um único prefixo grande no lugar de muitas redes pequenas, possível porque os prefixos IPv6 são distribuídos de forma hierárquica. É o que mantém as tabelas de roteamento globais em tamanho administrável.",
+    "secao": "6.4"
+  },
+  {
+    "termo": "anycast",
+    "definicao": "Tipo de endereço que identifica um grupo de interfaces, mas o pacote é entregue apenas à mais próxima de quem enviou. Vários servidores em lugares diferentes compartilham o mesmo endereço, como nos servidores raiz do DNS.",
+    "secao": "2.5"
+  },
+  {
+    "termo": "BGP",
+    "definicao": "Protocolo de roteamento usado entre organizações, na Internet inteira: é por ele que cada provedor anuncia aos outros quais prefixos são seus. No IPv6 é o mesmo protocolo, carregando prefixos IPv6 com MP-BGP.",
+    "secao": "6.4"
+  },
+  {
+    "termo": "cabeçalho",
+    "definicao": "Parte do pacote com os dados de controle, como o endereço de origem e o de destino. No IPv6 ele tem tamanho fixo de 40 bytes, e as funções opcionais vão em cabeçalhos de extensão.",
+    "secao": "1.2"
+  },
+  {
+    "termo": "CGNAT",
+    "definicao": "NAT feito na rede do próprio provedor, que coloca centenas de clientes atrás de um único endereço público. O roteador de casa passa a ter um endereço privado do provedor, traduzido de novo, o que traz mais lentidão e falhas.",
+    "secao": "1.6"
+  },
+  {
+    "termo": "CIDR",
+    "definicao": "Técnica que permitiu distribuir blocos de endereços IPv4 de qualquer tamanho, no lugar dos antigos blocos de tamanho fixo, usando a notação com barra. Foi um dos remendos que ajudaram a adiar o esgotamento do IPv4.",
+    "secao": "1.6"
+  },
+  {
+    "termo": "DAD",
+    "sinonimos": [
+      "Duplicate Address Detection",
+      "detecção de endereço duplicado"
+    ],
+    "definicao": "Verificação obrigatória em que o dispositivo, antes de usar um endereço, envia um Neighbor Solicitation perguntando por ele, com origem ::. Se ninguém responder em cerca de um segundo, o endereço é adotado.",
+    "secao": "5.1"
+  },
+  {
+    "termo": "delegação de prefixo",
+    "sinonimos": [
+      "Prefix Delegation"
+    ],
+    "definicao": "Modo do DHCPv6 em que o provedor entrega ao roteador do cliente um bloco inteiro, tipicamente um /56, que o roteador divide em redes /64 e anuncia nas redes internas.",
+    "secao": "5.3"
+  },
+  {
+    "termo": "DHCP",
+    "definicao": "Protocolo que empresta endereços IPv4 aos dispositivos por um tempo e os recolhe quando eles saem da rede. No IPv4 é o único jeito automático de configurar um dispositivo.",
+    "secao": "1.6"
+  },
+  {
+    "termo": "DHCPv6",
+    "definicao": "Versão do DHCP para IPv6. É opcional e convive com o SLAAC: as bandeiras do Router Advertisement dizem se o dispositivo deve usá-lo para obter o endereço (stateful) ou só outras informações, como o DNS (stateless).",
+    "secao": "5.3"
+  },
+  {
+    "termo": "DNS",
+    "sinonimos": [
+      "servidor DNS"
+    ],
+    "definicao": "Serviço que traduz nomes, como google.com, em endereços IP. Sem ele, seria preciso decorar os números.",
+    "secao": "1.5"
+  },
+  {
+    "termo": "DNS64",
+    "definicao": "Servidor DNS que, quando um site só tem registro A, cria um registro AAAA colocando o endereço IPv4 dentro de um prefixo especial, normalmente 64:ff9b::/96. Trabalha em dupla com o NAT64.",
+    "secao": "6.5"
+  },
+  {
+    "termo": "DS-Lite",
+    "definicao": "Mecanismo de transição que carrega IPv4 dentro de IPv6, usado por provedores cuja rede interna já é só IPv6 e que precisam levar IPv4 aos clientes.",
+    "secao": "6.5"
+  },
+  {
+    "termo": "endereço IP",
+    "sinonimos": [
+      "endereços IP"
+    ],
+    "definicao": "Número que identifica um dispositivo dentro de uma rede. Ele é atribuído à interface de rede, e é por ele que os pacotes encontram o caminho até o destino.",
+    "secao": "1.3"
+  },
+  {
+    "termo": "endereço MAC",
+    "sinonimos": [
+      "endereço físico"
+    ],
+    "definicao": "Número gravado pelo fabricante em cada placa de rede, usado para os dispositivos se reconhecerem dentro da mesma rede local. O MAC identifica a placa; o endereço IP diz onde ela está na rede.",
+    "secao": "1.3"
+  },
+  {
+    "termo": "endereço não especificado",
+    "definicao": "Endereço representado por ::, com todos os bits em zero. É usado como origem quando o dispositivo ainda não tem endereço, por exemplo ao conferir se um endereço já está em uso, e nunca é destino.",
+    "secao": "3.7"
+  },
+  {
+    "termo": "enlace",
+    "definicao": "Conjunto de dispositivos conectados diretamente entre si, sem roteador no meio, como todos os que estão ligados ao mesmo Wi-Fi ou ao mesmo switch.",
+    "secao": "3.8"
+  },
+  {
+    "termo": "EUI-64",
+    "definicao": "Método que deriva o identificador de interface do endereço MAC: nos 48 bits do MAC se insere fffe no meio e se inverte um bit, chegando a 64 bits. É reconhecível pelo ff:fe no meio e foi abandonado nos dispositivos de usuário por questões de privacidade.",
+    "secao": "4.5"
+  },
+  {
+    "termo": "gateway",
+    "sinonimos": [
+      "gateway padrão"
+    ],
+    "definicao": "Roteador para onde um dispositivo envia todo pacote cujo destino não está na sua própria rede. No IPv6 ele é descoberto pelo Router Advertisement, e seu endereço é normalmente o link-local do roteador.",
+    "secao": "5.4"
+  },
+  {
+    "termo": "global unicast",
+    "sinonimos": [
+      "endereço global",
+      "endereços globais"
+    ],
+    "definicao": "Endereço público do IPv6, roteável na Internet, que começa com 2 ou 3 (bloco 2000::/3). O dispositivo o monta a partir do prefixo anunciado pelo roteador.",
+    "secao": "3.7"
+  },
+  {
+    "termo": "Happy Eyeballs",
+    "definicao": "Técnica usada pelos navegadores que tenta IPv6 e IPv4 quase ao mesmo tempo e fica com o que responder primeiro, com uma pequena vantagem para o IPv6.",
+    "secao": "5.5"
+  },
+  {
+    "termo": "hexadecimal",
+    "definicao": "Sistema de numeração com dezesseis símbolos: os dígitos de 0 a 9 e as letras de a a f. Cada dígito hexadecimal representa 4 bits, por isso cada grupo de quatro dígitos de um endereço IPv6 tem 16 bits.",
+    "secao": "3.3"
+  },
+  {
+    "termo": "Hop Limit",
+    "sinonimos": [
+      "limite de saltos"
+    ],
+    "definicao": "Campo do cabeçalho IPv6 equivalente ao TTL do IPv4: cada roteador diminui seu valor em 1 e, quando chega a zero, o pacote é descartado. Isso impede que um pacote perdido circule para sempre.",
+    "secao": "2.4"
+  },
+  {
+    "termo": "host",
+    "definicao": "Cada dispositivo ligado a uma rede, como um computador, um celular ou uma impressora. Também é chamado de nó.",
+    "secao": "1.1"
+  },
+  {
+    "termo": "ICMPv6",
+    "definicao": "Protocolo de mensagens de controle do IPv6. Além de erros e ping, ele carrega o NDP, por isso é indispensável: bloquear o ICMPv6 faz a rede parar de funcionar.",
+    "secao": "5.1"
+  },
+  {
+    "termo": "identificador de interface",
+    "sinonimos": [
+      "IID"
+    ],
+    "definicao": "Os 64 bits finais de um endereço IPv6, que dizem qual dispositivo é dentro da rede. Pode ser escolhido manualmente, gerado aleatoriamente pelo dispositivo (o padrão hoje) ou derivado do endereço MAC (EUI-64).",
+    "secao": "4.5"
+  },
+  {
+    "termo": "interface de rede",
+    "definicao": "Placa de Wi-Fi ou porta de cabo de um dispositivo, à qual o endereço IP é atribuído. Um dispositivo com mais de uma interface pode ter mais de um endereço IP.",
+    "secao": "1.3"
+  },
+  {
+    "termo": "IPv4",
+    "definicao": "Versão 4 do protocolo IP, definida em 1981, com endereços de 32 bits escritos como quatro números de 0 a 255 separados por ponto. Tem cerca de 4,3 bilhões de endereços, que já se esgotaram.",
+    "secao": "1.4"
+  },
+  {
+    "termo": "IPv6",
+    "definicao": "Versão atual do protocolo IP, com endereços de 128 bits, quatro vezes o tamanho dos do IPv4. Não é só um IPv4 maior: o protocolo foi redesenhado, com cabeçalho mais simples, configuração automática e sem necessidade de NAT.",
+    "secao": "2.1"
+  },
+  {
+    "termo": "link-local",
+    "definicao": "Endereço que começa com fe80::/10, criado sozinho por toda interface IPv6 ao ser ativada e válido apenas dentro do enlace. Nunca é roteado para fora, e é por ele que o dispositivo conversa com o roteador durante a autoconfiguração.",
+    "secao": "3.8"
+  },
+  {
+    "termo": "loopback",
+    "definicao": "Endereço ::1, que aponta para o próprio dispositivo, equivalente ao 127.0.0.1 do IPv4. Serve para testar se a pilha IPv6 do sistema está funcionando.",
+    "secao": "3.7"
+  },
+  {
+    "termo": "máscara de rede",
+    "definicao": "No IPv4, indica quantos bits do endereço identificam a rede; o restante identifica o dispositivo. A mais comum em casa é 255.255.255.0, que na notação com barra se escreve /24.",
+    "secao": "1.5"
+  },
+  {
+    "termo": "mecanismos de transição",
+    "sinonimos": [
+      "mecanismo de transição"
+    ],
+    "definicao": "Técnicas que permitem a convivência entre IPv4 e IPv6, que não conseguem falar diretamente um com o outro. Funcionam de três formas: pilha dupla, túneis e tradução.",
+    "secao": "6.5"
+  },
+  {
+    "termo": "multicast",
+    "definicao": "Tipo de endereço que identifica um grupo de interfaces: o pacote é entregue a todas as que fazem parte do grupo. Substitui o broadcast do IPv4, e seus endereços começam com ff.",
+    "secao": "2.5"
+  },
+  {
+    "termo": "NAT",
+    "definicao": "Técnica que permite que toda a rede de uma casa use um único endereço público: o roteador troca o endereço privado de cada dispositivo pelo público na saída e faz a troca inversa na volta. Ela quebrou a comunicação direta entre dispositivos e deixa de ser necessária no IPv6.",
+    "secao": "1.6"
+  },
+  {
+    "termo": "NAT64",
+    "definicao": "Mecanismo de tradução que permite a uma rede só IPv6 acessar servidores só IPv4: um roteador NAT64 reconhece o prefixo especial, extrai o endereço IPv4 de dentro dele e traduz o pacote para IPv4. Funciona em dupla com o DNS64.",
+    "secao": "6.5"
+  },
+  {
+    "termo": "NDP",
+    "sinonimos": [
+      "Neighbor Discovery Protocol",
+      "Neighbor Discovery",
+      "descoberta de vizinhos"
+    ],
+    "definicao": "Conjunto de mensagens ICMPv6 pelas quais os dispositivos descobrem roteadores, prefixos, vizinhos e endereços duplicados. Substitui o ARP do IPv4, usando multicast em vez de broadcast.",
+    "secao": "5.1"
+  },
+  {
+    "termo": "Neighbor Advertisement",
+    "definicao": "Mensagem do NDP enviada em resposta a um Neighbor Solicitation, dizendo que o endereço procurado é do dispositivo e informando o seu endereço MAC.",
+    "secao": "5.1"
+  },
+  {
+    "termo": "Neighbor Solicitation",
+    "sinonimos": [
+      "NS"
+    ],
+    "definicao": "Mensagem do NDP enviada quando um dispositivo precisa do endereço MAC de um vizinho, dirigida ao grupo solicited-node do endereço procurado. Também é usada para conferir se um endereço já está em uso.",
+    "secao": "5.1"
+  },
+  {
+    "termo": "OSPFv3",
+    "definicao": "Versão para IPv6 do OSPF, protocolo de roteamento dinâmico usado dentro de uma organização, como um campus ou um provedor, para descobrir o melhor caminho na rede.",
+    "secao": "6.4"
+  },
+  {
+    "termo": "pacote",
+    "definicao": "Unidade de informação que circula na rede. Tem um cabeçalho, com dados de controle como remetente e destinatário, e um corpo, com o conteúdo em si.",
+    "secao": "1.2"
+  },
+  {
+    "termo": "Path MTU Discovery",
+    "definicao": "Mecanismo obrigatório no IPv6: quando um pacote é grande demais para o caminho, o roteador devolve um erro ICMPv6 com o tamanho máximo e a origem passa a enviar pacotes menores. Depende de essa mensagem de erro não ser bloqueada por firewall.",
+    "secao": "6.4"
+  },
+  {
+    "termo": "pilha dupla",
+    "sinonimos": [
+      "dual stack"
+    ],
+    "definicao": "Mecanismo de transição em que o dispositivo tem endereço IPv4 e endereço IPv6 e usa um ou outro conforme o destino. É o mais simples e o mais comum, mas não reduz o consumo de endereços IPv4.",
+    "secao": "6.5"
+  },
+  {
+    "termo": "prefixo",
+    "sinonimos": [
+      "prefixo de rede"
+    ],
+    "definicao": "Parte inicial de um endereço IPv6 que identifica a rede, escrita com uma barra, como em /64. Um prefixo nomeia um intervalo de endereços: todos os que começam com aqueles bits.",
+    "secao": "4.1"
+  },
+  {
+    "termo": "RDNSS",
+    "sinonimos": [
+      "Recursive DNS Server"
+    ],
+    "definicao": "Opção do Router Advertisement que informa os servidores DNS na mesma mensagem que anuncia o prefixo. É o jeito mais simples de o dispositivo descobrir o DNS no IPv6.",
+    "secao": "5.5"
+  },
+  {
+    "termo": "rede",
+    "sinonimos": [
+      "rede de computadores"
+    ],
+    "definicao": "Conjunto de dispositivos conectados entre si que conseguem trocar informação. A Internet não é uma rede única, mas uma rede de redes.",
+    "secao": "1.1"
+  },
+  {
+    "termo": "registro AAAA",
+    "sinonimos": [
+      "registros AAAA",
+      "AAAA"
+    ],
+    "definicao": "Tipo de registro do DNS que guarda um endereço IPv6, enquanto o registro A guarda um IPv4. Um site que tem registro AAAA é acessível por IPv6.",
+    "secao": "5.5"
+  },
+  {
+    "termo": "rota padrão",
+    "definicao": "Entrada ::/0 da tabela de rotas, que combina com qualquer destino e é usada quando nenhuma outra rota serve. Ela aponta para o gateway.",
+    "secao": "6.1"
+  },
+  {
+    "termo": "roteador",
+    "definicao": "Dispositivo que recebe a informação de um dispositivo e a encaminha na direção certa, ligando redes diferentes. Por isso ele tem pelo menos um endereço em cada rede que conecta.",
+    "secao": "1.1"
+  },
+  {
+    "termo": "roteamento",
+    "definicao": "Processo de decidir, em cada roteador, por qual interface e para qual próximo roteador um pacote deve seguir para chegar ao destino, consultando a tabela de rotas.",
+    "secao": "6.1"
+  },
+  {
+    "termo": "Router Advertisement",
+    "sinonimos": [
+      "RA"
+    ],
+    "definicao": "Mensagem do NDP em que o roteador anuncia sua presença e o prefixo da rede e se oferece como gateway, enviada em resposta a um Router Solicitation e também periodicamente. Pode carregar ainda os servidores DNS e as bandeiras que dizem se o dispositivo deve usar DHCPv6.",
+    "secao": "5.1"
+  },
+  {
+    "termo": "Router Solicitation",
+    "sinonimos": [
+      "RS"
+    ],
+    "definicao": "Mensagem do NDP que o dispositivo envia ao entrar na rede para perguntar se existe algum roteador. Vai para o grupo multicast ff02::2, e só os roteadores a recebem.",
+    "secao": "5.1"
+  },
+  {
+    "termo": "SLAAC",
+    "sinonimos": [
+      "Stateless Address Autoconfiguration",
+      "autoconfiguração"
+    ],
+    "definicao": "Processo pelo qual um dispositivo IPv6 monta o próprio endereço global a partir do prefixo anunciado pelo roteador, sem precisar de servidor DHCP. Stateless significa que nenhum servidor guarda registro de quem tem qual endereço.",
+    "secao": "5.2"
+  },
+  {
+    "termo": "solicited-node",
+    "sinonimos": [
+      "solicited-node multicast"
+    ],
+    "definicao": "Grupo multicast calculado a partir de um endereço, no qual praticamente só o dono daquele endereço está inscrito. O Neighbor Solicitation é enviado para esse grupo, de modo que a pergunta chega quase só a quem deve responder.",
+    "secao": "2.5"
+  },
+  {
+    "termo": "tabela de rotas",
+    "definicao": "Lista que associa prefixos de destino ao próximo salto e à interface por onde encaminhar. Quando várias entradas combinam com o destino, o roteador escolhe a de prefixo mais longo.",
+    "secao": "6.1"
+  },
+  {
+    "termo": "tamanho do prefixo",
+    "definicao": "Quantidade de bits, contados da esquerda, que pertencem ao prefixo de um endereço. Escreve-se depois de uma barra: /64 significa que os 64 primeiros bits são a rede.",
+    "secao": "4.1"
+  },
+  {
+    "termo": "Teredo",
+    "definicao": "Túnel automático para IPv6, hoje obsoleto. Se aparecer, é sinal de configuração antiga que deve ser removida.",
+    "secao": "6.5"
+  },
+  {
+    "termo": "túnel",
+    "sinonimos": [
+      "túneis"
+    ],
+    "definicao": "Mecanismo de transição que encapsula pacotes de um protocolo dentro de pacotes do outro, para atravessar um trecho da rede que só fala um deles. Os mais conhecidos carregam IPv6 dentro de IPv4.",
+    "secao": "6.5"
+  },
+  {
+    "termo": "unicast",
+    "definicao": "Tipo de endereço que identifica uma única interface: o pacote é entregue a ela. Os endereços globais, link-local e unique local são unicast.",
+    "secao": "2.5"
+  },
+  {
+    "termo": "unique local (ULA)",
+    "sinonimos": [
+      "ULA"
+    ],
+    "definicao": "Endereço equivalente ao privado do IPv4: vale dentro de uma organização e não é roteado na Internet. Pertence ao bloco fc00::/7, mas na prática usa-se sempre a metade que começa com fd.",
+    "secao": "3.7"
+  }
+]

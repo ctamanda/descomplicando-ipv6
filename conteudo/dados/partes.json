@@ -1,0 +1,32 @@
+[
+  {
+    "numero": 1,
+    "titulo": "Introdução às redes",
+    "descricao": "As ideias básicas de redes, explicadas do zero: o que é uma rede, como os pacotes viajam, o que é um endereço IP e por que o IPv4 acabou."
+  },
+  {
+    "numero": 2,
+    "titulo": "Conhecendo o IPv6",
+    "descricao": "O que é o IPv6, de onde ele veio e o que muda em relação ao IPv4."
+  },
+  {
+    "numero": 3,
+    "titulo": "Endereçamento IPv6",
+    "descricao": "Ler, abreviar e expandir endereços IPv6 sem errar, e reconhecer se um endereço é global, local, multicast ou especial."
+  },
+  {
+    "numero": 4,
+    "titulo": "Prefixos e sub-redes",
+    "descricao": "O que é um prefixo, o que a barra significa, como separar rede de dispositivo e como dividir um bloco em sub-redes."
+  },
+  {
+    "numero": 5,
+    "titulo": "IPv6 na prática",
+    "descricao": "O IPv6 funcionando: descoberta de vizinhos, autoconfiguração, DHCPv6, DNS, gateway e verificação no Windows e no Linux."
+  },
+  {
+    "numero": 6,
+    "titulo": "Roteamento e coexistência",
+    "descricao": "Como um pacote atravessa a Internet e como o IPv6 convive com o IPv4, com o caminho para continuar estudando."
+  }
+]

@@ -1,0 +1,47 @@
+---
+import { render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import Livro from '../../../components/livro/Livro.astro';
+import { getPartes, getSecoes } from '../../../lib/conteudo/manual';
+import { rotas } from '../../../lib/rotas';
+
+export async function getStaticPaths() {
+  const [partes, secoes] = await Promise.all([getPartes(), getSecoes()]);
+  return partes.map((parte) => ({ params: { parte: parte.id }, props: { parte, secoes } }));
+}
+
+const { parte, secoes } = Astro.props;
+const { numero, titulo } = parte.data;
+const { Content } = await render(parte);
+const daParte = secoes.filter((s) => s.data.parte === numero);
+---
+<Base titulo={`Parte ${numero}, ${titulo}`} descricao={`Abertura da Parte ${numero} do manual: ${titulo}.`} atual={parte.id}>
+  <Livro chave={parte.id} cabecaEsq="Descomplicando o IPv6" cabecaDir={`Parte ${numero} · ${titulo}`}>
+    <header class="abertura">
+      <p class="abertura__numero" aria-hidden="true">{numero}</p>
+      <p class="chapeu">Parte {numero}</p>
+      <h1 class="titulo-parte">{titulo}</h1>
+    </header>
+
+    <section class="prosa" aria-labelledby="antes-de-comecar">
+      <h2 class="abertura__subtitulo" id="antes-de-comecar">Antes de começar</h2>
+      <Content />
+    </section>
+
+    <section class="abertura__secoes" aria-labelledby="nesta-parte">
+      <h2 class="abertura__subtitulo" id="nesta-parte">Nesta parte</h2>
+      <ol class="lista-secoes">
+        {daParte.map((s) => (
+          <li>
+            <a href={rotas.secao(s.data)} data-secao-id={s.id}>
+              <span class="marcador" aria-hidden="true"></span>
+              <span class="lista-secoes__num">{s.data.numero}</span>
+              <span>{s.data.titulo}</span>
+              <span class="visualmente-oculto" data-estado></span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+  </Livro>
+</Base>
