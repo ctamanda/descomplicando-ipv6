@@ -134,7 +134,9 @@
 
   .js .livro__texto {
     height: 100%;
-    columns: var(--colunas);
+    /* A largura mínima (1px) não muda nada no cálculo, mas é necessária: o Safari
+       ignora `columns: 1` com largura automática e não pagina (cortava o texto). */
+    columns: var(--colunas) 1px;
     column-gap: calc(2 * var(--margem));
     column-fill: auto;
     overflow: hidden;
@@ -395,6 +397,25 @@
   .controles__regua {
     grid-column: 1 / -1;
     grid-row: 2;
+  }
+}
+/* Celular estreito (iPhone SE): o Sumário vira só o ícone para as setas caberem */
+@media (max-width: 24rem) {
+  .js .controles {
+    gap: 0.75rem 0.5rem;
+  }
+  .controles__sumario {
+    width: 2.5rem;
+    padding: 0;
+    justify-content: center;
+  }
+  .controles__sumario span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }
 

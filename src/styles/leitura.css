@@ -23,6 +23,14 @@
   }
 }
 
+/* No celular, o livro ocupa a tela inteira e não rola: o rodapé sairia por baixo
+   da barra de páginas (os mesmos links estão no menu ☰). */
+@media screen and (min-height: 30rem) and (max-width: 47.99rem) {
+  .js body:has(.leitura) .rodape {
+    display: none;
+  }
+}
+
 /* ---------- Capa (livro fechado, página inicial) ---------- */
 .capa {
   display: flex;
