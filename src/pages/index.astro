@@ -41,7 +41,7 @@ const etapas = [
           <span class="capa__verso" aria-hidden="true"></span>
         </a>
       </div>
-      <p class="inicio__dica" aria-hidden="true">Toque na capa para abrir</p>
+      <p class="inicio__dica" aria-hidden="true"><span class="inicio__dica-toque">Toque</span><span class="inicio__dica-clique">Clique</span> na capa para abrir</p>
     </div>
 
     <!-- A abertura -->
@@ -188,8 +188,10 @@ const etapas = [
     align-items: center;
     gap: 1rem;
   }
+  /* A capa cabe inteira na tela, com a dica logo abaixo (a largura sai da
+     altura disponível pela proporção da capa, 1929 × 2721) */
   .inicio__mesa .capa__livro {
-    width: min(100%, 26rem);
+    width: min(100%, 26rem, calc((100dvh - var(--cabecalho) - 9rem) * 1929 / 2721));
     height: auto;
     max-height: none;
   }
@@ -201,7 +203,20 @@ const etapas = [
   .inicio__dica {
     margin: 0;
     color: var(--texto-2);
-    font-size: 0.82rem;
+    font-size: 0.9rem;
+  }
+
+  /* "Clique" com mouse, "Toque" no celular */
+  .inicio__dica-clique {
+    display: none;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .inicio__dica-toque {
+      display: none;
+    }
+    .inicio__dica-clique {
+      display: inline;
+    }
   }
 
   .inicio__texto {
