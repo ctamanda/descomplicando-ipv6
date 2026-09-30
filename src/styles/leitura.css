@@ -23,9 +23,16 @@
   }
 }
 
-/* No celular, o livro ocupa a tela inteira e não rola: o rodapé sairia por baixo
-   da barra de páginas (os mesmos links estão no menu ☰). */
+/* No celular, a leitura é como num app de livros: a tela fica parada e só as
+   páginas mudam (deslizando para os lados). Sem rolagem do site nem rodapé por
+   baixo da barra de páginas; os links do rodapé estão no menu ☰. */
 @media screen and (min-height: 30rem) and (max-width: 47.99rem) {
+  html.js:has(.leitura),
+  html.js:has(.leitura) body {
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
   .js body:has(.leitura) .rodape {
     display: none;
   }

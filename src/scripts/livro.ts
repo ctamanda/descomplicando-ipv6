@@ -44,11 +44,16 @@ export function iniciarLivro() {
     // cortaria 1px da borda direita de tabelas e caixas.
     texto!.style.width = '';
     texto!.style.columnGap = '';
+    texto!.style.columnWidth = '';
     const vao = Math.round(parseFloat(estilo.columnGap) || 0);
     const largura = Math.floor(texto!.getBoundingClientRect().width);
     texto!.style.width = `${largura}px`;
     texto!.style.columnGap = `${vao}px`;
     const larguraColuna = (largura - vao * (colunas - 1)) / colunas;
+    // Largura da coluna explícita, em px (como fazem os leitores de EPUB): o Safari
+    // do iPhone não pagina uma coluna só com largura automática. 1px a menos para o
+    // arredondamento nunca derrubar o livro aberto para uma coluna.
+    texto!.style.columnWidth = `${Math.max(1, Math.floor(larguraColuna) - 1)}px`;
     livro!.dataset.colunas = String(colunas);
 
     // No livro aberto, um total ímpar de colunas deixaria a última virada torta.
@@ -253,7 +258,7 @@ export function iniciarLivro() {
   observador.observe(livro);
   MODO_LIVRO.addEventListener('change', () => {
     if (ativo()) return recalcular();
-    texto.style.width = texto.style.columnGap = '';
+    texto.style.width = texto.style.columnGap = texto.style.columnWidth = '';
     texto.scrollTo({ left: 0 });
   }, { signal });
   window.addEventListener('hashchange', () => ativo() && irParaHash(true), { signal });
@@ -266,9 +271,31 @@ export function iniciarLivro() {
   // Deixa a página anterior e a seguinte já baixadas: a virada não espera a rede
   [anterior, proxima].forEach((href) => href && prefetch(href.split('#')[0]));
 
+  if (new URLSearchParams(location.search).has('diagnostico')) mostrarDiagnostico(texto, status);
+
   document.fonts?.ready.then(() => {
     if (signal.aborted) return;
     recalcular();
     irParaHash(false);
   });
+}
+
+/** Painel temporário (?diagnostico) para descobrir o que o celular calcula. */
+function mostrarDiagnostico(texto: HTMLElement, status: HTMLElement) {
+  const painel = document.createElement('pre');
+  painel.style.cssText =
+    'position:fixed;left:4px;right:4px;top:4px;z-index:99;margin:0;padding:6px;font:11px/1.35 monospace;white-space:pre-wrap;background:#000c;color:#fff;border-radius:6px;pointer-events:none';
+  document.body.append(painel);
+  const atualizar = () => {
+    const s = getComputedStyle(texto);
+    painel.textContent = [
+      navigator.userAgent,
+      `tela ${innerWidth}x${innerHeight} · livro ${MODO_LIVRO.matches} · doc ${document.documentElement.scrollHeight}`,
+      `colunas ${s.columnCount} · larg. col ${s.columnWidth} · vão ${s.columnGap} · overflow ${s.overflow}`,
+      `texto ${texto.clientWidth}x${texto.clientHeight} · scrollWidth ${texto.scrollWidth} · scrollHeight ${texto.scrollHeight}`,
+      status.textContent,
+    ].join('\n');
+  };
+  atualizar();
+  setInterval(atualizar, 1000);
 }

@@ -719,3 +719,46 @@
 .livro__copia {
   contain: layout style;
 }
+
+/* ---------- Celular: leitura em tela cheia, como num app de livros ---------- */
+@media screen and (min-height: 30rem) and (max-width: 36rem) {
+  /* Pouca mesa em volta: a folha ocupa quase a tela toda */
+  .js .mesa {
+    padding: 0.5rem 0.5rem 0.6rem;
+  }
+  .js .livro {
+    --margem: 1.25rem;
+    --margem-topo: 2.4rem;
+    --margem-base: 2.1rem;
+    border-radius: 4px;
+    /* o dedo na página só vira a folha (e amplia, se quiser); não arrasta o site */
+    touch-action: pan-x pinch-zoom;
+  }
+  .js .livro__pilha {
+    display: none;
+  }
+  /* Página pequena: caixas grandes continuam na página seguinte em vez de pular
+     inteiras e deixar meia página em branco */
+  .js .livro .livro__texto :is(.bloco, .exercicio, .fim-secao, .res__errada) {
+    break-inside: auto;
+  }
+
+  /* Barra de páginas compacta: régua fina em cima, botões numa linha só */
+  .js .controles {
+    gap: 0.2rem 0.75rem;
+    min-height: 0;
+    padding: 0.3rem 0.75rem calc(0.4rem + env(safe-area-inset-bottom));
+  }
+  .controles__regua {
+    grid-row: 1;
+    height: 1.1rem;
+    margin: 0;
+  }
+  .controles__sumario,
+  .controles__setas .botao-icone {
+    height: 2.4rem;
+  }
+  .controles__setas .botao-icone {
+    width: 2.4rem;
+  }
+}
