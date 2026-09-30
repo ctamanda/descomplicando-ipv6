@@ -78,8 +78,9 @@ export function iniciarLivro() {
     const primeira = atual * colunas + 1;
     const ultima = Math.min(primeira + colunas - 1, totalPaginas);
     const paginas = ultima > primeira ? `págs. ${primeira} e ${ultima}` : `pág. ${primeira}`;
-    status.innerHTML = `<strong>${numero}</strong> · ${paginas} de ${totalPaginas}`;
+    status.innerHTML = `<strong>${numero}</strong><span class="controles__sep"> · </span>${paginas} de ${totalPaginas}`;
     regua.value = String(atual + 1);
+    regua.style.setProperty('--progresso', `${totalViradas > 1 ? (atual / (totalViradas - 1)) * 100 : 0}%`);
     regua.setAttribute('aria-valuetext', `${paginas} de ${totalPaginas}`);
     numEsq.textContent = String(primeira);
     numDir.textContent = colunas === 2 ? (ultima > primeira ? String(ultima) : '') : String(primeira);
@@ -156,6 +157,19 @@ export function iniciarLivro() {
     }
     e.preventDefault();
     navegarFolheando(a.href);
+  });
+
+  // Toque nas laterais da página (celular, como no app de livros): direita avança, esquerda volta
+  const TOQUE = window.matchMedia('(hover: none) and (pointer: coarse)');
+  livro.addEventListener('click', (e) => {
+    if (!TOQUE.matches || !ativo() || e.defaultPrevented) return;
+    const alvo = e.target as Element;
+    if (alvo.closest('a, button, input, select, textarea, label, summary, details[open], [tabindex]:not([tabindex="-1"]), .tabela, .abas')) return;
+    if (getSelection()?.toString()) return;
+    const caixa = livro!.getBoundingClientRect();
+    const x = (e.clientX - caixa.left) / caixa.width;
+    if (x > 0.7) avancar();
+    else if (x < 0.3) voltar();
   });
 
   // Cantos da página
@@ -271,8 +285,6 @@ export function iniciarLivro() {
   // Deixa a página anterior e a seguinte já baixadas: a virada não espera a rede
   [anterior, proxima].forEach((href) => href && prefetch(href.split('#')[0]));
 
-  if (new URLSearchParams(location.search).has('diagnostico')) mostrarDiagnostico(texto, status);
-
   document.fonts?.ready.then(() => {
     if (signal.aborted) return;
     recalcular();
@@ -280,22 +292,3 @@ export function iniciarLivro() {
   });
 }
 
-/** Painel temporário (?diagnostico) para descobrir o que o celular calcula. */
-function mostrarDiagnostico(texto: HTMLElement, status: HTMLElement) {
-  const painel = document.createElement('pre');
-  painel.style.cssText =
-    'position:fixed;left:4px;right:4px;top:4px;z-index:99;margin:0;padding:6px;font:11px/1.35 monospace;white-space:pre-wrap;background:#000c;color:#fff;border-radius:6px;pointer-events:none';
-  document.body.append(painel);
-  const atualizar = () => {
-    const s = getComputedStyle(texto);
-    painel.textContent = [
-      navigator.userAgent,
-      `tela ${innerWidth}x${innerHeight} · livro ${MODO_LIVRO.matches} · doc ${document.documentElement.scrollHeight}`,
-      `colunas ${s.columnCount} · larg. col ${s.columnWidth} · vão ${s.columnGap} · overflow ${s.overflow}`,
-      `texto ${texto.clientWidth}x${texto.clientHeight} · scrollWidth ${texto.scrollWidth} · scrollHeight ${texto.scrollHeight}`,
-      status.textContent,
-    ].join('\n');
-  };
-  atualizar();
-  setInterval(atualizar, 1000);
-}

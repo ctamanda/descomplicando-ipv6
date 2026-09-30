@@ -743,16 +743,65 @@
     break-inside: auto;
   }
 
-  /* Barra de páginas compacta: régua fina em cima, botões numa linha só */
+  /* Barra de páginas do celular: régua fina de progresso em cima e, embaixo,
+     Sumário, "pág. 5 de 10" e as setas, sempre cabendo na largura da tela */
   .js .controles {
-    gap: 0.2rem 0.75rem;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.35rem 0.6rem;
     min-height: 0;
-    padding: 0.3rem 0.75rem calc(0.4rem + env(safe-area-inset-bottom));
+    padding: 0.45rem 0.75rem calc(0.45rem + env(safe-area-inset-bottom));
+  }
+  .controles__status {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.85rem;
+  }
+  /* o nome da seção já está no alto da página */
+  .controles__status strong,
+  .controles__sep {
+    display: none;
   }
   .controles__regua {
     grid-row: 1;
-    height: 1.1rem;
+    grid-column: 1 / -1;
+    height: 1.25rem;
     margin: 0;
+    background: transparent;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .controles__regua::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 2px;
+    /* parte já lida preenchida (--progresso vem do livro.ts) */
+    background: linear-gradient(to right, var(--titulo) var(--progresso, 0%), var(--linha) 0);
+  }
+  .controles__regua::-moz-range-track {
+    height: 4px;
+    border-radius: 2px;
+    background: var(--linha);
+  }
+  .controles__regua::-moz-range-progress {
+    height: 4px;
+    border-radius: 2px;
+    background: var(--titulo);
+  }
+  .controles__regua::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 1rem;
+    height: 1rem;
+    margin-top: calc(2px - 0.5rem);
+    border: 2px solid var(--pagina);
+    border-radius: 50%;
+    background: var(--titulo);
+    box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+  }
+  .controles__regua::-moz-range-thumb {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid var(--pagina);
+    border-radius: 50%;
+    background: var(--titulo);
   }
   .controles__sumario,
   .controles__setas .botao-icone {
