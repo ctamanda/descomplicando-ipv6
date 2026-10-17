@@ -48,10 +48,10 @@ const tituloCompleto = `${titulo} · Descomplicando o IPv6`;
     <meta name="theme-color" content="#123c6b" />
     <script is:inline>
       // Antes de pintar: modo livro (classe js), tema e lateral recolhida.
-      // Reaplicado depois de cada navegação, que troca os atributos do <html>.
+      // Cada navegação troca os atributos do <html>: aplica no documento novo antes
+      // da troca, senão a página entra sem o modo livro e é diagramada duas vezes.
       (function () {
-        var raiz = document.documentElement;
-        function aplicar() {
+        function aplicar(raiz) {
           raiz.classList.add('js');
           try {
             var tema = localStorage.getItem('ipv6:tema');
@@ -59,8 +59,13 @@ const tituloCompleto = `${titulo} · Descomplicando o IPv6`;
             if (localStorage.getItem('ipv6:lateral') === 'recolhida') raiz.dataset.lateral = 'recolhida';
           } catch (e) {}
         }
-        aplicar();
-        document.addEventListener('astro:after-swap', aplicar);
+        aplicar(document.documentElement);
+        document.addEventListener('astro:before-swap', function (e) {
+          aplicar(e.newDocument.documentElement);
+        });
+        document.addEventListener('astro:after-swap', function () {
+          aplicar(document.documentElement);
+        });
       })();
     </script>
     <ClientRouter />

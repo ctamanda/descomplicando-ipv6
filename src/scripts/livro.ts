@@ -36,24 +36,31 @@ export function iniciarLivro() {
   const ativo = () => MODO_LIVRO.matches;
   const folheador = criarFolheador(livro, texto);
 
+  /** Só toca no estilo se o valor mudou (valor igual não deve refazer a diagramação). */
+  function definir(prop: 'width' | 'columnGap' | 'columnWidth', valor: string) {
+    if (texto!.style[prop] !== valor) texto!.style[prop] = valor;
+  }
+
   function medir() {
-    const estilo = getComputedStyle(texto!);
-    colunas = Number(estilo.columnCount) || 1;
+    colunas = Number(getComputedStyle(texto!).columnCount) || 1;
 
     // Largura e vão em pixels inteiros: com frações, a rolagem arredondada
     // cortaria 1px da borda direita de tabelas e caixas.
-    texto!.style.width = '';
-    texto!.style.columnGap = '';
-    texto!.style.columnWidth = '';
-    const vao = Math.round(parseFloat(estilo.columnGap) || 0);
-    const largura = Math.floor(texto!.getBoundingClientRect().width);
-    texto!.style.width = `${largura}px`;
-    texto!.style.columnGap = `${vao}px`;
+    // Medidos pelo livro (o texto ocupa a caixa de conteúdo dele, e o vão é
+    // 2 × a margem), sem desfazer os estilos do texto: desfazer obrigaria o
+    // navegador a diagramar a seção inteira duas vezes.
+    const caixa = getComputedStyle(livro!);
+    const margemEsq = parseFloat(caixa.paddingLeft) || 0;
+    const margemDir = parseFloat(caixa.paddingRight) || 0;
+    const vao = Math.round(2 * margemEsq);
+    const largura = Math.floor(livro!.getBoundingClientRect().width - margemEsq - margemDir);
     const larguraColuna = (largura - vao * (colunas - 1)) / colunas;
     // Largura da coluna explícita, em px (como fazem os leitores de EPUB): o Safari
     // do iPhone não pagina uma coluna só com largura automática. 1px a menos para o
     // arredondamento nunca derrubar o livro aberto para uma coluna.
-    texto!.style.columnWidth = `${Math.max(1, Math.floor(larguraColuna) - 1)}px`;
+    definir('width', `${largura}px`);
+    definir('columnGap', `${vao}px`);
+    definir('columnWidth', `${Math.max(1, Math.floor(larguraColuna) - 1)}px`);
     livro!.dataset.colunas = String(colunas);
 
     // No livro aberto, um total ímpar de colunas deixaria a última virada torta.
@@ -122,6 +129,7 @@ export function iniciarLivro() {
   const indiceDe = (href: string) => ordem.indexOf(new URL(href, location.href).pathname);
 
   let navegando = false;
+  let folheou = false; // a troca de página começou com a folha virando
   /** Troca de página do site virando a folha (ou várias, se o destino estiver longe). */
   async function navegarFolheando(href: string, sentidoPadrao: 1 | -1 = 1) {
     if (navegando) return;
@@ -131,7 +139,20 @@ export function iniciarLivro() {
     const sentido: 1 | -1 = distancia === 0 ? sentidoPadrao : distancia > 0 ? 1 : -1;
     if (ativo() && !SEM_ANIMACAO.matches) {
       const folhas = Math.min(4, Math.max(1, Math.ceil(Math.abs(distancia) / 6)));
-      await folheador.virarParaBranco(sentido, atual, { colunas, larguraPagina: passo / colunas, totalPaginas }, folhas);
+      folheou = true;
+      const virada = folheador.virarParaBranco(sentido, atual, { colunas, larguraPagina: passo / colunas, totalPaginas }, folhas);
+      // A página nova é baixada e montada enquanto a folha vira, e não depois:
+      // a troca espera o que demorar mais, a animação ou o carregamento.
+      document.addEventListener(
+        'astro:before-preparation',
+        (e) => {
+          const carregar = e.loader;
+          e.loader = async () => {
+            await Promise.all([carregar(), virada]);
+          };
+        },
+        { once: true, signal },
+      );
     }
     navigate(href);
   }
@@ -208,7 +229,29 @@ export function iniciarLivro() {
   const ciclo = new AbortController();
   const { signal } = ciclo;
   const observador = new ResizeObserver(() => recalcular());
-  document.addEventListener('astro:before-swap', () => (ciclo.abort(), observador.disconnect()), { once: true });
+  document.addEventListener(
+    'astro:before-swap',
+    (e) => {
+      ciclo.abort();
+      observador.disconnect();
+      // A página nova já entra com as medidas desta (o livro tem o mesmo tamanho):
+      // o navegador diagrama o texto uma vez só, e medir() não precisa mudar nada.
+      // Chegou virando a folha: a página velha já é papel em branco, então o
+      // texto novo entra logo, sem esperar a velha sumir (ver base.css).
+      if (folheou) {
+        e.newDocument.documentElement.dataset.virada = '';
+        const tirar = () => delete document.documentElement.dataset.virada;
+        e.viewTransition?.finished.then(tirar, tirar) ?? tirar();
+      }
+      const novoTexto = e.newDocument.querySelector<HTMLElement>('[data-texto]');
+      if (novoTexto && ativo()) {
+        novoTexto.style.width = texto.style.width;
+        novoTexto.style.columnGap = texto.style.columnGap;
+        novoTexto.style.columnWidth = texto.style.columnWidth;
+      }
+    },
+    { once: true },
+  );
 
   btnAnt.addEventListener('click', voltar);
   btnProx.addEventListener('click', avancar);

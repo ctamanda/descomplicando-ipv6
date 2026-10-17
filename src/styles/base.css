@@ -567,6 +567,19 @@ a[aria-current='page']:not(.lida) .marcador {
 ::view-transition-new(livro-pagina) {
   animation: papel-entra 300ms 130ms ease-out both;
 }
+/* Vindo da folha virada (livro.ts), a página velha já é papel em branco:
+   não há letras para misturar, e o texto novo entra sem espera. O livro fica
+   no mesmo lugar, então a transição toda acaba junto (e a página já responde) */
+:root[data-virada]::view-transition-group(livro-pagina) {
+  animation-duration: 180ms;
+}
+:root[data-virada]::view-transition-old(livro-pagina) {
+  animation: none;
+  opacity: 0;
+}
+:root[data-virada]::view-transition-new(livro-pagina) {
+  animation: papel-entra 180ms ease-out both;
+}
 @keyframes papel-sai {
   to {
     opacity: 0;
