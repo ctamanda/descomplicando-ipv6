@@ -46,6 +46,7 @@ const parteAtual = atual?.startsWith('parte-') ? Number(atual.slice(6)) : Number
         </li>
         {secoes.map((s) => (
           <li>
+            <button class="marcar-lida" type="button" data-alternar-lida={s.id} aria-pressed="false" aria-label={`Marcar ${s.data.numero} como lida`}></button>
             <a href={rotas.secao(s.data)} data-secao-id={s.id} aria-current={atual === s.id ? 'page' : undefined}>
               <span class="marcador" aria-hidden="true"></span>
               <span class="sumario__secao-num">{s.data.numero}</span>

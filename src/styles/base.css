@@ -398,6 +398,42 @@ a[aria-current='page']:not(.lida) .marcador {
   box-shadow: inset 0 0 0 3px var(--fundo), inset 0 0 0 8px var(--azul-claro);
 }
 
+/* Botão sobre o marcador das listas: marca ou desmarca sem abrir a seção (lidas.ts).
+   Sem JavaScript não aparece, e a linha inteira continua sendo só o link. */
+.marcar-lida {
+  display: none;
+}
+.js .marcar-lida {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 1.75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.js .sumario ol li,
+.js .lista-secoes li {
+  position: relative;
+}
+.js .sumario .marcar-lida {
+  width: 2.75rem;
+}
+li:has(> .marcar-lida:hover) .marcador {
+  border-color: var(--verde);
+}
+li:has(> .marcar-lida:focus-visible) .marcador {
+  outline: 2px solid var(--azul);
+  outline-offset: 2px;
+}
+.marcar-lida:focus-visible {
+  outline: none;
+}
+
 /* ---------- Painel do sumário (dialog) ---------- */
 .gaveta {
   margin: 0;

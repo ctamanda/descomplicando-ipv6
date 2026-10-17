@@ -37,6 +37,7 @@ const apendices = [
             <ol class="lista-secoes">
               {secoes.map((s) => (
                 <li>
+                  <button class="marcar-lida" type="button" data-alternar-lida={s.id} aria-pressed="false" aria-label={`Marcar ${s.data.numero} como lida`}></button>
                   <a href={rotas.secao(s.data)} data-secao-id={s.id}>
                     <span class="marcador" aria-hidden="true"></span>
                     <span class="lista-secoes__num">{s.data.numero}</span>
