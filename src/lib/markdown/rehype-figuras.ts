@@ -36,6 +36,10 @@ function imagemDoPar(no: Node) {
   return imagem;
 }
 
+function legendaNoPar(no: Node) {
+  return no.children?.find((filho) => filho.tagName === 'em' || filho.tagName === 'i');
+}
+
 function legenda(textoLegenda: string): Node[] {
   const match = textoLegenda.match(/^(Figura\s+\d+\.\d+)(\s*[–-]\s*)(.*)$/i);
   if (!match) return [{ type: 'text', value: textoLegenda }];
@@ -57,13 +61,17 @@ function normalizarImagem(src: string, opcoes: Opcoes) {
 export default function rehypeFiguras(opcoes: Opcoes = {}) {
   return (raiz: Node) => {
     const filhos = raiz.children ?? [];
-    for (let i = 0; i < filhos.length - 1; i += 1) {
+    for (let i = 0; i < filhos.length; i += 1) {
       const parImagem = filhos[i];
-      const parLegenda = filhos[i + 1];
       const imagem = parImagem.tagName === 'p' ? imagemDoPar(parImagem) : null;
-      if (!imagem || parLegenda.tagName !== 'p') continue;
+      if (!imagem) continue;
 
-      const legendaTexto = texto(parLegenda).trim();
+      const legendaNo = legendaNoPar(parImagem);
+      const legendaSeparada = filhos[i + 1]?.tagName === 'p' ? filhos[i + 1] : null;
+      const noLegenda = legendaNo ?? legendaSeparada;
+      if (!noLegenda) continue;
+
+      const legendaTexto = texto(noLegenda).trim();
       if (!/^Figura\s+\d+\.\d+/i.test(legendaTexto)) continue;
 
       const src = String(imagem.properties!.src);
@@ -77,7 +85,7 @@ export default function rehypeFiguras(opcoes: Opcoes = {}) {
         decoding: 'async',
       };
 
-      filhos.splice(i, 2, {
+      const figura: Node = {
         type: 'element',
         tagName: 'figure',
         properties: { className: ['figura'] },
@@ -100,7 +108,8 @@ export default function rehypeFiguras(opcoes: Opcoes = {}) {
             children: legenda(legendaTexto),
           },
         ],
-      });
+      };
+      filhos.splice(i, legendaNo ? 1 : 2, figura);
     }
 
     return raiz;
