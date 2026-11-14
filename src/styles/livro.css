@@ -338,16 +338,91 @@
 .controles__regua {
   width: 100%;
   min-width: 0;
-  accent-color: var(--azul);
+  height: 2rem;
+  margin: 0;
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
   cursor: pointer;
 }
-:root[data-theme='escuro'] .controles__regua {
-  accent-color: var(--azul-claro);
+.controles__regua::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 999px;
+  background:
+    repeating-linear-gradient(
+      to right,
+      transparent 0 calc(100% / var(--paginas, 1) - 1px),
+      rgb(18 60 107 / 0.25) calc(100% / var(--paginas, 1) - 1px) calc(100% / var(--paginas, 1))
+    ),
+    linear-gradient(to right, var(--azul) var(--progresso, 0%), var(--linha) var(--progresso, 0%));
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='claro']) .controles__regua {
-    accent-color: var(--azul-claro);
+.controles__regua::-moz-range-track {
+  height: 4px;
+  border-radius: 999px;
+  background:
+    repeating-linear-gradient(
+      to right,
+      transparent 0 calc(100% / var(--paginas, 1) - 1px),
+      rgb(18 60 107 / 0.25) calc(100% / var(--paginas, 1) - 1px) calc(100% / var(--paginas, 1))
+    ),
+    linear-gradient(to right, var(--azul) var(--progresso, 0%), var(--linha) var(--progresso, 0%));
+}
+.controles__regua::-moz-range-progress {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--azul);
+}
+.controles__regua::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  border: 2px solid var(--pagina);
+  border-radius: 50%;
+  background: var(--azul);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+  transition: transform 150ms ease;
+}
+.controles__regua::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--pagina);
+  border-radius: 50%;
+  background: var(--azul);
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
+  transition: transform 150ms ease;
+}
+.controles__regua:hover::-webkit-slider-thumb,
+.controles__regua--arrastando::-webkit-slider-thumb,
+.controles__regua:hover::-moz-range-thumb,
+.controles__regua--arrastando::-moz-range-thumb {
+  transform: scale(1.2);
+}
+.controles__regua:focus-visible {
+  outline: 3px solid var(--foco);
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .controles__regua::-webkit-slider-thumb,
+  .controles__regua::-moz-range-thumb {
+    transition: none;
   }
+}
+.controles__balao {
+  position: absolute;
+  bottom: calc(100% - 0.1rem);
+  transform: translateX(-50%);
+  padding: 0.3rem 0.55rem;
+  border: 1px solid var(--linha);
+  border-radius: 6px;
+  background: var(--pagina);
+  color: var(--titulo);
+  box-shadow: 0 0.35rem 1rem rgb(0 0 0 / 0.15);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 .controles__setas {
@@ -765,43 +840,6 @@
     grid-row: 1;
     grid-column: 1 / -1;
     height: 1.25rem;
-    margin: 0;
-    background: transparent;
-    -webkit-appearance: none;
-    appearance: none;
-  }
-  .controles__regua::-webkit-slider-runnable-track {
-    height: 4px;
-    border-radius: 2px;
-    /* parte já lida preenchida (--progresso vem do livro.ts) */
-    background: linear-gradient(to right, var(--titulo) var(--progresso, 0%), var(--linha) 0);
-  }
-  .controles__regua::-moz-range-track {
-    height: 4px;
-    border-radius: 2px;
-    background: var(--linha);
-  }
-  .controles__regua::-moz-range-progress {
-    height: 4px;
-    border-radius: 2px;
-    background: var(--titulo);
-  }
-  .controles__regua::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 1rem;
-    height: 1rem;
-    margin-top: calc(2px - 0.5rem);
-    border: 2px solid var(--pagina);
-    border-radius: 50%;
-    background: var(--titulo);
-    box-shadow: 0 1px 3px rgb(0 0 0 / 0.3);
-  }
-  .controles__regua::-moz-range-thumb {
-    width: 1rem;
-    height: 1rem;
-    border: 2px solid var(--pagina);
-    border-radius: 50%;
-    background: var(--titulo);
   }
   .controles__sumario,
   .controles__setas .botao-icone {

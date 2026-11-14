@@ -88,7 +88,12 @@ export default function remarkGlossario(opcoes: { base?: string } = {}) {
           type: 'link',
           url: `${base}glossario/#${melhor.p.slug}`,
           title: melhor.p.definicao,
-          data: { hProperties: { className: ['termo-glossario'] } },
+          data: {
+            hProperties: {
+              className: ['termo-glossario'],
+              'data-definicao': melhor.p.definicao,
+            },
+          },
           children: [{ type: 'text', value: texto.slice(melhor.inicio, melhor.fim) }],
         });
         if (melhor.fim < texto.length) novos.push({ type: 'text', value: texto.slice(melhor.fim) });

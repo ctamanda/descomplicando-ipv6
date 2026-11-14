@@ -31,8 +31,8 @@ export const NIVEIS = [
 
 export type NivelId = (typeof NIVEIS)[number]['id'];
 
-/** Quantas questões são sorteadas por rodada. */
-export const QUESTOES_POR_RODADA = 10;
+/** Quantas questões são sorteadas por rodada no Quiz. */
+export const QUESTOES_POR_RODADA = 15;
 
 const esquema = z.array(
   z
@@ -58,6 +58,7 @@ export type QuestaoDoSite = {
   alternativas: string[];
   correta: number;
   explicacao: string;
+  nivel: NivelId;
 };
 
 export async function getQuestoes(nivel?: NivelId): Promise<QuestaoDoSite[]> {
@@ -88,6 +89,7 @@ export async function getQuestoes(nivel?: NivelId): Promise<QuestaoDoSite[]> {
         alternativas: q.alternativas,
         correta: q.correta,
         explicacao: q.explicacao,
+        nivel: q.nivel,
       };
     });
 }

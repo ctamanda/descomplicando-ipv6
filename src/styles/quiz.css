@@ -7,6 +7,49 @@
   margin: 0 0 1.5rem;
   color: var(--texto-2);
 }
+.quiz__modos {
+  display: grid;
+  gap: 1rem;
+}
+.quiz__modo {
+  padding: 1.25rem;
+  border: 1px solid var(--linha);
+  border-radius: 12px;
+  background: var(--pagina);
+}
+.quiz__modo h2 {
+  margin: 0 0 0.4rem;
+  color: var(--titulo);
+  font-family: var(--fonte-titulo);
+}
+.quiz__modo p {
+  margin: 0 0 1rem;
+}
+.quiz__dificuldades {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0 0 1rem;
+}
+.quiz__dificuldades label {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--linha);
+  border-radius: 6px;
+}
+.quiz__dificuldades span {
+  color: var(--texto-2);
+  font-size: 0.85rem;
+}
+.quiz__melhor {
+  margin-top: 0.8rem !important;
+  color: var(--texto-2);
+  font-size: 0.85rem;
+}
+@media (min-width: 38rem) {
+  .quiz__modos { grid-template-columns: repeat(2, 1fr); }
+}
 
 /* ---------- Níveis ---------- */
 .niveis {
@@ -84,6 +127,54 @@
   font-weight: 700;
   font-size: clamp(1.15rem, 1rem + 0.6vw, 1.35rem);
   line-height: 1.4;
+}
+.quiz__enunciado-linha {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.cronometro {
+  position: relative;
+  flex: 0 0 3.75rem;
+  width: 3.75rem;
+  height: 3.75rem;
+  color: var(--azul);
+}
+.cronometro svg {
+  display: block;
+  transform: rotate(-90deg);
+}
+.cronometro circle {
+  fill: none;
+  stroke-width: 4;
+}
+.cronometro__trilho { stroke: var(--linha); }
+.cronometro__anel {
+  stroke: currentColor;
+  transition: stroke-dashoffset 100ms linear;
+}
+.cronometro > span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.cronometro[data-faixa="amarelo"] { color: var(--amarelo-rotulo); }
+.cronometro[data-faixa="vermelho"] {
+  color: var(--erro);
+  animation: cronometro-pulso 900ms ease-in-out infinite alternate;
+}
+@keyframes cronometro-pulso {
+  to { transform: scale(1.05); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cronometro[data-faixa="vermelho"] { animation: none; }
+}
+.quiz__encerrar {
+  color: var(--erro);
 }
 .quiz__enunciado:focus {
   outline: none;
@@ -225,6 +316,29 @@
   padding-bottom: 1.5rem;
   border-bottom: 1px solid var(--linha);
 }
+.anel-resultado {
+  position: relative;
+  width: min(12rem, 55vw);
+  margin: 1rem auto;
+  color: var(--cor);
+}
+.anel-resultado svg { display: block; transform: rotate(-90deg); }
+.anel-resultado circle { fill: none; stroke-width: 8; }
+.anel-resultado__trilho { stroke: var(--linha); }
+.anel-resultado__progresso {
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-dasharray: 327;
+  stroke-dashoffset: calc(327 - 327 * var(--pct));
+}
+.anel-resultado strong {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--titulo);
+  font-size: 2rem;
+}
 .res__nota {
   margin: 0.25rem 0 0;
   color: var(--texto-2);
@@ -359,6 +473,25 @@
 }
 .res__secoes a {
   font-weight: 700;
+}
+.res__grupo {
+  margin: 0.6rem 0;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--linha);
+  border-radius: 8px;
+}
+.res__grupo summary {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+  color: var(--titulo);
+  font-weight: 700;
+}
+.res__grupo > p { margin: 0.75rem 0; }
+.res__grupo .res__errada {
+  margin-top: 0.75rem;
+  border-color: var(--linha);
 }
 .res__detalhe {
   color: var(--texto-2);

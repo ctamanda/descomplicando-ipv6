@@ -289,6 +289,38 @@
   text-decoration-style: solid;
 }
 
+.balao-glossario {
+  position: fixed;
+  z-index: 20;
+  width: min(22rem, calc(100vw - 1.5rem));
+  padding: 1rem;
+  border: 1px solid var(--linha);
+  border-radius: 10px;
+  background: var(--fundo);
+  box-shadow: 0 0.75rem 2rem rgb(0 0 0 / 18%);
+}
+.balao-glossario strong {
+  display: block;
+  color: var(--titulo);
+}
+.balao-glossario p {
+  margin: 0.35rem 0 0.8rem;
+}
+.balao-glossario a {
+  font-weight: 700;
+}
+
+@media (max-width: 40rem) {
+  .balao-glossario {
+    top: auto !important;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    left: 0.75rem !important;
+    width: auto;
+    border-radius: 14px;
+  }
+}
+
 /* Nota ao pé do conteúdo de uma página */
 .folha__nota {
   margin: 2.5rem 0 0;

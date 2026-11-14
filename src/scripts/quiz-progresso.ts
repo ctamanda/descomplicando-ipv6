@@ -13,6 +13,10 @@ export type Tentativa = {
   erradas: string[]; // ids das questões
   secoesErradas: string[]; // "3.5", repetido se errou mais de uma da mesma seção
   desafio?: boolean; // feita no modo desafio (com tempo)
+  modo?: 'quiz' | 'desafio';
+  dificuldade?: 'facil' | 'medio' | 'dificil';
+  tempoTotalMs?: number;
+  semResposta?: number;
   tempoMedioMs?: number;
 };
 
@@ -64,22 +68,22 @@ export function secoesMaisErradas(tentativas: Tentativa[]) {
 /** Faixa de desempenho pela porcentagem de acertos. */
 export function faixa(pct: number) {
   if (pct >= 90)
-    return { rotulo: 'Excelente', tom: 'otimo', mensagem: 'Você domina os conteúdos deste nível.' };
+    return { rotulo: 'Excelente', tom: 'otimo', mensagem: 'Você domina o conteúdo. Experimente o Desafio no nível Difícil.' };
   if (pct >= 70)
     return {
-      rotulo: 'Muito bom',
+      rotulo: 'Bom domínio',
       tom: 'otimo',
-      mensagem: 'Você entendeu a maior parte. Revise os pontos abaixo para fechar as lacunas.',
+      mensagem: 'Você está bem. Revise os tópicos abaixo para fechar as lacunas.',
     };
   if (pct >= 50)
     return {
-      rotulo: 'No caminho',
+      rotulo: 'Em construção',
       tom: 'medio',
-      mensagem: 'Você já tem uma base. Releia as seções indicadas e refaça o quiz.',
+      mensagem: 'A base está aí, mas vale reler as seções indicadas antes de tentar de novo.',
     };
   return {
-    rotulo: 'Hora de revisar',
+    rotulo: 'Precisa revisar',
     tom: 'revisar',
-    mensagem: 'Vale voltar ao manual antes de tentar de novo. Comece pelas seções indicadas abaixo.',
+    mensagem: 'Volte ao manual pelas seções abaixo e refaça o quiz depois.',
   };
 }

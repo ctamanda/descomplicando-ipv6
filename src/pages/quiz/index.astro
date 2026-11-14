@@ -2,94 +2,75 @@
 import '../../styles/quiz.css';
 import Base from '../../layouts/Base.astro';
 import Livro from '../../components/livro/Livro.astro';
-import { NIVEIS, QUESTOES_POR_RODADA, getQuestoes } from '../../lib/conteudo/quiz';
-import { url } from '../../lib/rotas';
+import { getQuestoes } from '../../lib/conteudo/quiz';
+import { rotas } from '../../lib/rotas';
 
-const todas = await getQuestoes();
-// Para "seção que você mais erra": número -> título e link
-const secoes = Object.fromEntries(todas.map((q) => [q.secao, { titulo: q.secaoTitulo, href: q.href }]));
-const partesTexto = (p: readonly number[]) => p.join(', ').replace(/, (\d)$/, ' e $1');
+const questoes = await getQuestoes();
 ---
-<Base titulo="Quiz" descricao="Quiz de IPv6 em três níveis: 10 questões sorteadas, retorno imediato e dados sobre o que revisar.">
+<Base titulo="Quiz" descricao="Quiz e Desafio de IPv6, com questões sorteadas, feedback e revisão no manual.">
   <Livro chave="quiz">
-      <p class="chapeu">Apêndice B · Avaliar</p>
-      <h1 class="titulo-secao">Quiz</h1>
-      <p class="quiz__intro">
-        Escolha um nível. Cada rodada sorteia {QUESTOES_POR_RODADA} questões, você vê na hora se acertou e por quê, e no fim
-        recebe o que revisar no manual. No modo normal não há tempo nem pontos negativos; quem quiser se testar pode
-        escolher o modo desafio, com 60 segundos por questão. Seus resultados ficam só neste navegador.
-      </p>
+    <p class="chapeu">Apêndice B · Avaliar</p>
+    <h1 class="titulo-secao">Quiz</h1>
+    <div class="quiz" data-quiz>
+      <section data-tela="inicio" aria-label="Escolher modo">
+        <p class="quiz__intro">Escolha como quer praticar. O Quiz não tem tempo; o Desafio tem três dificuldades e tempo por questão.</p>
+        <div class="quiz__modos">
+          <article class="quiz__modo">
+            <h2>Quiz</h2>
+            <p>15 questões sorteadas de todas as partes, com feedback e explicação depois de cada resposta.</p>
+            <button type="button" class="botao-principal" data-iniciar="quiz">Começar Quiz</button>
+            <p class="quiz__melhor" data-melhor="quiz"></p>
+          </article>
+          <article class="quiz__modo">
+            <h2>Desafio</h2>
+            <p>Escolha uma dificuldade e responda contra o relógio.</p>
+            <div class="quiz__dificuldades">
+              <label><input type="radio" name="dificuldade" value="facil" checked /> Fácil <span>10 · 45 s</span></label>
+              <label><input type="radio" name="dificuldade" value="medio" /> Médio <span>15 · 30 s</span></label>
+              <label><input type="radio" name="dificuldade" value="dificil" /> Difícil <span>20 · 20 s</span></label>
+            </div>
+            <button type="button" class="botao-principal" data-iniciar="desafio">Escolher dificuldade</button>
+            <p class="quiz__melhor" data-melhor="desafio-facil"></p>
+            <p class="quiz__melhor" data-melhor="desafio-medio"></p>
+            <p class="quiz__melhor" data-melhor="desafio-dificil"></p>
+          </article>
+        </div>
+        <button type="button" class="botao-texto" data-limpar hidden>Limpar melhores resultados</button>
+      </section>
 
-      <ul class="niveis">
-        {NIVEIS.map((n) => {
-          const qtd = todas.filter((q) => q.id.startsWith(`q-${n.id}-`)).length;
-          return (
-            <li class="nivel" data-nivel={n.id}>
-              <div class="nivel__texto">
-                <h2 class="nivel__nome">{n.nome}</h2>
-                <p class="nivel__partes">Partes {partesTexto(n.partes)} · {qtd} questões no banco</p>
-                <p class="nivel__descricao">{n.descricao}</p>
-                <p class="nivel__progresso" data-progresso-nivel>Ainda não feito.</p>
-              </div>
-              <div class="nivel__acoes">
-                <a class="botao-principal" href={url(`quiz/${n.id}/`)} data-comecar>Começar</a>
-                <a class="nivel__desafio" href={url(`quiz/${n.id}/?desafio=1`)}>Modo desafio · 60 s</a>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
+      <section data-tela="regras" hidden aria-label="Regras do desafio">
+        <p class="chapeu">Modo Desafio</p>
+        <h2 data-regras-titulo></h2>
+        <ul class="quiz__regras" data-regras></ul>
+        <button type="button" class="botao-principal" data-comecar-desafio>Começar</button>
+        <button type="button" class="botao-texto" data-voltar-inicio>Trocar de modo</button>
+      </section>
 
-      <p class="folha__nota">
-        <button type="button" class="botao-texto" data-limpar hidden>Limpar meus resultados do quiz</button>
-      </p>
+      <section data-tela="questao" hidden aria-label="Questão">
+        <div class="quiz__topo">
+          <p class="quiz__contador" data-contador></p>
+          <span class="barra quiz__barra" aria-hidden="true"><span data-barra></span></span>
+          <button type="button" class="botao-texto quiz__encerrar" data-encerrar hidden>Encerrar</button>
+        </div>
+        <div class="quiz__enunciado-linha">
+          <h2 class="quiz__enunciado" data-enunciado tabindex="-1"></h2>
+          <div class="cronometro" data-cronometro hidden aria-label="Tempo restante">
+            <svg viewBox="0 0 44 44" aria-hidden="true"><circle class="cronometro__trilho" cx="22" cy="22" r="19" /><circle class="cronometro__anel" data-anel cx="22" cy="22" r="19" /></svg>
+            <span data-segundos>45</span>
+          </div>
+        </div>
+        <ol class="quiz__alternativas" data-alternativas></ol>
+        <div class="quiz__retorno" data-feedback aria-live="polite"></div>
+        <div class="quiz__acoes"><button type="button" class="botao-principal" data-avancar hidden>Próxima questão</button></div>
+        <p class="quiz__dica">Dica: use as teclas A, B, C e D para responder.</p>
+      </section>
+      <section class="res" data-tela="resultado" hidden tabindex="-1" aria-label="Resultado"></section>
+    </div>
   </Livro>
 </Base>
 
-<script type="application/json" id="secoes-quiz" set:html={JSON.stringify(secoes).replace(/</g, '\\u003c')} />
-
+<script type="application/json" id="dados-quiz" set:html={JSON.stringify({ questoes, urlQuiz: rotas.quiz, urlManual: rotas.manual }).replace(/</g, '\\u003c')} />
 <script>
-  import { limparProgresso, melhor, secoesMaisErradas, tentativasDoNivel } from '../../scripts/quiz-progresso';
-
-  const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-  function pintar() {
-    const secoes: Record<string, { titulo: string; href: string }> = JSON.parse(
-      document.getElementById('secoes-quiz')?.textContent ?? '{}',
-    );
-    let algum = false;
-    document.querySelectorAll<HTMLElement>('[data-nivel]').forEach((el) => {
-      const tentativas = tentativasDoNivel(el.dataset.nivel!);
-      const alvo = el.querySelector<HTMLElement>('[data-progresso-nivel]')!;
-      const botao = el.querySelector<HTMLElement>('[data-comecar]')!;
-      if (!tentativas.length) {
-        alvo.textContent = 'Ainda não feito.';
-        botao.textContent = 'Começar';
-        return;
-      }
-      algum = true;
-      const m = melhor(tentativas)!;
-      const ultima = tentativas.at(-1)!;
-      const [maisErrada] = secoesMaisErradas(tentativas);
-      const s = maisErrada && secoes[maisErrada[0]];
-      alvo.innerHTML =
-        `<strong>Melhor nota: ${m.acertos} de ${m.total}</strong> · última: ${ultima.acertos} de ${ultima.total} · ` +
-        `${tentativas.length} ${tentativas.length === 1 ? 'tentativa' : 'tentativas'}` +
-        (s ? `<br />Seção que você mais erra: <a href="${s.href}">${esc(maisErrada[0])} ${esc(s.titulo)}</a>` : '');
-      botao.textContent = 'Refazer';
-    });
-    const limpar = document.querySelector<HTMLButtonElement>('[data-limpar]');
-    if (limpar) limpar.hidden = !algum;
-  }
-
-  document.addEventListener('astro:page-load', () => {
-    const limpar = document.querySelector<HTMLButtonElement>('[data-limpar]');
-    if (!limpar) return;
-    pintar();
-    limpar.addEventListener('click', () => {
-      if (!confirm('Apagar todos os seus resultados do quiz neste navegador?')) return;
-      limparProgresso();
-      pintar();
-    });
-  });
+  import { iniciarQuiz } from '../../scripts/quiz';
+  document.addEventListener('astro:page-load', iniciarQuiz);
 </script>

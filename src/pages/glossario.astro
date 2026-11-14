@@ -85,10 +85,21 @@ const origem = (numero: string) => {
     // Termo que trouxe a pessoa até aqui (link no texto do manual): destaca
     const destacar = () => {
       document.querySelectorAll('.termo.destaque').forEach((el) => el.classList.remove('destaque'));
-      const alvo = location.hash.length > 1 ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
-      if (alvo?.classList.contains('termo')) alvo.classList.add('destaque');
+      let alvo = location.hash.length > 1 ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+      if (!alvo?.classList.contains('termo')) return;
+      if (alvo.hidden) {
+        busca.value = '';
+        filtrar();
+        alvo = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      }
+      if (!alvo) return;
+
+      // O leitor usa colunas horizontais; scrollIntoView é necessário além do
+      // scroll-margin para vencer a paginação quando a página já abriu.
+      alvo.scrollIntoView({ behavior: 'auto', block: 'nearest', inline: 'start' });
+      alvo.classList.add('destaque');
+      window.setTimeout(() => alvo.classList.remove('destaque'), 2000);
     };
-    destacar();
     window.addEventListener('hashchange', destacar);
 
     // Só os termos do texto real (as cópias da animação de folhear ficam de fora)
@@ -124,6 +135,7 @@ const origem = (numero: string) => {
     };
     busca.addEventListener('input', filtrar);
     if (busca.value) filtrar(); // o navegador pode ter guardado o texto ao voltar
+    destacar();
   });
 </script>
 

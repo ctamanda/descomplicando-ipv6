@@ -47,6 +47,7 @@ const ordem = [rotas.inicio, ...livro.hrefs];
       style={pilhas}
       data-numero={rotulo}
       data-indice={livro.indice + 1}
+      data-parte={livro.pagina.chave.match(/^(\d+)\./)?.[1]}
       data-anterior={anterior.href}
       data-anterior-titulo={anterior.titulo}
       data-proxima={proxima.href}
@@ -80,8 +81,14 @@ const ordem = [rotas.inicio, ...livro.hrefs];
       <Icone nome="menu" />
       <span>Sumário</span>
     </button>
-    <p class="controles__status" data-status aria-live="polite"><strong>{rotulo}</strong></p>
+    <p class="controles__status" data-status aria-live="polite">
+      <span class="controles__parte" data-status-parte hidden></span>
+      <strong data-status-secao>{rotulo}</strong>
+      <span class="controles__sep"> · </span>
+      <span data-status-paginas>Pág. 1</span>
+    </p>
     <input class="controles__regua" type="range" min="1" max="1" value="1" step="1" data-regua aria-label="Página" />
+    <output class="controles__balao" data-regua-tooltip hidden aria-hidden="true"></output>
     <div class="controles__setas">
       <button class="botao-icone" type="button" data-virar="anterior" aria-label="Página anterior"><Icone nome="anterior" /></button>
       <button class="botao-icone" type="button" data-virar="proxima" aria-label="Próxima página"><Icone nome="proxima" /></button>
@@ -96,4 +103,59 @@ const ordem = [rotas.inicio, ...livro.hrefs];
   // after-swap: diagrama a página nova antes de ela aparecer na transição (sem pulos)
   document.addEventListener('astro:after-swap', () => iniciarLivro());
   document.addEventListener('astro:page-load', () => iniciarLivro());
+
+  document.addEventListener('click', (evento) => {
+    const link = (evento.target as Element).closest<HTMLAnchorElement>('.termo-glossario');
+    const aberto = document.querySelector<HTMLElement>('[data-balao-glossario]');
+    if (aberto && (!link || aberto.dataset.termo !== link.href)) {
+      const origem = [...document.querySelectorAll<HTMLAnchorElement>('[data-termo-aberto]')].find(
+        (item) => item.dataset.termoAberto === aberto.dataset.termo,
+      );
+      aberto.remove();
+      origem?.focus();
+    }
+    if (!link || evento.defaultPrevented) return;
+
+    evento.preventDefault();
+    const definicao = link.dataset.definicao ?? link.title;
+    if (!definicao) return;
+
+    const balao = document.createElement('div');
+    balao.dataset.balaoGlossario = '';
+    balao.dataset.termo = link.href;
+    balao.className = 'balao-glossario';
+    balao.setAttribute('role', 'dialog');
+    balao.setAttribute('aria-label', 'Definição do termo');
+    balao.innerHTML = `<strong></strong><p></p><a href="${link.href}">Ver no glossário</a>`;
+    balao.querySelector('strong')!.textContent = link.textContent?.trim() ?? '';
+    balao.querySelector('p')!.textContent = definicao;
+    link.dataset.termoAberto = link.href;
+    document.body.append(balao);
+
+    const rect = link.getBoundingClientRect();
+    const margem = 12;
+    const esquerda = Math.min(Math.max(margem, rect.left), window.innerWidth - balao.offsetWidth - margem);
+    balao.style.left = `${esquerda}px`;
+    balao.style.top = `${rect.bottom + 8}px`;
+    balao.querySelector<HTMLAnchorElement>('a')!.focus();
+
+    const fechar = () => {
+      balao.remove();
+      delete link.dataset.termoAberto;
+      link.focus();
+      document.removeEventListener('keydown', tecla);
+      document.removeEventListener('click', fora);
+    };
+    const tecla = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        fechar();
+      }
+    };
+    const fora = (e: MouseEvent) => {
+      if (!balao.contains(e.target as Node) && e.target !== link) fechar();
+    };
+    document.addEventListener('keydown', tecla);
+    document.addEventListener('click', fora);
+  }, true);
 </script>

@@ -19,7 +19,10 @@ export function iniciarLivro() {
   livro.dataset.iniciado = 'true';
 
   const regua = controles.querySelector<HTMLInputElement>('[data-regua]')!;
-  const status = controles.querySelector<HTMLElement>('[data-status]')!;
+  const statusParte = controles.querySelector<HTMLElement>('[data-status-parte]')!;
+  const statusSecao = controles.querySelector<HTMLElement>('[data-status-secao]')!;
+  const statusPaginas = controles.querySelector<HTMLElement>('[data-status-paginas]')!;
+  const tooltip = controles.querySelector<HTMLOutputElement>('[data-regua-tooltip]')!;
   const btnAnt = controles.querySelector<HTMLButtonElement>('[data-virar="anterior"]')!;
   const btnProx = controles.querySelector<HTMLButtonElement>('[data-virar="proxima"]')!;
   const numEsq = livro.querySelector<HTMLElement>('[data-num-esq]')!;
@@ -85,10 +88,16 @@ export function iniciarLivro() {
     const primeira = atual * colunas + 1;
     const ultima = Math.min(primeira + colunas - 1, totalPaginas);
     const paginas = ultima > primeira ? `págs. ${primeira} e ${ultima}` : `pág. ${primeira}`;
-    status.innerHTML = `<strong>${numero}</strong><span class="controles__sep"> · </span>${paginas} de ${totalPaginas}`;
+    statusParte.textContent = livro!.dataset.parte ? `Parte ${livro!.dataset.parte}` : '';
+    statusParte.hidden = !livro!.dataset.parte;
+    statusSecao.textContent = numero ?? '';
+    statusPaginas.textContent = `${paginas} de ${totalPaginas}`;
     regua.value = String(atual + 1);
     regua.style.setProperty('--progresso', `${totalViradas > 1 ? (atual / (totalViradas - 1)) * 100 : 0}%`);
-    regua.setAttribute('aria-valuetext', `${paginas} de ${totalPaginas}`);
+    regua.style.setProperty('--paginas', String(totalViradas));
+    regua.setAttribute('aria-valuetext', `página ${paginas.replace('pág. ', '')} de ${totalPaginas}`);
+    tooltip.textContent = `${paginas} de ${totalPaginas}`;
+    posicionarTooltip();
     numEsq.textContent = String(primeira);
     numDir.textContent = colunas === 2 ? (ultima > primeira ? String(ultima) : '') : String(primeira);
 
@@ -99,6 +108,13 @@ export function iniciarLivro() {
     btnProx.setAttribute('aria-label', noFim ? `Seguir: ${proximaTitulo}` : 'Próxima página');
     btnAnt.dataset.borda = String(noInicio);
     btnProx.dataset.borda = String(noFim);
+  }
+
+  function posicionarTooltip() {
+    const faixa = regua.getBoundingClientRect();
+    const caixa = controles.getBoundingClientRect();
+    const proporcao = totalViradas > 1 ? atual / (totalViradas - 1) : 0;
+    tooltip.style.left = `${faixa.left - caixa.left + proporcao * faixa.width}px`;
   }
 
   /** Vai para uma virada; com `folhear`, anima a folha girando na lombada. */
@@ -255,7 +271,35 @@ export function iniciarLivro() {
 
   btnAnt.addEventListener('click', voltar);
   btnProx.addEventListener('click', avancar);
-  regua.addEventListener('input', () => irPara(Number(regua.value) - 1, false));
+  let arrastandoRegua = false;
+  const esconderTooltip = () => {
+    arrastandoRegua = false;
+    regua.classList.remove('controles__regua--arrastando');
+    tooltip.hidden = true;
+  };
+  regua.addEventListener('pointerdown', (e) => {
+    arrastandoRegua = true;
+    regua.classList.add('controles__regua--arrastando');
+    tooltip.hidden = false;
+    posicionarTooltip();
+    regua.setPointerCapture?.(e.pointerId);
+  });
+  regua.addEventListener('pointermove', () => {
+    if (arrastandoRegua) posicionarTooltip();
+  });
+  regua.addEventListener('pointerup', esconderTooltip);
+  regua.addEventListener('pointercancel', esconderTooltip);
+  regua.addEventListener('input', () => {
+    irPara(Number(regua.value) - 1, false);
+    if (arrastandoRegua) posicionarTooltip();
+  });
+  regua.addEventListener('keydown', () => {
+    tooltip.hidden = false;
+    posicionarTooltip();
+    window.setTimeout(() => {
+      if (!arrastandoRegua && document.activeElement !== regua) tooltip.hidden = true;
+    }, 900);
+  });
 
   document.addEventListener('keydown', (e) => {
     if (!ativo() || e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;

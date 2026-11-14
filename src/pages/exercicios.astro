@@ -36,7 +36,7 @@ const numerados = partes.flatMap((p) => p.grupos.flatMap((g) => g.exercicios)).l
                 <a href={rotas.secao(secao.data)}>Ler a seção</a>
               </div>
               {exercicios.map((ex) => (
-                <div class="exercicio prosa" id={ex.id}>
+                <div class="exercicio prosa" id={ex.id} data-exercicio-id={ex.id}>
                   {ex.titulo !== 'Vamos praticar' && <h3 class="exercicio__titulo">{ex.titulo}</h3>}
                   <Fragment set:html={ex.html} />
                 </div>
@@ -58,6 +58,31 @@ const numerados = partes.flatMap((p) => p.grupos.flatMap((g) => g.exercicios)).l
         botao.setAttribute('aria-expanded', String(!aberto));
         document.getElementById(botao.getAttribute('aria-controls')!)!.hidden = aberto;
         botao.dispatchEvent(new Event('livro:reposicionar', { bubbles: true }));
+      });
+    });
+
+    document.querySelectorAll<HTMLElement>('[data-exercicio-id]').forEach((exercicio) => {
+      const id = exercicio.dataset.exercicioId!;
+      const campo = document.createElement('textarea');
+      campo.rows = 4;
+      campo.placeholder = 'Escreva sua resposta antes de conferir.';
+      campo.dataset.resposta = id;
+      const rotulo = document.createElement('label');
+      rotulo.className = 'exercicio__resposta';
+      const texto = document.createElement('span');
+      texto.textContent = 'Sua resposta';
+      rotulo.append(texto, campo);
+      const gabarito = exercicio.querySelector('details.resposta');
+      if (gabarito) gabarito.before(rotulo);
+      else exercicio.append(rotulo);
+      const chave = `ipv6:exercicio:${campo.dataset.resposta}`;
+      try {
+        campo.value = localStorage.getItem(chave) ?? '';
+      } catch {}
+      campo.addEventListener('input', () => {
+        try {
+          localStorage.setItem(chave, campo.value);
+        } catch {}
       });
     });
   });
@@ -158,6 +183,26 @@ const numerados = partes.flatMap((p) => p.grupos.flatMap((g) => g.exercicios)).l
   .exercicio__titulo {
     margin: 1.25rem 0 0.35rem !important;
     font-size: 1.02rem !important;
+  }
+  .exercicio__resposta {
+    display: grid;
+    gap: 0.35rem;
+    margin: 1rem 0;
+  }
+  .exercicio__resposta span {
+    color: var(--titulo);
+    font-weight: 700;
+  }
+  .exercicio__resposta textarea {
+    width: 100%;
+    min-height: 5rem;
+    padding: 0.65rem 0.75rem;
+    border: 1px solid var(--linha);
+    border-radius: 8px;
+    resize: vertical;
+    background: var(--fundo);
+    color: var(--texto);
+    font: inherit;
   }
   @media (max-width: 30rem) {
     .exercicios__conta {
