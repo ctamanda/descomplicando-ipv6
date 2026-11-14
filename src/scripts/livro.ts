@@ -121,6 +121,7 @@ export function iniciarLivro() {
   function irPara(indice: number, folhear = true) {
     const de = atual;
     atual = Math.min(Math.max(indice, 0), totalViradas - 1);
+    if (atual !== de) document.dispatchEvent(new CustomEvent('livro:virada'));
     const destino = atual * passo;
     const mostrar = () => texto!.scrollTo({ left: destino, behavior: 'auto' });
 

@@ -292,12 +292,31 @@
 .balao-glossario {
   position: fixed;
   z-index: 20;
-  width: min(22rem, calc(100vw - 1.5rem));
+  width: min(360px, calc(100vw - 1rem));
+  max-width: 360px;
   padding: 1rem;
   border: 1px solid var(--linha);
   border-radius: 10px;
   background: var(--fundo);
   box-shadow: 0 0.75rem 2rem rgb(0 0 0 / 18%);
+}
+.balao-glossario::before {
+  position: absolute;
+  left: var(--seta-esquerda, 50%);
+  width: 0.7rem;
+  height: 0.7rem;
+  border: solid var(--linha);
+  border-width: 1px 0 0 1px;
+  background: var(--fundo);
+  content: '';
+  transform: translateX(-50%) rotate(45deg);
+}
+.balao-glossario[data-posicao='abaixo']::before {
+  top: -0.4rem;
+}
+.balao-glossario[data-posicao='acima']::before {
+  bottom: -0.4rem;
+  transform: translateX(-50%) rotate(225deg);
 }
 .balao-glossario strong {
   display: block;
@@ -313,11 +332,17 @@
 @media (max-width: 40rem) {
   .balao-glossario {
     top: auto !important;
-    right: 0.75rem;
-    bottom: 0.75rem;
-    left: 0.75rem !important;
-    width: auto;
+    right: 0;
+    bottom: 0;
+    left: 0 !important;
+    width: auto !important;
+    max-width: none;
+    max-height: 60dvh !important;
+    overflow-y: auto;
     border-radius: 14px;
+  }
+  .balao-glossario::before {
+    display: none;
   }
 }
 

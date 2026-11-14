@@ -104,21 +104,23 @@ const ordem = [rotas.inicio, ...livro.hrefs];
   document.addEventListener('astro:after-swap', () => iniciarLivro());
   document.addEventListener('astro:page-load', () => iniciarLivro());
 
+  let fecharBalaoAberto: ((devolverFoco?: boolean) => void) | null = null;
+
   document.addEventListener('click', (evento) => {
     const link = (evento.target as Element).closest<HTMLAnchorElement>('.termo-glossario');
     const aberto = document.querySelector<HTMLElement>('[data-balao-glossario]');
     if (aberto && (!link || aberto.dataset.termo !== link.href)) {
-      const origem = [...document.querySelectorAll<HTMLAnchorElement>('[data-termo-aberto]')].find(
-        (item) => item.dataset.termoAberto === aberto.dataset.termo,
-      );
-      aberto.remove();
-      origem?.focus();
+      fecharBalaoAberto?.();
     }
     if (!link || evento.defaultPrevented) return;
 
     evento.preventDefault();
     const definicao = link.dataset.definicao ?? link.title;
     if (!definicao) return;
+    if (aberto) {
+      fecharBalaoAberto?.();
+      return;
+    }
 
     const balao = document.createElement('div');
     balao.dataset.balaoGlossario = '';
@@ -132,20 +134,65 @@ const ordem = [rotas.inicio, ...livro.hrefs];
     link.dataset.termoAberto = link.href;
     document.body.append(balao);
 
-    const rect = link.getBoundingClientRect();
-    const margem = 12;
-    const esquerda = Math.min(Math.max(margem, rect.left), window.innerWidth - balao.offsetWidth - margem);
-    balao.style.left = `${esquerda}px`;
-    balao.style.top = `${rect.bottom + 8}px`;
+    const reposicionar = () => {
+      const rect = link.getBoundingClientRect();
+      const folha = document.querySelector<HTMLElement>('[data-livro]')?.getBoundingClientRect();
+      const margem = 8;
+      const limiteEsq = Math.max(margem, folha?.left ?? margem);
+      const limiteDir = Math.min(window.innerWidth - margem, folha?.right ?? window.innerWidth - margem);
+      const largura = Math.min(360, Math.max(0, limiteDir - limiteEsq));
+      const espacoAcima = rect.top - margem;
+      const espacoAbaixo = window.innerHeight - rect.bottom - margem;
+      const intervalo = 8;
+
+      balao.style.width = `${largura}px`;
+      balao.style.maxHeight = '';
+      balao.style.overflowY = '';
+      const altura = balao.offsetHeight;
+      let posicao: 'acima' | 'abaixo' = 'abaixo';
+      let maxAltura = 0;
+
+      if (espacoAbaixo >= altura + intervalo) {
+        posicao = 'abaixo';
+      } else if (espacoAcima >= altura + intervalo) {
+        posicao = 'acima';
+      } else {
+        posicao = espacoAcima >= espacoAbaixo ? 'acima' : 'abaixo';
+        maxAltura = Math.max(0, Math.max(espacoAcima, espacoAbaixo) - intervalo);
+      }
+
+      if (maxAltura) {
+        balao.style.maxHeight = `${maxAltura}px`;
+        balao.style.overflowY = 'auto';
+      }
+
+      const alturaFinal = balao.offsetHeight;
+      const centro = rect.left + rect.width / 2;
+      const esquerda = Math.min(
+        Math.max(limiteEsq, centro - balao.offsetWidth / 2),
+        Math.max(limiteEsq, limiteDir - balao.offsetWidth),
+      );
+      const topo = posicao === 'acima' ? rect.top - alturaFinal - intervalo : rect.bottom + intervalo;
+      balao.dataset.posicao = posicao;
+      balao.style.left = `${esquerda}px`;
+      balao.style.top = `${Math.max(margem, topo)}px`;
+      balao.style.setProperty('--seta-esquerda', `${Math.min(Math.max(centro - esquerda, 12), balao.offsetWidth - 12)}px`);
+    };
+
+    reposicionar();
     balao.querySelector<HTMLAnchorElement>('a')!.focus();
 
-    const fechar = () => {
+    const fechar = (devolverFoco = true) => {
       balao.remove();
       delete link.dataset.termoAberto;
-      link.focus();
+      if (devolverFoco) link.focus();
       document.removeEventListener('keydown', tecla);
       document.removeEventListener('click', fora);
+      window.removeEventListener('resize', reposicionar);
+      window.visualViewport?.removeEventListener('resize', reposicionar);
+      if (fecharBalaoAberto === fechar) fecharBalaoAberto = null;
     };
+    fecharBalaoAberto = fechar;
     const tecla = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.preventDefault();
@@ -157,5 +204,10 @@ const ordem = [rotas.inicio, ...livro.hrefs];
     };
     document.addEventListener('keydown', tecla);
     document.addEventListener('click', fora);
+    window.addEventListener('resize', reposicionar);
+    window.visualViewport?.addEventListener('resize', reposicionar);
   }, true);
+
+  document.addEventListener('livro:virada', () => fecharBalaoAberto?.(false));
+  document.addEventListener('astro:before-swap', () => fecharBalaoAberto?.(false));
 </script>
