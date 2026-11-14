@@ -277,16 +277,26 @@
   background: var(--azul-fundo);
 }
 
-/* Termo do glossário: link discreto, só um sublinhado pontilhado */
-.termo-glossario {
+/* Termo do glossário: botão discreto, só um sublinhado pontilhado */
+.termo {
+  padding: 0;
+  border: 0;
+  background: transparent;
   color: inherit;
+  font: inherit;
+  cursor: pointer;
   text-decoration: underline dotted var(--azul-claro);
   text-decoration-thickness: 1.5px;
   text-underline-offset: 0.22em;
 }
-.termo-glossario:hover {
+.termo:hover {
   color: var(--link);
   text-decoration-style: solid;
+}
+.termo:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid var(--foco);
+  outline-offset: 2px;
 }
 
 .balao-glossario {

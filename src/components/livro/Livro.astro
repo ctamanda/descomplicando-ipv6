@@ -107,9 +107,9 @@ const ordem = [rotas.inicio, ...livro.hrefs];
   let fecharBalaoAberto: ((devolverFoco?: boolean) => void) | null = null;
 
   document.addEventListener('click', (evento) => {
-    const link = (evento.target as Element).closest<HTMLAnchorElement>('.termo-glossario');
+    const link = (evento.target as Element).closest<HTMLButtonElement>('.termo');
     const aberto = document.querySelector<HTMLElement>('[data-balao-glossario]');
-    if (aberto && (!link || aberto.dataset.termo !== link.href)) {
+    if (aberto && (!link || aberto.dataset.termo !== link.dataset.glossarioHref)) {
       fecharBalaoAberto?.();
     }
     if (!link || evento.defaultPrevented) return;
@@ -122,16 +122,19 @@ const ordem = [rotas.inicio, ...livro.hrefs];
       return;
     }
 
+    const href = link.dataset.glossarioHref;
+    if (!href) return;
     const balao = document.createElement('div');
     balao.dataset.balaoGlossario = '';
-    balao.dataset.termo = link.href;
+    balao.dataset.termo = href;
     balao.className = 'balao-glossario';
     balao.setAttribute('role', 'dialog');
     balao.setAttribute('aria-label', 'Definição do termo');
-    balao.innerHTML = `<strong></strong><p></p><a href="${link.href}">Ver no glossário</a>`;
+    balao.innerHTML = '<strong></strong><p></p><a>Ver no glossário</a>';
+    balao.querySelector<HTMLAnchorElement>('a')!.href = href;
     balao.querySelector('strong')!.textContent = link.textContent?.trim() ?? '';
     balao.querySelector('p')!.textContent = definicao;
-    link.dataset.termoAberto = link.href;
+    link.dataset.termoAberto = href;
     document.body.append(balao);
 
     const reposicionar = () => {

@@ -85,13 +85,15 @@ export default function remarkGlossario(opcoes: { base?: string } = {}) {
         const novos: No[] = [];
         if (melhor.inicio > 0) novos.push({ type: 'text', value: texto.slice(0, melhor.inicio) });
         novos.push({
-          type: 'link',
-          url: `${base}glossario/#${melhor.p.slug}`,
-          title: melhor.p.definicao,
+          type: 'button',
           data: {
+            hName: 'button',
             hProperties: {
-              className: ['termo-glossario'],
+              type: 'button',
+              className: ['termo'],
+              title: melhor.p.definicao,
               'data-definicao': melhor.p.definicao,
+              'data-glossario-href': `${base}glossario/#${melhor.p.slug}`,
             },
           },
           children: [{ type: 'text', value: texto.slice(melhor.inicio, melhor.fim) }],
