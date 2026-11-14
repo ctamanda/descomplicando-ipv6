@@ -11,6 +11,7 @@ import { unified, type Pluggable } from 'unified';
 import remarkBlocos from './remark-blocos';
 import remarkSobrescrito from './remark-sobrescrito';
 import { rehypeTabelas, rehypeTitulos } from './rehype-manual';
+import rehypeFiguras from './rehype-figuras';
 
 function criar(extrasRehype: Pluggable[] = []) {
   return unified()
@@ -22,6 +23,7 @@ function criar(extrasRehype: Pluggable[] = []) {
     .use(remarkRehype)
     .use(rehypeTitulos as any)
     .use(rehypeTabelas as any)
+    .use(rehypeFiguras, { baseImagem: 'imagens/', preferirPng: true })
     .use(extrasRehype)
     .use(rehypeStringify, { closeSelfClosing: true, closeEmptyElements: true });
 }

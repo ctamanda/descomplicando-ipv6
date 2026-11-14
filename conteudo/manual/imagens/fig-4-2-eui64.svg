@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 380" width="1000" height="380" role="img">
+<rect width="1000" height="380" fill="white"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#123C6B"/></marker><marker id="arrb" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#123C6B"/></marker></defs>
+<text x="36" y="52" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="700" fill="#123C6B" text-anchor="start" dominant-baseline="middle">endereço MAC (48 bits)</text>
+<rect x="300" y="30" width="54" height="40" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="327.0" y="51.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">00</text>
+<rect x="362" y="30" width="54" height="40" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="389.0" y="51.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">1a</text>
+<rect x="424" y="30" width="54" height="40" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="451.0" y="51.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">2b</text>
+<rect x="486" y="30" width="54" height="40" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="513.0" y="51.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">3c</text>
+<rect x="548" y="30" width="54" height="40" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="575.0" y="51.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">4d</text>
+<rect x="610" y="30" width="54" height="40" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="637.0" y="51.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">5e</text>
+<text x="640" y="80" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="400" fill="#6B7280" text-anchor="start" dominant-baseline="middle" font-style="italic">1. separar ao meio</text>
+<text x="36" y="122" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="700" fill="#123C6B" text-anchor="start" dominant-baseline="middle">2. inserir ff:fe no meio</text>
+<rect x="300" y="100" width="54" height="40" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="327.0" y="121.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">00</text>
+<rect x="362" y="100" width="54" height="40" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="389.0" y="121.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">1a</text>
+<rect x="424" y="100" width="54" height="40" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="451.0" y="121.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">2b</text>
+<rect x="486" y="100" width="54" height="40" rx="8" fill="#FFF6D6" stroke="none" stroke-width="2"/>
+<text x="513.0" y="121.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#7a5a00" text-anchor="middle" dominant-baseline="middle">ff</text>
+<rect x="548" y="100" width="54" height="40" rx="8" fill="#FFF6D6" stroke="none" stroke-width="2"/>
+<text x="575.0" y="121.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#7a5a00" text-anchor="middle" dominant-baseline="middle">fe</text>
+<rect x="610" y="100" width="54" height="40" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="637.0" y="121.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">3c</text>
+<rect x="672" y="100" width="54" height="40" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="699.0" y="121.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">4d</text>
+<rect x="734" y="100" width="54" height="40" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="761.0" y="121.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">5e</text>
+<text x="36" y="192" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="700" fill="#123C6B" text-anchor="start" dominant-baseline="middle">3. inverter o 7º bit do 1º byte</text>
+<rect x="300" y="170" width="54" height="40" rx="8" fill="#E8F5EC" stroke="none" stroke-width="2"/>
+<text x="327.0" y="191.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#1b6b3a" text-anchor="middle" dominant-baseline="middle">02</text>
+<rect x="362" y="170" width="54" height="40" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="389.0" y="191.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">1a</text>
+<rect x="424" y="170" width="54" height="40" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="451.0" y="191.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">2b</text>
+<rect x="486" y="170" width="54" height="40" rx="8" fill="#FFF6D6" stroke="none" stroke-width="2"/>
+<text x="513.0" y="191.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#7a5a00" text-anchor="middle" dominant-baseline="middle">ff</text>
+<rect x="548" y="170" width="54" height="40" rx="8" fill="#FFF6D6" stroke="none" stroke-width="2"/>
+<text x="575.0" y="191.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#7a5a00" text-anchor="middle" dominant-baseline="middle">fe</text>
+<rect x="610" y="170" width="54" height="40" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="637.0" y="191.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">3c</text>
+<rect x="672" y="170" width="54" height="40" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="699.0" y="191.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">4d</text>
+<rect x="734" y="170" width="54" height="40" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="761.0" y="191.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">5e</text>
+<text x="300" y="232" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="13" font-weight="400" fill="#1b6b3a" text-anchor="start" dominant-baseline="middle">00 = 0000 0000  →  0000 0010 = 02</text>
+<text x="36" y="290" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="700" fill="#123C6B" text-anchor="start" dominant-baseline="middle">identificador de interface (64 bits)</text>
+<rect x="300" y="270" width="104" height="44" rx="8" fill="#E8F5EC" stroke="none" stroke-width="2"/>
+<text x="352.0" y="293.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="20" font-weight="700" fill="#1b6b3a" text-anchor="middle" dominant-baseline="middle">021a</text>
+<text x="411.0" y="293.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">:</text>
+<rect x="418" y="270" width="104" height="44" rx="8" fill="#FFF6D6" stroke="none" stroke-width="2"/>
+<text x="470.0" y="293.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="20" font-weight="700" fill="#7a5a00" text-anchor="middle" dominant-baseline="middle">2bff</text>
+<text x="529.0" y="293.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">:</text>
+<rect x="536" y="270" width="104" height="44" rx="8" fill="#FFF6D6" stroke="none" stroke-width="2"/>
+<text x="588.0" y="293.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="20" font-weight="700" fill="#7a5a00" text-anchor="middle" dominant-baseline="middle">fe3c</text>
+<text x="647.0" y="293.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">:</text>
+<rect x="654" y="270" width="104" height="44" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="706.0" y="293.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="20" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">4d5e</text>
+<text x="500" y="350" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">é por isso que tantos endereços têm ff:fe no meio: o identificador veio do MAC</text>
+</svg>

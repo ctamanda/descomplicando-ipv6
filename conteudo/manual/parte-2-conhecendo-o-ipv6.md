@@ -22,6 +22,9 @@ Com 32 bits o IPv4 tem cerca de 4,3 bilhões de endereços. Com 128 bits, o IPv6
 
 Números desse tamanho não significam nada sozinhos, então vale uma comparação. Se você dividisse todos os endereços IPv6 igualmente entre cada milímetro quadrado da superfície da Terra, incluindo os oceanos, cada milímetro quadrado receberia mais de 600 quatrilhões de endereços. Ou, de outro jeito: dá para dar a cada pessoa do planeta mais endereços do que o IPv4 inteiro tem, bilhões de vezes.
 
+![Duas barras: uma curta de 32 bits (cerca de 4,3 bilhões de endereços) e uma longa de 128 bits (cerca de 340 undecilhões)](imagens/fig-2-1-escala.svg)
+*Figura 2.1 – O tamanho do endereço no IPv4 e no IPv6 e a quantidade de endereços de cada um.*
+
 > **Você sabia?**
 >
 > O tamanho do espaço de endereços não foi escolhido para "dar a cada dispositivo um endereço". Foi escolhido para que ninguém precise economizar. No IPv6, uma única rede doméstica recebe um bloco de 18 quintilhões de endereços (um /64, que você vai entender na Parte 4), e isso é considerado normal. A ideia é que endereço nunca mais seja um recurso escasso.
@@ -137,6 +140,9 @@ Agora que você sabe o que o IPv6 é e por que existe, vamos colocar os dois pro
 **Broadcast.** No IPv4, várias operações consistem em "gritar para todo mundo na rede" (broadcast), o que obriga todos os dispositivos a processar a mensagem mesmo quando ela não é para eles. O IPv6 substitui isso por multicast: a mensagem vai só para o grupo interessado. A seção 2.5 explica.
 
 **Cabeçalho.** O cabeçalho é a parte de controle do pacote (lembre da seção 1.2). No IPv4 ele tem tamanho variável e campos que quase nunca são usados. No IPv6 ele tem sempre 40 bytes, com menos campos, e o roteador processa mais rápido. O checksum (uma verificação de erro) foi removido do IP porque as camadas de cima e de baixo já fazem essa verificação.
+
+![Os campos do cabeçalho IPv4, de tamanho variável, ao lado dos campos do cabeçalho IPv6, de 40 bytes fixos, com os cabeçalhos de extensão opcionais](imagens/fig-2-2-cabecalhos.svg)
+*Figura 2.2 – Cabeçalho IPv4 e cabeçalho IPv6, simplificados.*
 
 **Fragmentação.** Quando um pacote é grande demais para um trecho do caminho, no IPv4 o roteador pode cortá-lo em pedaços. No IPv6 isso é proibido: só quem enviou pode fragmentar, e para isso ele descobre antes qual é o tamanho máximo do caminho. Menos trabalho para os roteadores.
 
@@ -268,6 +274,9 @@ O IPv6 elimina o broadcast e o substitui por algo mais preciso.
 - `ff02::2` significa "todos os roteadores deste enlace". É para esse grupo que um dispositivo pergunta "existe um roteador aqui?" durante a autoconfiguração. Só os roteadores recebem; os outros dispositivos nem veem a mensagem.
 
 **Anycast** é o menos intuitivo. Vários servidores em lugares diferentes compartilham o mesmo endereço, e cada pacote vai para o servidor mais próximo de quem enviou. É como se um serviço tivesse "filiais" com o mesmo endereço e a rede escolhesse automaticamente a mais perto. É usado, por exemplo, nos servidores raiz do DNS.
+
+![Três redes lado a lado: em unicast o pacote vai para um dispositivo; em multicast vai para todos os do grupo; em anycast vai para o mais próximo entre os que compartilham o endereço](imagens/fig-2-3-unicast-multicast-anycast.svg)
+*Figura 2.3 – Unicast, multicast e anycast.*
 
 > **Exemplo**
 >

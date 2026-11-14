@@ -10,7 +10,7 @@
  * No livro digital não há botão "Ver gabarito": gabaritos e resoluções
  * aparecem abertos, com um rótulo.
  */
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import { strToU8, zipSync, type Zippable } from 'fflate';
 import { visit } from 'unist-util-visit';
@@ -23,6 +23,7 @@ const SUBTITULO = 'Um Guia Interativo de Redes';
 const AUTORA = 'Amanda Ribeiro da Costa';
 const IDENTIFICADOR = 'urn:uuid:5f1e7c2a-6b1d-4c8e-9a3f-2d7b8e4c1a90';
 const PASTA = path.resolve('conteudo');
+const PASTA_IMAGENS = path.join(PASTA, 'manual', 'imagens');
 
 type El = { type: string; tagName?: string; value?: string; properties?: Record<string, unknown>; children?: El[] };
 
@@ -179,10 +180,14 @@ ${capitulos.map(ponto).join('\n')}
 `;
 }
 
-function opf(capitulos: Capitulo[]) {
+async function opf(capitulos: Capitulo[]) {
   const todos = capitulos.flatMap((c) => [c, ...(c.filhos ?? [])]);
   const modificado = new Date().toISOString().replace(/\.\d+Z$/, 'Z');
   const manifesto = todos.map((c) => `<item id="${c.id}" href="${c.arquivo}" media-type="application/xhtml+xml"/>`).join('\n');
+  const imagens = (await readdir(path.join(PASTA_IMAGENS, 'png')))
+    .filter((nome) => path.extname(nome).toLowerCase() === '.png')
+    .map((nome) => `<item id="imagem-${path.basename(nome, '.png')}" href="imagens/png/${nome}" media-type="image/png"/>`)
+    .join('\n');
   const espinha = todos.map((c) => `<itemref idref="${c.id}"/>`).join('\n');
   return `<?xml version="1.0" encoding="UTF-8"?>
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="id-livro" xml:lang="pt-BR">
@@ -205,6 +210,7 @@ function opf(capitulos: Capitulo[]) {
 <item id="capa-imagem" href="capa.png" media-type="image/png" properties="cover-image"/>
 <item id="capa" href="capa.xhtml" media-type="application/xhtml+xml"/>
 ${manifesto}
+${imagens}
 </manifest>
 <spine toc="ncx">
 <itemref idref="capa" linear="yes"/>
@@ -235,7 +241,7 @@ export function gerarEpub() {
 <rootfiles><rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/></rootfiles>
 </container>
 `),
-      'OEBPS/content.opf': strToU8(opf(capitulos)),
+      'OEBPS/content.opf': strToU8(await opf(capitulos)),
       'OEBPS/nav.xhtml': strToU8(nav(capitulos)),
       'OEBPS/toc.ncx': strToU8(ncx(capitulos)),
       'OEBPS/estilo.css': strToU8(ESTILO_EPUB),
@@ -244,6 +250,11 @@ export function gerarEpub() {
     };
     for (const c of capitulos.flatMap((c) => [c, ...(c.filhos ?? [])])) {
       arquivos[`OEBPS/${c.arquivo}`] = strToU8(c.xhtml);
+    }
+    for (const nome of await readdir(path.join(PASTA_IMAGENS, 'png'))) {
+      if (path.extname(nome).toLowerCase() === '.png') {
+        arquivos[`OEBPS/imagens/png/${nome}`] = [new Uint8Array(await readFile(path.join(PASTA_IMAGENS, 'png', nome))), { level: 0 }];
+      }
     }
     return zipSync(arquivos, { level: 9 });
   })();

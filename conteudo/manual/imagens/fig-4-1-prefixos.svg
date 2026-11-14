@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" width="1000" height="300" role="img">
+<rect width="1000" height="300" fill="white"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#123C6B"/></marker><marker id="arrb" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#123C6B"/></marker></defs>
+<rect x="36" y="120" width="104" height="48" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="88.0" y="145.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">2001</text>
+<text x="147.0" y="145.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="24" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">:</text>
+<rect x="154" y="120" width="104" height="48" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="206.0" y="145.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">0db8</text>
+<text x="265.0" y="145.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="24" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">:</text>
+<rect x="272" y="120" width="104" height="48" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="324.0" y="145.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">abcd</text>
+<text x="383.0" y="145.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="24" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">:</text>
+<rect x="390" y="120" width="104" height="48" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="442.0" y="145.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">1234</text>
+<text x="501.0" y="145.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="24" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">:</text>
+<rect x="508" y="120" width="104" height="48" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="560.0" y="145.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">5678</text>
+<text x="619.0" y="145.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="24" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">:</text>
+<rect x="626" y="120" width="104" height="48" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="678.0" y="145.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">9abc</text>
+<text x="737.0" y="145.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="24" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">:</text>
+<rect x="744" y="120" width="104" height="48" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="796.0" y="145.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">def0</text>
+<text x="855.0" y="145.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="24" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">:</text>
+<rect x="862" y="120" width="104" height="48" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="914.0" y="145.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">0001</text>
+<line x1="265" y1="70" x2="265" y2="190" stroke="#123C6B" stroke-width="3" stroke-linecap="round"/>
+<text x="265" y="52" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="18" font-weight="800" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">/32</text>
+<text x="265" y="210" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="600" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">provedor</text>
+<line x1="383" y1="70" x2="383" y2="190" stroke="#2FB36A" stroke-width="3" stroke-linecap="round"/>
+<text x="383" y="52" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="18" font-weight="800" fill="#2FB36A" text-anchor="middle" dominant-baseline="middle">/48</text>
+<text x="383" y="232" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="600" fill="#2FB36A" text-anchor="middle" dominant-baseline="middle">empresa ou campus</text>
+<line x1="442" y1="70" x2="442" y2="190" stroke="#b45309" stroke-width="3" stroke-linecap="round"/>
+<text x="442" y="52" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="18" font-weight="800" fill="#b45309" text-anchor="middle" dominant-baseline="middle">/56</text>
+<text x="442" y="210" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="600" fill="#b45309" text-anchor="middle" dominant-baseline="middle">cliente residencial</text>
+<line x1="501" y1="70" x2="501" y2="190" stroke="#9B1C1C" stroke-width="3" stroke-linecap="round"/>
+<text x="501" y="52" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="18" font-weight="800" fill="#9B1C1C" text-anchor="middle" dominant-baseline="middle">/64</text>
+<text x="501" y="232" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="600" fill="#9B1C1C" text-anchor="middle" dominant-baseline="middle">rede local</text>
+<text x="500" y="270" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">o número depois da barra diz quantos bits, contados da esquerda, pertencem à rede · /56 corta no meio do quarto grupo</text>
+</svg>

@@ -22,6 +22,9 @@ Pense no seu celular. Ele manda uma mensagem, abre um vídeo, atualiza um aplica
 
 Os dispositivos de uma rede podem ser computadores, celulares, tablets, impressoras, câmeras, televisões, relógios. Hoje quase tudo que tem uma tomada pode entrar em uma rede. Existem também dispositivos cuja única função é fazer a rede funcionar. O mais importante deles é o **roteador**: é ele que recebe a informação de um dispositivo e a encaminha na direção certa. O roteador de Wi-Fi da sua casa é um exemplo.
 
+![Uma casa com celular, notebook, TV e impressora ligados a um roteador, que por sua vez está ligado à Internet](imagens/fig-1-1-rede-domestica.svg)
+*Figura 1.1 – Uma rede local doméstica ligada à Internet pelo roteador.*
+
 ### Rede pequena, rede grande
 
 A rede da sua casa é pequena: alguns celulares, um notebook, uma TV, todos ligados ao mesmo roteador. Esse tipo de rede se chama **rede local**, ou LAN (do inglês *Local Area Network*). A rede de uma escola, de uma empresa ou de um prédio também é uma rede local, só que maior.
@@ -63,6 +66,9 @@ Você acabou de mandar uma foto pelo WhatsApp. O que aconteceu entre o momento e
 A foto não viaja inteira. Ela é cortada em pedaços pequenos chamados **pacotes**. Cada pacote carrega um pedacinho da foto e algumas informações de controle, entre elas quem enviou e para quem vai. Do outro lado, os pacotes são juntados de novo na ordem certa e a foto aparece.
 
 Por que cortar em pedaços? Por três motivos. Primeiro, porque os pacotes de várias pessoas podem compartilhar o mesmo cabo ao mesmo tempo, sem que ninguém precise esperar a foto de alguém terminar de passar. Segundo, porque se um pacote se perder, só ele precisa ser enviado de novo, e não a foto inteira. Terceiro, porque pacotes pequenos podem seguir caminhos diferentes e chegar por rotas distintas.
+
+![Uma foto sendo dividida em quatro pacotes, cada um com origem e destino, que seguem do celular por dois roteadores até o servidor](imagens/fig-1-2-pacotes.svg)
+*Figura 1.2 – A foto viaja em pacotes, de roteador em roteador, até o destino.*
 
 > **Conceito-chave**
 >
@@ -135,6 +141,9 @@ Abra a configuração de rede do seu celular. Você vai ver algo como `192.168.0
 
 O primeiro é o **endereço privado**: vale só dentro da sua rede local. Todas as casas do Brasil podem ter um dispositivo com `192.168.0.15` sem conflito, porque esses endereços nunca saem da rede local. O segundo é o **endereço público**: é o endereço que o seu roteador tem na Internet, único no mundo, fornecido pelo provedor. Quando o seu celular manda um pacote para fora, o roteador troca o endereço privado pelo público, e faz a troca inversa na volta. Esse truque se chama **NAT**, e vamos falar dele na seção 1.6, porque ele é uma das razões de o IPv6 existir.
 
+![Três dispositivos com endereços privados 192.168.0.x atrás de um roteador que tem um endereço público; o NAT troca o endereço na saída para a Internet](imagens/fig-1-3-privado-publico.svg)
+*Figura 1.3 – Endereços privados dentro de casa e um único endereço público na Internet, com o NAT no meio.*
+
 > **Você sabia?**
 >
 > Endereços privados foram uma solução de emergência. Eles foram definidos em 1996 porque os endereços públicos já estavam começando a faltar. A ideia era ganhar tempo. Ganhou muito mais do que se imaginava.
@@ -170,6 +179,9 @@ Um endereço IPv4 é um número de **32 bits**. Bits são zeros e uns; 32 deles 
 > O endereço `192.168.0.1` é, em bits:
 > `11000000 . 10101000 . 00000000 . 00000001`
 > Cada bloco de 8 bits vira um número: 192, 168, 0 e 1. Ninguém escreve endereços em binário no dia a dia, mas é bom saber que os quatro números são só uma forma mais confortável de ler 32 bits.
+
+![O endereço 192.168.0.1 escrito em binário, dividido em quatro blocos de 8 bits, com o número decimal de cada bloco embaixo](imagens/fig-1-4-32-bits.svg)
+*Figura 1.4 – Os 32 bits de um endereço IPv4 escritos como quatro números de 0 a 255.*
 
 ### Quantos endereços existem
 
@@ -221,6 +233,9 @@ No IPv4, quem separa a parte da rede da parte do dispositivo é a **máscara de 
 
 Existe uma forma mais curta de escrever a máscara: contar quantos bits são da rede e colocar depois de uma barra. `255.255.255.0` tem 24 bits "ligados", então a rede se escreve `192.168.0.0/24`. Guarde essa notação com barra: no IPv6 ela é a única usada.
 
+![O endereço 192.168.0.15/24 com a parte da rede e a parte do dispositivo em cores diferentes, e abaixo uma rede doméstica com notebook, TV, gateway e o servidor DNS](imagens/fig-1-5-rede-gateway-dns.svg)
+*Figura 1.5 – Parte da rede, parte do dispositivo, gateway padrão e DNS em uma rede 192.168.0.0/24.*
+
 > **Conceito-chave**
 >
 > A **máscara de rede** (ou **prefixo**, na notação com barra) indica quantos bits do endereço identificam a rede. O restante identifica o dispositivo dentro dela.
@@ -264,6 +279,9 @@ Você já sabe que o IPv4 tem cerca de 4,3 bilhões de endereços. Esta seção 
 Endereços IP são distribuídos em blocos por uma cadeia de organizações: a IANA, no topo, entrega grandes blocos a cinco registros regionais (o da América Latina é o **LACNIC**), que entregam blocos menores a provedores e empresas.
 
 Em **3 de fevereiro de 2011**, a IANA entregou seus últimos blocos. O estoque central de endereços IPv4 do mundo tinha acabado. Os registros regionais foram esgotando os seus nos anos seguintes; o LACNIC chegou ao fim do estoque em **agosto de 2020**. Hoje, um provedor novo que precise de endereços IPv4 entra em lista de espera ou compra endereços de quem tem sobrando, por dezenas de dólares cada um.
+
+![Linha do tempo com 1981 (RFC 791), 1996 (endereços privados e NAT), 2011 (IANA esgota) e 2020 (LACNIC esgota)](imagens/fig-1-6-linha-do-tempo.svg)
+*Figura 1.6 – Do nascimento do IPv4 ao esgotamento dos endereços.*
 
 > **Você sabia?**
 >

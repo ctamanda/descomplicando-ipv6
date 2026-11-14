@@ -4,10 +4,12 @@ import remarkBlocos from './src/lib/markdown/remark-blocos.ts';
 import remarkSobrescrito from './src/lib/markdown/remark-sobrescrito.ts';
 import remarkGlossario from './src/lib/markdown/remark-glossario.ts';
 import { rehypeTabelas, rehypeTitulos } from './src/lib/markdown/rehype-manual.ts';
+import rehypeFiguras from './src/lib/markdown/rehype-figuras.ts';
 
 // Publicado em https://ctamanda.github.io/descomplicando-ipv6/.
 // Para outro endereço (Cloudflare Pages, Vercel), defina SITE_URL e BASE_PATH=/.
 const base = process.env.BASE_PATH || '/descomplicando-ipv6';
+const baseImagem = `${base.replace(/\/$/, '')}/imagens/`;
 
 export default defineConfig({
   site: process.env.SITE_URL || 'https://ctamanda.github.io',
@@ -17,6 +19,6 @@ export default defineConfig({
   prefetch: { prefetchAll: false, defaultStrategy: 'hover' },
   markdown: {
     remarkPlugins: [remarkBlocos, remarkSobrescrito, [remarkGlossario, { base }]],
-    rehypePlugins: [rehypeTitulos, rehypeTabelas],
+    rehypePlugins: [rehypeTitulos, rehypeTabelas, [rehypeFiguras, { baseImagem: baseImagem }]],
   },
 });

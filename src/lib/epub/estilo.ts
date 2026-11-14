@@ -13,6 +13,12 @@ sup { font-size: 0.7em; line-height: 0; }
 code { font-family: monospace; font-size: 0.9em; }
 blockquote { margin: 1em 0; padding-left: 1em; border-left: 3px solid #c5cfda; font-style: italic; }
 
+.figura { margin: 1.4em 0; text-align: center; break-inside: avoid; page-break-inside: avoid; }
+.figura__link { display: block; padding: 0.4em; border: 1px solid #c5cfda; background: #fff; }
+.figura img { display: block; width: 100%; height: auto; max-height: 520px; object-fit: contain; }
+.figura__legenda { margin: 0.5em 0 0; color: #566372; font-size: 0.82em; line-height: 1.4; }
+.figura__legenda strong { color: #123c6b; }
+
 .chapeu, .subtitulo, .bloco__rotulo, .resposta__rotulo {
   font-size: 0.72em; font-weight: bold; letter-spacing: 0.1em; text-transform: uppercase; color: #566372;
 }

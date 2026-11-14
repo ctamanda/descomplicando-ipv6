@@ -24,6 +24,9 @@ Vamos separar o exemplo em seus oito grupos:
 
 Cada grupo é um número de quatro dígitos escrito em hexadecimal, um sistema de numeração que usa dezesseis símbolos: os dígitos de 0 a 9 e as letras de a a f. A seção 3.3 explica esse sistema; por enquanto basta saber que "0db8" é um número, e não uma sigla.
 
+![O endereço 2001:0db8:0000:0000:0000:0000:0000:0001 com os oito grupos numerados de 1 a 8 e a indicação de 16 bits e 4 dígitos hexadecimais em cada um](imagens/fig-3-1-oito-grupos.svg)
+*Figura 3.1 – Os oito grupos de um endereço IPv6.*
+
 ### Comparando com o IPv4
 
 | | IPv4 | IPv6 |
@@ -78,6 +81,9 @@ Voltando ao endereço da seção anterior:
 `2001:0db8:0000:0000` **:** `0000:0000:0000:0001`
 
 Os quatro primeiros grupos (`2001:0db8:0000:0000`) identificam a rede. Os quatro últimos (`0000:0000:0000:0001`) identificam o dispositivo: neste caso, o dispositivo número 1 daquela rede.
+
+![O mesmo endereço dividido ao meio: os quatro primeiros grupos em azul como prefixo de rede e os quatro últimos em verde como identificador de interface](imagens/fig-3-2-duas-metades.svg)
+*Figura 3.2 – Prefixo de rede e identificador de interface em um endereço /64.*
 
 > **Conceito-chave**
 >
@@ -305,6 +311,9 @@ Uma **sequência de um ou mais grupos inteiramente zerados** pode ser substituí
 
 Por que só uma vez? Porque, na expansão, quem lê precisa saber quantos grupos o `::` está escondendo. Como o endereço tem sempre oito grupos, basta contar os grupos que sobraram e a diferença é o que o `::` representa. Se houvesse dois `::`, não daria para saber quantos grupos cada um esconde.
 
+![Três linhas mostrando o endereço completo, depois sem os zeros à esquerda e por fim com a sequência de zeros substituída por dois-pontos duplos](imagens/fig-3-3-abreviacao.svg)
+*Figura 3.3 – As duas regras de abreviação aplicadas a 2001:0db8:0000:0000:0000:0000:0000:0001.*
+
 > **Atenção**
 >
 > `2001:db8::1::5` é **inválido**. Existem dois `::`, e é impossível saber se o endereço é `2001:db8:0:1:0:0:0:5`, `2001:db8:0:0:1:0:0:5` ou outra combinação. Quando o endereço tem duas sequências de zeros, só uma pode virar `::`; a outra fica escrita como `0`.
@@ -458,6 +467,9 @@ Nem todo endereço IPv6 serve para a mesma coisa. Assim como no IPv4 existem end
 | `::` | ::/128 | **Não especificado**: "ainda não tenho endereço" | 0.0.0.0 |
 | `2001:db8` | 2001:db8::/32 | **Documentação**: só para exemplos | 192.0.2.x, 198.51.100.x, 203.0.113.x |
 
+![Faixas coloridas com os prefixos 2000::/3, fc00::/7, fe80::/10, ff00::/8, ::1, :: e 2001:db8::/32, cada uma com o nome do tipo e uma descrição curta](imagens/fig-3-4-tipos.svg)
+*Figura 3.4 – Os tipos de endereço IPv6 e os prefixos que os identificam.*
+
 ### Cada tipo em detalhe
 
 **Global unicast (2000::/3).** É o endereço que identifica um dispositivo na Internet inteira. Todo endereço que começa com `2` ou `3` é global. Na prática hoje quase todos começam com `2`: `2001:`, `2804:` (comum no Brasil), `2a00:` (Europa), `2600:` (Estados Unidos). É o provedor que entrega esses endereços, em blocos, e o dispositivo monta o seu a partir do prefixo anunciado pelo roteador. Todo dispositivo com Internet IPv6 tem pelo menos um endereço global.
@@ -553,6 +565,9 @@ Por isso o link-local existe **antes** de qualquer outro endereço e **independe
 Aqui vem a parte que mais surpreende quem vem do IPv4. Na seção 1.5 você viu que o gateway padrão é o roteador da rede, e no IPv4 ele tem um endereço como `192.168.0.1`. No IPv6, o gateway padrão costuma ser o endereço **link-local** do roteador, algo como `fe80::1` ou `fe80::a2b3:c4ff:fed5:e6f7`.
 
 O motivo é simples: o dispositivo descobre o roteador pelo anúncio que ele faz (Router Advertisement), e esse anúncio sai do endereço link-local do roteador. Como o roteador está no mesmo enlace, o link-local basta para chegar até ele. Não há razão para usar o endereço global do roteador como gateway.
+
+![Notebook e roteador no mesmo enlace, cada um com seu endereço fe80::, e uma seta de Router Advertisement do roteador para o notebook](imagens/fig-3-5-link-local.svg)
+*Figura 3.5 – O roteador anuncia o prefixo a partir do seu endereço link-local, que vira o gateway do notebook.*
 
 > **Atenção**
 >

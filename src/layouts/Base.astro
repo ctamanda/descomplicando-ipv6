@@ -79,16 +79,22 @@ const tituloCompleto = `${titulo} · Descomplicando o IPv6`;
       <slot />
     </main>
     <Rodape />
+    <dialog class="lightbox" data-lightbox-dialog aria-label="Figura ampliada">
+      <img data-lightbox-image alt="" />
+      <p data-lightbox-caption></p>
+    </dialog>
     <script>
       import { iniciarGaveta, iniciarTema } from '../scripts/interface';
       import { iniciarLidas } from '../scripts/lidas';
       import { atualizarSumario, mostrarAtualNaLateral } from '../scripts/sumario';
+      import { iniciarFiguras } from '../scripts/figuras';
       document.addEventListener('astro:page-load', () => {
         iniciarGaveta();
         iniciarTema();
         iniciarLidas();
         atualizarSumario();
         mostrarAtualNaLateral();
+        iniciarFiguras();
       });
     </script>
   </body>

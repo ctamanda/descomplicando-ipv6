@@ -36,6 +36,9 @@ O NDP usa cinco tipos de mensagem ICMPv6; quatro delas você precisa conhecer.
 
 **Neighbor Advertisement (NA).** "O endereço é meu; meu MAC é este." Resposta ao NS.
 
+![Diagrama de sequência entre notebook e roteador com as quatro mensagens: Router Solicitation, Router Advertisement, Neighbor Solicitation e Neighbor Advertisement](imagens/fig-5-1-ndp.svg)
+*Figura 5.1 – As quatro mensagens do Neighbor Discovery.*
+
 > **Exemplo**
 >
 > O notebook `2001:db8:1:2::a` quer mandar um pacote para a impressora `2001:db8:1:2::b`, na mesma rede. Ele não sabe o MAC da impressora.
@@ -101,6 +104,9 @@ Esta é a seção que junta tudo. O link-local (3.8), o prefixo /64 (4.3), o ide
 > 5. **Endereço temporário.** Ele gera também um identificador aleatório e forma um segundo endereço global, `2804:14d:5e00:3f02:a8f1:3c9d:7e02:b641`, que vai usar para as conexões que iniciar. DAD de novo.
 > 6. **Gateway e rota.** Ele registra o endereço link-local do roteador (de onde veio o RA) como gateway padrão.
 > Tudo isso leva menos de dois segundos. Nenhum servidor participou.
+
+![Seis cartões em sequência: link-local com DAD, Router Solicitation, Router Advertisement, endereço global com DAD, endereço temporário com DAD e gateway](imagens/fig-5-2-slaac.svg)
+*Figura 5.2 – Os passos da autoconfiguração (SLAAC).*
 
 ### O que o RA decide
 
@@ -175,6 +181,9 @@ Se o SLAAC resolve tudo sozinho, para que serve o DHCPv6? Esta seção responde:
 > 4. O seu notebook recebe o RA e faz SLAAC com esse prefixo.
 > 5. Se o roteador tiver rede de visitantes, ele usa outro /64 do mesmo bloco (`...:3f01::/64`) nela.
 > Ou seja: DHCPv6 entre o provedor e o roteador; SLAAC entre o roteador e os seus dispositivos.
+
+![O provedor entrega um bloco /56 ao roteador de casa por DHCPv6 Prefix Delegation, e o roteador anuncia um /64 em cada rede interna por Router Advertisement](imagens/fig-5-3-delegacao-prefixo.svg)
+*Figura 5.3 – Delegação de prefixo: como o IPv6 chega à sua casa.*
 
 ### SLAAC ou DHCPv6?
 

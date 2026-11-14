@@ -69,6 +69,9 @@ Você já sabe o que a barra significa. Esta seção mostra os tamanhos de prefi
 
 Como cada grupo tem 16 bits, os prefixos múltiplos de 16 cortam exatamente na fronteira de um grupo: /16 corta depois do 1º, /32 depois do 2º, /48 depois do 3º, /64 depois do 4º. Esses são fáceis de ler.
 
+![O endereço 2001:0db8:abcd:1234:5678:9abc:def0:0001 com marcadores verticais mostrando onde cortam os prefixos /32, /48, /56 e /64](imagens/fig-4-1-prefixos.svg)
+*Figura 4.1 – Onde cada tamanho de prefixo corta o endereço.*
+
 > **Exemplo**
 >
 > `2001:db8:abcd:1234:5678:9abc:def0:1` com diferentes prefixos:
@@ -246,6 +249,9 @@ Você já sabe separar a rede. Esta seção olha para a outra metade: o **identi
 
 **Derivado do endereço MAC (EUI-64).** Foi o método original. O endereço MAC da placa tem 48 bits; para chegar a 64, insere-se `fffe` no meio e inverte-se um bit específico. Um MAC `00:1a:2b:3c:4d:5e` vira o identificador `021a:2bff:fe3c:4d5e`. É fácil de reconhecer: tem `ff:fe` no meio. O problema é que o MAC identifica a placa física para sempre, em qualquer rede, o que é ruim para privacidade. Por isso os sistemas modernos abandonaram esse método para dispositivos de usuário, mas você ainda o encontra em roteadores e equipamentos de rede.
 
+![Construção do identificador EUI-64: o MAC 00:1a:2b:3c:4d:5e separado ao meio, ff:fe inserido no centro, o sétimo bit invertido e o identificador final 021a:2bff:fe3c:4d5e](imagens/fig-4-2-eui64.svg)
+*Figura 4.2 – Como o identificador de interface é derivado do endereço MAC (EUI-64).*
+
 > **Conceito-chave**
 >
 > O **identificador de interface** (IID) são os 64 bits finais do endereço. Ele pode ser escolhido manualmente, gerado aleatoriamente pelo dispositivo (o padrão hoje) ou derivado do endereço MAC (EUI-64, reconhecível pelo `ff:fe` no meio).
@@ -334,6 +340,9 @@ Uma casa recebe `2001:db8:1:ab00::/56` (usamos o bloco de documentação para o 
 | 03 | `2001:db8:1:ab03::/64` | Home office |
 | ... | ... | ... |
 | ff | `2001:db8:1:abff::/64` | (disponível) |
+
+![Árvore com o bloco 2001:db8:1:ab00::/56 no topo se abrindo em sub-redes /64 numeradas de 00 a ff, com o uso de cada uma](imagens/fig-4-3-sub-redes.svg)
+*Figura 4.3 – Um bloco /56 dividido em sub-redes /64.*
 
 Cada uma dessas redes tem seus 18 quintilhões de endereços e sua própria autoconfiguração. Isolar as câmeras do Wi-Fi principal, por exemplo, deixa de ser um luxo de empresa.
 

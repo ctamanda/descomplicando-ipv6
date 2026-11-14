@@ -72,6 +72,9 @@ Vamos acompanhar um pacote da sua casa até um servidor e de volta, para ver tod
 > 4. **No provedor do servidor.** O pacote entra na rede da organização dona de `2800:3f0::/32`, é roteado até o enlace onde está o servidor, e o último roteador faz Neighbor Solicitation para achar o MAC dele.
 > 5. **No servidor.** O pacote chega com os mesmos endereços de origem e destino com que saiu. O servidor sabe exatamente quem pediu.
 
+![Ilustração do caminho de um pacote: casa, provedor, ponto de troca de tráfego, provedor do servidor e servidor](imagens/fig-6-1-caminho-do-pacote.svg)
+*Figura 6.1 – O caminho de um pacote da sua casa até o servidor.*
+
 ### O caminho de volta
 
 O servidor responde para `2804:14d:5e00:3f02:a8f1:3c9d:7e02:b641`. O caminho é análogo, no sentido contrário, e não precisa ser o mesmo: cada roteador decide por conta própria. Ao chegar ao roteador de casa, ele vê que `2804:14d:5e00:3f02::/64` é uma das suas redes, faz Neighbor Solicitation pelo notebook (ou usa o cache) e entrega.
@@ -297,6 +300,9 @@ O terceiro mecanismo permite que uma rede **só IPv6** acesse servidores **só I
 > **Você sabia?**
 >
 > Alguns aplicativos antigos quebram em redes só IPv6 com NAT64 porque usam endereços IPv4 escritos diretamente no código, sem passar pelo DNS. Por isso a Apple exige, desde 2016, que todo aplicativo da App Store funcione em redes só IPv6 com NAT64, e oferece no macOS um modo de teste para isso. Foi uma das medidas que mais acelerou a adaptação de aplicativos ao IPv6.
+
+![Três painéis: pilha dupla, com um notebook que tem endereço IPv4 e IPv6; túnel, com um pacote IPv6 dentro de um pacote IPv4; e NAT64 com DNS64, com um celular só IPv6 falando com um servidor só IPv4](imagens/fig-6-2-transicao.svg)
+*Figura 6.2 – Os três tipos de mecanismo de transição.*
 
 ### Qual mecanismo é qual
 
