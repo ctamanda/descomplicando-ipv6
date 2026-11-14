@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 260" width="1000" height="260" role="img">
+<rect width="1000" height="260" fill="white"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#123C6B"/></marker><marker id="arrb" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#123C6B"/></marker></defs>
+<text x="120" y="70" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="22" font-weight="800" fill="#123C6B" text-anchor="start" dominant-baseline="middle">IPv4</text>
+<rect x="220" y="52" width="180" height="36" rx="6" fill="#EAF1FA" stroke="#123C6B" stroke-width="2"/>
+<text x="310" y="71" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="16" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">32 bits</text>
+<text x="420" y="71" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="16" font-weight="400" fill="#1F2937" text-anchor="start" dominant-baseline="middle">≈ 4,3 bilhões de endereços</text>
+<text x="120" y="160" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="22" font-weight="800" fill="#123C6B" text-anchor="start" dominant-baseline="middle">IPv6</text>
+<rect x="220" y="142" width="720" height="36" rx="6" fill="#E8F5EC" stroke="#2FB36A" stroke-width="2"/>
+<text x="580" y="161" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="16" font-weight="700" fill="#1b6b3a" text-anchor="middle" dominant-baseline="middle">128 bits</text>
+<text x="220" y="205" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="16" font-weight="400" fill="#1F2937" text-anchor="start" dominant-baseline="middle">≈ 340 undecilhões de endereços (340 seguido de 36 zeros)</text>
+<text x="500" y="240" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">o tamanho do endereço é 4 vezes maior; a quantidade de endereços é 2 elevado a 96 vezes maior</text>
+</svg>

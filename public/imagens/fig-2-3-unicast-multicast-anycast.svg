@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 370" width="1000" height="370" role="img">
+<rect width="1000" height="370" fill="white"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#123C6B"/></marker><marker id="arrb" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#123C6B"/></marker></defs>
+<rect x="20" y="30" width="310" height="316" rx="14" fill="#F3F4F6" stroke="#C9D3E0" stroke-width="1.5"/>
+<text x="170" y="56" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="18" font-weight="800" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">Unicast</text>
+<rect x="52" y="168" width="56" height="36" rx="5" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<rect x="62" y="208" width="36" height="4" rx="2" fill="#123C6B" stroke="none" stroke-width="2"/>
+<rect x="222" y="88" width="56" height="36" rx="5" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<rect x="232" y="128" width="36" height="4" rx="2" fill="#123C6B" stroke="none" stroke-width="2"/>
+<rect x="222" y="178" width="56" height="36" rx="5" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<rect x="232" y="218" width="36" height="4" rx="2" fill="#123C6B" stroke="none" stroke-width="2"/>
+<rect x="222" y="268" width="56" height="36" rx="5" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<rect x="232" y="308" width="36" height="4" rx="2" fill="#123C6B" stroke="none" stroke-width="2"/>
+<line x1="112" y1="190" x2="218" y2="200" stroke="#2FB36A" stroke-width="3" stroke-linecap="round" marker-end="url(#arr)"/>
+<text x="170" y="332" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">um para um</text>
+<rect x="345" y="30" width="310" height="316" rx="14" fill="#F3F4F6" stroke="#C9D3E0" stroke-width="1.5"/>
+<text x="495" y="56" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="18" font-weight="800" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">Multicast</text>
+<rect x="377" y="168" width="56" height="36" rx="5" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<rect x="387" y="208" width="36" height="4" rx="2" fill="#123C6B" stroke="none" stroke-width="2"/>
+<rect x="547" y="88" width="56" height="36" rx="5" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<rect x="557" y="128" width="36" height="4" rx="2" fill="#123C6B" stroke="none" stroke-width="2"/>
+<rect x="547" y="178" width="56" height="36" rx="5" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<rect x="557" y="218" width="36" height="4" rx="2" fill="#123C6B" stroke="none" stroke-width="2"/>
+<rect x="547" y="268" width="56" height="36" rx="5" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<rect x="557" y="308" width="36" height="4" rx="2" fill="#123C6B" stroke="none" stroke-width="2"/>
+<line x1="437" y1="190" x2="543" y2="110" stroke="#2FB36A" stroke-width="3" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="437" y1="190" x2="543" y2="200" stroke="#2FB36A" stroke-width="3" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="530" y="78" width="90" height="152" rx="10" fill="none" stroke="#F2B705" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="635" y="155" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="700" fill="#7a5a00" text-anchor="start" dominant-baseline="middle">grupo</text>
+<text x="635" y="169" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="700" fill="#7a5a00" text-anchor="start" dominant-baseline="middle">ff02::…</text>
+<text x="495" y="332" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">um para todos do grupo</text>
+<rect x="670" y="30" width="310" height="316" rx="14" fill="#F3F4F6" stroke="#C9D3E0" stroke-width="1.5"/>
+<text x="820" y="56" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="18" font-weight="800" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">Anycast</text>
+<rect x="702" y="168" width="56" height="36" rx="5" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<rect x="712" y="208" width="36" height="4" rx="2" fill="#123C6B" stroke="none" stroke-width="2"/>
+<rect x="872" y="88" width="56" height="36" rx="5" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<rect x="882" y="128" width="36" height="4" rx="2" fill="#123C6B" stroke="none" stroke-width="2"/>
+<rect x="872" y="178" width="56" height="36" rx="5" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<rect x="882" y="218" width="36" height="4" rx="2" fill="#123C6B" stroke="none" stroke-width="2"/>
+<rect x="872" y="268" width="56" height="36" rx="5" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<rect x="882" y="308" width="36" height="4" rx="2" fill="#123C6B" stroke="none" stroke-width="2"/>
+<line x1="762" y1="190" x2="868" y2="110" stroke="#2FB36A" stroke-width="3" stroke-linecap="round" marker-end="url(#arr)"/>
+<text x="948" y="110" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="10" font-weight="400" fill="#6B7280" text-anchor="start" dominant-baseline="middle">mesmo</text>
+<text x="948" y="123" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="10" font-weight="400" fill="#6B7280" text-anchor="start" dominant-baseline="middle">endereço</text>
+<text x="948" y="200" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="10" font-weight="400" fill="#6B7280" text-anchor="start" dominant-baseline="middle">mesmo</text>
+<text x="948" y="213" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="10" font-weight="400" fill="#6B7280" text-anchor="start" dominant-baseline="middle">endereço</text>
+<text x="948" y="290" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="10" font-weight="400" fill="#6B7280" text-anchor="start" dominant-baseline="middle">mesmo</text>
+<text x="948" y="303" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="10" font-weight="400" fill="#6B7280" text-anchor="start" dominant-baseline="middle">endereço</text>
+<text x="900" y="155" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="700" fill="#1b6b3a" text-anchor="middle" dominant-baseline="middle">o mais próximo</text>
+<text x="820" y="332" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">um para o mais próximo do grupo</text>
+</svg>

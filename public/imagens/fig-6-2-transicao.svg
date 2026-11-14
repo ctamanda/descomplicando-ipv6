@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="1000" height="400" role="img">
+<rect width="1000" height="400" fill="white"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#123C6B"/></marker><marker id="arrb" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#123C6B"/></marker></defs>
+<rect x="20" y="30" width="310" height="350" rx="14" fill="#F3F4F6" stroke="#C9D3E0" stroke-width="1.5"/>
+<text x="175" y="56" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="18" font-weight="800" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">Pilha dupla</text>
+<text x="175" y="76" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">o dispositivo fala os dois</text>
+<rect x="147" y="128" width="56" height="36" rx="5" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<rect x="157" y="168" width="36" height="4" rx="2" fill="#123C6B" stroke="none" stroke-width="2"/>
+<text x="175" y="194" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="16" font-weight="600" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">notebook</text>
+<rect x="85" y="205" width="180" height="26" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="175.0" y="219.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="12" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">192.168.0.15</text>
+<rect x="85" y="237" width="180" height="26" rx="8" fill="#E8F5EC" stroke="none" stroke-width="2"/>
+<text x="175.0" y="251.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="12" font-weight="700" fill="#1b6b3a" text-anchor="middle" dominant-baseline="middle">2804:14d:…:1b7</text>
+<line x1="175" y1="268" x2="110" y2="330" stroke="#123C6B" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="175" y1="268" x2="240" y2="330" stroke="#2FB36A" stroke-width="2.5" stroke-linecap="round" marker-end="url(#arr)"/>
+<text x="100" y="352" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">site só IPv4</text>
+<text x="250" y="352" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="700" fill="#1b6b3a" text-anchor="middle" dominant-baseline="middle">site IPv6</text>
+<rect x="345" y="30" width="310" height="350" rx="14" fill="#F3F4F6" stroke="#C9D3E0" stroke-width="1.5"/>
+<text x="500" y="56" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="18" font-weight="800" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">Túnel</text>
+<text x="500" y="76" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">IPv6 dentro de IPv4</text>
+<rect x="380" y="150" width="240" height="60" rx="8" fill="#EAF1FA" stroke="#123C6B" stroke-width="2"/>
+<text x="400" y="165" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="700" fill="#123C6B" text-anchor="start" dominant-baseline="middle">pacote IPv4</text>
+<rect x="430" y="170" width="180" height="32" rx="6" fill="#E8F5EC" stroke="#2FB36A" stroke-width="1.5"/>
+<text x="520" y="186" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#1b6b3a" text-anchor="middle" dominant-baseline="middle">pacote IPv6</text>
+<rect x="361" y="280" width="68" height="24" rx="6" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<line x1="379" y1="280" x2="373" y2="258" stroke="#123C6B" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="411" y1="280" x2="417" y2="258" stroke="#123C6B" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="381" cy="292" r="2.5" fill="#2FB36A" stroke="none" stroke-width="2"/>
+<circle cx="395" cy="292" r="2.5" fill="#2FB36A" stroke="none" stroke-width="2"/>
+<circle cx="409" cy="292" r="2.5" fill="#2FB36A" stroke="none" stroke-width="2"/>
+<rect x="571" y="280" width="68" height="24" rx="6" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<line x1="589" y1="280" x2="583" y2="258" stroke="#123C6B" stroke-width="2.5" stroke-linecap="round"/>
+<line x1="621" y1="280" x2="627" y2="258" stroke="#123C6B" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="591" cy="292" r="2.5" fill="#2FB36A" stroke="none" stroke-width="2"/>
+<circle cx="605" cy="292" r="2.5" fill="#2FB36A" stroke="none" stroke-width="2"/>
+<circle cx="619" cy="292" r="2.5" fill="#2FB36A" stroke="none" stroke-width="2"/>
+<line x1="430" y1="290" x2="570" y2="290" stroke="#123C6B" stroke-width="3" stroke-linecap="round" marker-end="url(#arr)"/>
+<text x="500" y="268" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">trecho só IPv4</text>
+<text x="500" y="352" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">o IPv6 atravessa "embrulhado" no IPv4</text>
+<rect x="670" y="30" width="310" height="350" rx="14" fill="#F3F4F6" stroke="#C9D3E0" stroke-width="1.5"/>
+<text x="825" y="56" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="18" font-weight="800" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">NAT64 + DNS64</text>
+<text x="825" y="76" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">rede só IPv6 fala com servidor só IPv4</text>
+<rect x="717" y="126" width="26" height="48" rx="6" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<circle cx="730" cy="167" r="2.5" fill="#123C6B" stroke="none" stroke-width="2"/>
+<text x="730" y="190" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="700" fill="#1b6b3a" text-anchor="middle" dominant-baseline="middle">só IPv6</text>
+<rect x="790" y="128" width="90" height="44" rx="8" fill="#FFF6D6" stroke="#F2B705" stroke-width="2"/>
+<text x="835" y="150" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="14" font-weight="800" fill="#7a5a00" text-anchor="middle" dominant-baseline="middle">NAT64</text>
+<rect x="909" y="123" width="52" height="15" rx="3" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<circle cx="952" cy="130.5" r="2.5" fill="#2FB36A" stroke="none" stroke-width="2"/>
+<rect x="909" y="141" width="52" height="15" rx="3" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<circle cx="952" cy="148.5" r="2.5" fill="#2FB36A" stroke="none" stroke-width="2"/>
+<rect x="909" y="159" width="52" height="15" rx="3" fill="white" stroke="#123C6B" stroke-width="2.5"/>
+<circle cx="952" cy="166.5" r="2.5" fill="#2FB36A" stroke="none" stroke-width="2"/>
+<text x="935" y="190" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">só IPv4</text>
+<line x1="748" y1="150" x2="786" y2="150" stroke="#2FB36A" stroke-width="3" stroke-linecap="round" marker-end="url(#arr)"/>
+<line x1="882" y1="150" x2="905" y2="150" stroke="#123C6B" stroke-width="3" stroke-linecap="round" marker-end="url(#arr)"/>
+<rect x="700" y="225" width="260" height="26" rx="8" fill="#E8F5EC" stroke="none" stroke-width="2"/>
+<text x="830.0" y="239.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="12" font-weight="700" fill="#1b6b3a" text-anchor="middle" dominant-baseline="middle">64:ff9b::203.0.113.5</text>
+<text x="830" y="268" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">↓ traduzido para</text>
+<rect x="760" y="282" width="140" height="26" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="830.0" y="296.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="12" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">203.0.113.5</text>
+<text x="830" y="330" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">o DNS64 inventa o AAAA;</text>
+<text x="830" y="346" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">o NAT64 traduz o pacote</text>
+</svg>

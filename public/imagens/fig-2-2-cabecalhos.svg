@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 340" width="1000" height="340" role="img">
+<rect width="1000" height="340" fill="white"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#123C6B"/></marker><marker id="arrb" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#123C6B"/></marker></defs>
+<text x="260" y="36" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="800" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">Cabeçalho IPv4</text>
+<text x="260" y="58" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">20 a 60 bytes, tamanho variável</text>
+<rect x="40" y="80" width="40" height="30" rx="4" fill="#F3F4F6" stroke="#6B7280" stroke-width="1.5"/>
+<text x="60.0" y="96" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">Versão</text>
+<rect x="84" y="80" width="40" height="30" rx="4" fill="#F3F4F6" stroke="#6B7280" stroke-width="1.5"/>
+<text x="104.0" y="96" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">IHL</text>
+<rect x="128" y="80" width="90" height="30" rx="4" fill="#F3F4F6" stroke="#6B7280" stroke-width="1.5"/>
+<text x="173.0" y="96" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">Tipo de serviço</text>
+<rect x="222" y="80" width="110" height="30" rx="4" fill="#F3F4F6" stroke="#6B7280" stroke-width="1.5"/>
+<text x="277.0" y="96" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">Tamanho total</text>
+<rect x="336" y="80" width="110" height="30" rx="4" fill="#F3F4F6" stroke="#6B7280" stroke-width="1.5"/>
+<text x="391.0" y="96" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">Identificação</text>
+<rect x="40" y="116" width="50" height="30" rx="4" fill="#F3F4F6" stroke="#6B7280" stroke-width="1.5"/>
+<text x="65.0" y="132" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">Flags</text>
+<rect x="94" y="116" width="70" height="30" rx="4" fill="#F3F4F6" stroke="#6B7280" stroke-width="1.5"/>
+<text x="129.0" y="132" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">Offset</text>
+<rect x="168" y="116" width="50" height="30" rx="4" fill="#F3F4F6" stroke="#6B7280" stroke-width="1.5"/>
+<text x="193.0" y="132" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">TTL</text>
+<rect x="222" y="116" width="80" height="30" rx="4" fill="#F3F4F6" stroke="#6B7280" stroke-width="1.5"/>
+<text x="262.0" y="132" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">Protocolo</text>
+<rect x="306" y="116" width="90" height="30" rx="4" fill="#F3F4F6" stroke="#6B7280" stroke-width="1.5"/>
+<text x="351.0" y="132" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">Checksum</text>
+<rect x="40" y="152" width="240" height="30" rx="4" fill="#F3F4F6" stroke="#6B7280" stroke-width="1.5"/>
+<text x="160.0" y="168" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">Endereço de origem (32 bits)</text>
+<rect x="40" y="188" width="240" height="30" rx="4" fill="#F3F4F6" stroke="#6B7280" stroke-width="1.5"/>
+<text x="160.0" y="204" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">Endereço de destino (32 bits)</text>
+<rect x="40" y="224" width="220" height="30" rx="4" fill="#F3F4F6" stroke="#6B7280" stroke-width="1.5"/>
+<text x="150.0" y="240" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">Opções (variável)</text>
+<text x="740" y="36" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="800" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">Cabeçalho IPv6</text>
+<text x="740" y="58" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">40 bytes, tamanho fixo</text>
+<rect x="560" y="80" width="50" height="30" rx="4" fill="#EAF1FA" stroke="#123C6B" stroke-width="1.5"/>
+<text x="585.0" y="96" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="600" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">Versão</text>
+<rect x="614" y="80" width="110" height="30" rx="4" fill="#EAF1FA" stroke="#123C6B" stroke-width="1.5"/>
+<text x="669.0" y="96" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="600" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">Classe de tráfego</text>
+<rect x="728" y="80" width="180" height="30" rx="4" fill="#EAF1FA" stroke="#123C6B" stroke-width="1.5"/>
+<text x="818.0" y="96" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="600" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">Rótulo de fluxo</text>
+<rect x="560" y="116" width="140" height="30" rx="4" fill="#EAF1FA" stroke="#123C6B" stroke-width="1.5"/>
+<text x="630.0" y="132" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="600" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">Tamanho do conteúdo</text>
+<rect x="704" y="116" width="112" height="30" rx="4" fill="#EAF1FA" stroke="#123C6B" stroke-width="1.5"/>
+<text x="760.0" y="132" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="600" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">Próximo cabeçalho</text>
+<rect x="820" y="116" width="84" height="30" rx="4" fill="#EAF1FA" stroke="#123C6B" stroke-width="1.5"/>
+<text x="862.0" y="132" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="600" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">Limite de saltos</text>
+<rect x="560" y="152" width="344" height="30" rx="4" fill="#EAF1FA" stroke="#123C6B" stroke-width="1.5"/>
+<text x="732.0" y="168" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="600" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">Endereço de origem (128 bits)</text>
+<rect x="560" y="196" width="344" height="30" rx="4" fill="#EAF1FA" stroke="#123C6B" stroke-width="1.5"/>
+<text x="732.0" y="212" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="600" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">Endereço de destino (128 bits)</text>
+<rect x="560" y="240" width="344" height="30" rx="4" fill="none" stroke="#123C6B" stroke-width="1.5" stroke-dasharray="5 4"/>
+<text x="732" y="256" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">cabeçalhos de extensão, só quando necessários</text>
+<text x="500" y="315" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">o IPv6 tem menos campos, sem checksum e sem opções no cabeçalho principal: mais rápido de processar</text>
+</svg>

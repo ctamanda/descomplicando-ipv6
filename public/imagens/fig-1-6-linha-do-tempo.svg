@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" width="1000" height="300" role="img">
+<rect width="1000" height="300" fill="white"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#123C6B"/></marker><marker id="arrb" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#123C6B"/></marker></defs>
+<line x1="60" y1="150" x2="940" y2="150" stroke="#123C6B" stroke-width="4" stroke-linecap="round"/>
+<circle cx="120" cy="150" r="11" fill="#EAF1FA" stroke="#123C6B" stroke-width="3"/>
+<text x="120" y="48" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="24" font-weight="800" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">1981</text>
+<text x="120" y="74" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="15" font-weight="700" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">RFC 791</text>
+<text x="120" y="94" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">o IPv4 é definido</text>
+<line x1="120" y1="139" x2="120" y2="110" stroke="#123C6B" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 3"/>
+<circle cx="380" cy="150" r="11" fill="#EAF1FA" stroke="#123C6B" stroke-width="3"/>
+<text x="380" y="208" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="24" font-weight="800" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">1996</text>
+<text x="380" y="234" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="15" font-weight="700" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">RFC 1918</text>
+<text x="380" y="254" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">endereços privados e NAT</text>
+<line x1="380" y1="161" x2="380" y2="190" stroke="#123C6B" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 3"/>
+<circle cx="640" cy="150" r="11" fill="#FFF6D6" stroke="#b45309" stroke-width="3"/>
+<text x="640" y="48" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="24" font-weight="800" fill="#b45309" text-anchor="middle" dominant-baseline="middle">2011</text>
+<text x="640" y="74" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="15" font-weight="700" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">IANA</text>
+<text x="640" y="94" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">estoque central esgota</text>
+<line x1="640" y1="139" x2="640" y2="110" stroke="#b45309" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 3"/>
+<circle cx="880" cy="150" r="11" fill="#FFF6D6" stroke="#b45309" stroke-width="3"/>
+<text x="880" y="208" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="24" font-weight="800" fill="#b45309" text-anchor="middle" dominant-baseline="middle">2020</text>
+<text x="880" y="234" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="15" font-weight="700" fill="#1F2937" text-anchor="middle" dominant-baseline="middle">LACNIC</text>
+<text x="880" y="254" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">estoque da América Latina esgota</text>
+<line x1="880" y1="161" x2="880" y2="190" stroke="#b45309" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 3"/>
+</svg>

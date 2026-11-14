@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 340" width="1000" height="340" role="img">
+<rect width="1000" height="340" fill="white"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#123C6B"/></marker><marker id="arrb" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#123C6B"/></marker></defs>
+<rect x="330" y="30" width="340" height="46" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="500.0" y="54.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="18" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">2001:db8:1:ab00::/56</text>
+<text x="500" y="92" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">bloco entregue pelo provedor · 256 redes /64</text>
+<line x1="500" y1="76" x2="90" y2="150" stroke="#C9D3E0" stroke-width="2" stroke-linecap="round"/>
+<rect x="15" y="150" width="150" height="70" rx="8" fill="#E8F5EC" stroke="#2FB36A" stroke-width="1.5"/>
+<text x="90" y="170" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">2001:db8:1:</text>
+<text x="90" y="192" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="16" font-weight="800" fill="#1b6b3a" text-anchor="middle" dominant-baseline="middle">ab00::/64</text>
+<text x="90" y="212" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">Wi-Fi principal</text>
+<text x="90" y="245" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">sub-rede 00</text>
+<line x1="500" y1="76" x2="255" y2="150" stroke="#C9D3E0" stroke-width="2" stroke-linecap="round"/>
+<rect x="180" y="150" width="150" height="70" rx="8" fill="#E8F5EC" stroke="#2FB36A" stroke-width="1.5"/>
+<text x="255" y="170" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">2001:db8:1:</text>
+<text x="255" y="192" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="16" font-weight="800" fill="#1b6b3a" text-anchor="middle" dominant-baseline="middle">ab01::/64</text>
+<text x="255" y="212" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">visitantes</text>
+<text x="255" y="245" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">sub-rede 01</text>
+<line x1="500" y1="76" x2="420" y2="150" stroke="#C9D3E0" stroke-width="2" stroke-linecap="round"/>
+<rect x="345" y="150" width="150" height="70" rx="8" fill="#E8F5EC" stroke="#2FB36A" stroke-width="1.5"/>
+<text x="420" y="170" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">2001:db8:1:</text>
+<text x="420" y="192" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="16" font-weight="800" fill="#1b6b3a" text-anchor="middle" dominant-baseline="middle">ab02::/64</text>
+<text x="420" y="212" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">câmeras</text>
+<text x="420" y="245" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">sub-rede 02</text>
+<line x1="500" y1="76" x2="585" y2="150" stroke="#C9D3E0" stroke-width="2" stroke-linecap="round"/>
+<rect x="510" y="150" width="150" height="70" rx="8" fill="#E8F5EC" stroke="#2FB36A" stroke-width="1.5"/>
+<text x="585" y="170" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">2001:db8:1:</text>
+<text x="585" y="192" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="16" font-weight="800" fill="#1b6b3a" text-anchor="middle" dominant-baseline="middle">ab03::/64</text>
+<text x="585" y="212" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">home office</text>
+<text x="585" y="245" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">sub-rede 03</text>
+<line x1="500" y1="76" x2="740" y2="150" stroke="#C9D3E0" stroke-width="2" stroke-linecap="round"/>
+<text x="740" y="190" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="28" font-weight="800" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">…</text>
+<line x1="500" y1="76" x2="880" y2="150" stroke="#C9D3E0" stroke-width="2" stroke-linecap="round"/>
+<rect x="805" y="150" width="150" height="70" rx="8" fill="#E8F5EC" stroke="#2FB36A" stroke-width="1.5"/>
+<text x="880" y="170" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">2001:db8:1:</text>
+<text x="880" y="192" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="16" font-weight="800" fill="#1b6b3a" text-anchor="middle" dominant-baseline="middle">abff::/64</text>
+<text x="880" y="212" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">disponível</text>
+<text x="880" y="245" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">sub-rede ff</text>
+<text x="500" y="300" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="13" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">os dois últimos dígitos do quarto grupo (00 a ff) numeram as sub-redes; o resto do bloco é fixo</text>
+</svg>

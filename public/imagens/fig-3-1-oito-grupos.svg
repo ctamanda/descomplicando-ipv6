@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 230" width="1000" height="230" role="img">
+<rect width="1000" height="230" fill="white"/>
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#123C6B"/></marker><marker id="arrb" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M10 0 L0 5 L10 10 z" fill="#123C6B"/></marker></defs>
+<rect x="36" y="70" width="104" height="48" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="88.0" y="95.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">2001</text>
+<text x="147.0" y="95.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="24" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">:</text>
+<rect x="154" y="70" width="104" height="48" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="206.0" y="95.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">0db8</text>
+<text x="265.0" y="95.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="24" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">:</text>
+<rect x="272" y="70" width="104" height="48" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="324.0" y="95.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">0000</text>
+<text x="383.0" y="95.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="24" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">:</text>
+<rect x="390" y="70" width="104" height="48" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="442.0" y="95.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">0000</text>
+<text x="501.0" y="95.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="24" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">:</text>
+<rect x="508" y="70" width="104" height="48" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="560.0" y="95.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">0000</text>
+<text x="619.0" y="95.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="24" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">:</text>
+<rect x="626" y="70" width="104" height="48" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="678.0" y="95.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">0000</text>
+<text x="737.0" y="95.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="24" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">:</text>
+<rect x="744" y="70" width="104" height="48" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="796.0" y="95.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">0000</text>
+<text x="855.0" y="95.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="24" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">:</text>
+<rect x="862" y="70" width="104" height="48" rx="8" fill="#EAF1FA" stroke="none" stroke-width="2"/>
+<text x="914.0" y="95.0" font-family="'JetBrains Mono', Consolas, 'DejaVu Sans Mono', monospace" font-size="22" font-weight="700" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">0001</text>
+<text x="88.0" y="46" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">grupo 1</text>
+<text x="88.0" y="140" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="400" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">16 bits</text>
+<text x="88.0" y="157" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">4 dígitos hex</text>
+<text x="206.0" y="46" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">grupo 2</text>
+<text x="206.0" y="140" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="400" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">16 bits</text>
+<text x="206.0" y="157" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">4 dígitos hex</text>
+<text x="324.0" y="46" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">grupo 3</text>
+<text x="324.0" y="140" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="400" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">16 bits</text>
+<text x="324.0" y="157" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">4 dígitos hex</text>
+<text x="442.0" y="46" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">grupo 4</text>
+<text x="442.0" y="140" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="400" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">16 bits</text>
+<text x="442.0" y="157" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">4 dígitos hex</text>
+<text x="560.0" y="46" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">grupo 5</text>
+<text x="560.0" y="140" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="400" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">16 bits</text>
+<text x="560.0" y="157" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">4 dígitos hex</text>
+<text x="678.0" y="46" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">grupo 6</text>
+<text x="678.0" y="140" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="400" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">16 bits</text>
+<text x="678.0" y="157" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">4 dígitos hex</text>
+<text x="796.0" y="46" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">grupo 7</text>
+<text x="796.0" y="140" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="400" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">16 bits</text>
+<text x="796.0" y="157" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">4 dígitos hex</text>
+<text x="914.0" y="46" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="700" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">grupo 8</text>
+<text x="914.0" y="140" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="12" font-weight="400" fill="#123C6B" text-anchor="middle" dominant-baseline="middle">16 bits</text>
+<text x="914.0" y="157" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="11" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle">4 dígitos hex</text>
+<text x="500" y="200" font-family="Manrope, 'Segoe UI', Arial, sans-serif" font-size="14" font-weight="400" fill="#6B7280" text-anchor="middle" dominant-baseline="middle" font-style="italic">8 grupos × 16 bits = 128 bits · separados por dois-pontos</text>
+</svg>
