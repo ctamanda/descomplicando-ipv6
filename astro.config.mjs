@@ -9,7 +9,7 @@ import rehypeFiguras from './src/lib/markdown/rehype-figuras.ts';
 // Publicado em https://ctamanda.github.io/descomplicando-ipv6/.
 // Para outro endereço (Cloudflare Pages, Vercel), defina SITE_URL e BASE_PATH=/.
 const base = process.env.BASE_PATH || '/descomplicando-ipv6';
-const baseImagem = `${base.replace(/\/$/, '')}/imagens/`;
+const baseImagem = `${base.replace(/\/$/, '')}/`;
 
 export default defineConfig({
   site: process.env.SITE_URL || 'https://ctamanda.github.io',

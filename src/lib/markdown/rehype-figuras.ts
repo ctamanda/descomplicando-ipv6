@@ -19,7 +19,20 @@ function texto(no: Node): string {
 
 function imagemDoPar(no: Node) {
   const imagem = no.children?.find((filho) => filho.tagName === 'img');
-  if (!imagem || typeof imagem.properties?.src !== 'string') return null;
+  if (!imagem || !imagem.properties) return null;
+  if (typeof imagem.properties.src !== 'string') {
+    const marcador = Object.entries(imagem.properties).find(([chave]) => chave.startsWith('__ASTRO_IMAGE_'));
+    if (!marcador || typeof marcador[1] !== 'string') return null;
+    try {
+      const dados = JSON.parse(marcador[1]) as { src?: string; alt?: string };
+      if (!dados.src) return null;
+      imagem.properties.src = dados.src;
+      if (dados.alt) imagem.properties.alt = dados.alt;
+      delete imagem.properties[marcador[0]];
+    } catch {
+      return null;
+    }
+  }
   return imagem;
 }
 
@@ -37,7 +50,7 @@ function normalizarImagem(src: string, opcoes: Opcoes) {
   const nome = path.posix.basename(caminho);
   const extensao = path.posix.extname(nome).toLowerCase();
   const nomePng = `${path.posix.basename(nome, extensao)}.png`;
-  const caminhoFinal = opcoes.preferirPng && extensao === '.svg' ? `imagens/png/${nomePng}` : caminho;
+  const caminhoFinal = opcoes.preferirPng && extensao === '.svg' ? `imagens/png/${nomePng}` : `imagens/${nome}`;
   return `${opcoes.baseImagem ?? ''}${caminhoFinal}`;
 }
 

@@ -23,7 +23,7 @@ function criar(extrasRehype: Pluggable[] = []) {
     .use(remarkRehype)
     .use(rehypeTitulos as any)
     .use(rehypeTabelas as any)
-    .use(rehypeFiguras, { baseImagem: 'imagens/', preferirPng: true })
+    .use(rehypeFiguras, { preferirPng: true })
     .use(extrasRehype)
     .use(rehypeStringify, { closeSelfClosing: true, closeEmptyElements: true });
 }
