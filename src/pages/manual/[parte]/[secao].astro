@@ -29,3 +29,11 @@ const { Content } = await render(secao);
     </button>
   </Livro>
 </Base>
+
+<script define:vars={{ id: secao.id }}>
+  document.addEventListener('astro:page-load', () => {
+    try {
+      localStorage.setItem('ipv6:ultima-secao', id);
+    } catch {}
+  });
+</script>

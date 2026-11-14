@@ -1,5 +1,255 @@
 /* Quiz: escolha de nível, questão com retorno imediato e resultado. */
 
+.quiz-pagina {
+  width: min(100% - 2rem, 980px);
+  margin: 0 auto;
+  padding: 1.25rem 0 4rem;
+}
+.quiz-cabecalho {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1.25rem;
+  min-height: 2.5rem;
+  margin-bottom: 3rem;
+}
+.quiz-cabecalho [data-modo-cabecalho] {
+  color: var(--amarelo-rotulo);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.quiz-pagina .quiz {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.quiz__titulo {
+  margin: 0 0 0.75rem;
+  color: var(--titulo);
+  font-family: var(--fonte-titulo);
+  font-size: clamp(2.5rem, 5vw, 3rem);
+  line-height: 1.1;
+}
+.quiz-pagina [data-tela='inicio'] > .chapeu {
+  margin-bottom: 0.75rem;
+  color: var(--verde-rotulo);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.quiz__modos {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem;
+  margin-top: 2.25rem;
+}
+.quiz__modo {
+  display: flex;
+  flex-direction: column;
+  min-height: 28rem;
+  padding: 2.25rem;
+  border: 1px solid var(--linha);
+  border-radius: 20px;
+  background: var(--pagina);
+  box-shadow: 0 8px 24px rgb(18 60 107 / 6%);
+}
+.quiz__icone {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: 1.25rem;
+  border-radius: 10px;
+  font-size: 1.55rem;
+  font-weight: 700;
+}
+.quiz__icone--quiz {
+  background: var(--azul-fundo);
+  color: var(--azul);
+}
+.quiz__icone--desafio {
+  background: var(--amarelo-fundo);
+  color: var(--amarelo-rotulo);
+}
+.quiz__modo h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.75rem;
+}
+.quiz__modo > p {
+  color: var(--texto-2);
+}
+.quiz__modo ul {
+  margin: 0.25rem 0 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+.quiz__modo li {
+  margin: 0.5rem 0;
+}
+.quiz__modo li::before {
+  display: inline-block;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin: 0 0.6rem 0.1rem 0;
+  border-radius: 50%;
+  background: var(--verde);
+  content: '';
+}
+.quiz__modo .quiz__melhor {
+  margin-top: auto !important;
+}
+.quiz__modo > .botao-principal {
+  align-self: flex-end;
+}
+.botao-principal--amarelo {
+  background: var(--amarelo);
+  color: #1f2937;
+}
+.quiz__dificuldades label {
+  align-items: center;
+  min-height: 3.2rem;
+  padding: 0.7rem 0.9rem;
+  border: 2px solid var(--linha);
+  border-radius: 10px;
+  cursor: pointer;
+}
+.quiz__dificuldades label.selecionada {
+  border-color: var(--azul);
+  background: var(--azul-fundo);
+}
+.quiz__dificuldades input {
+  accent-color: var(--azul);
+}
+.quiz__dificuldades span {
+  margin-left: auto;
+  text-align: right;
+}
+
+.quiz-pagina [data-tela='questao'],
+.quiz-pagina [data-tela='resultado'],
+.quiz-pagina [data-tela='regras'] {
+  max-width: 860px;
+  margin: 0 auto;
+}
+.quiz__topo {
+  margin-top: 0;
+}
+.quiz__parte {
+  margin: 0;
+  color: var(--texto-2);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+.quiz__barra {
+  margin-bottom: 1.25rem;
+}
+.quiz__passos {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 0.35rem;
+}
+.quiz__passo {
+  flex: 1;
+  height: 6px;
+  border-radius: 99px;
+  background: var(--linha);
+}
+.quiz__passo--certa { background: var(--verde); }
+.quiz__passo--errada { background: var(--erro); }
+.quiz__passo--tempo { background: #9ca3af; }
+.quiz__passo--atual { background: var(--azul); }
+.quiz__legenda-passos {
+  margin: 0 0 1rem;
+  color: var(--texto-2);
+  font-size: 0.7rem;
+}
+.quiz__enunciado-linha {
+  padding: 2.25rem 2.5rem 1rem;
+  border-radius: 20px 20px 0 0;
+  background: var(--pagina);
+}
+.quiz__enunciado {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.45rem, 2.5vw, 1.7rem);
+  font-weight: 600;
+}
+.quiz__alternativas {
+  padding: 0 2.5rem 1.5rem;
+  background: var(--pagina);
+}
+.quiz__retorno {
+  margin: 0;
+  border-radius: 0 0 20px 20px;
+}
+.quiz__acoes {
+  display: flex;
+  justify-content: flex-end;
+}
+.cronometro {
+  flex-basis: 6.5rem;
+  width: 6.5rem;
+  height: 6.5rem;
+}
+.cronometro circle {
+  stroke-width: 7;
+}
+.cronometro > span {
+  font-family: var(--fonte-titulo);
+  font-size: 2.1rem;
+  font-weight: 800;
+}
+.cronometro > small {
+  position: absolute;
+  right: 0;
+  bottom: -1.2rem;
+  left: 0;
+  color: var(--texto-2);
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.quiz__encerrar {
+  color: var(--erro);
+}
+
+@media (max-width: 47.5rem) {
+  .quiz-pagina {
+    width: min(100% - 1.25rem, 860px);
+  }
+  .quiz-cabecalho {
+    margin-bottom: 2rem;
+  }
+  .quiz__modos {
+    grid-template-columns: 1fr;
+  }
+  .quiz__modo {
+    min-height: 0;
+  }
+  .quiz__modo > .botao-principal {
+    align-self: stretch;
+    width: 100%;
+  }
+  .quiz__enunciado-linha {
+    padding: 1.5rem 1.25rem 0.75rem;
+  }
+  .quiz__alternativas {
+    padding: 0 1.25rem 1.25rem;
+  }
+  .cronometro {
+    order: -1;
+    align-self: center;
+    margin-bottom: 1.5rem;
+  }
+  .quiz__enunciado-linha {
+    flex-direction: column;
+  }
+  .quiz__acoes .botao-principal {
+    width: 100%;
+  }
+}
+
 .livro__texto .chapeu a {
   color: inherit;
 }
@@ -657,4 +907,146 @@
 /* Nota ao pé da página sem conteúdo visível (ex.: botão de limpar escondido) */
 .folha__nota:not(:has(> :not([hidden]))) {
   display: none;
+}
+
+/* Ajustes da página normal do quiz, depois das regras legadas do leitor. */
+.quiz-pagina .quiz__modos {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem;
+}
+.quiz-pagina .quiz__modo {
+  min-height: 28rem;
+  padding: 2.25rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgb(18 60 107 / 6%);
+}
+.quiz-pagina .quiz__modo > .botao-principal {
+  align-self: flex-end;
+}
+.quiz-pagina .quiz__enunciado-linha {
+  padding: 2.25rem 2.5rem 1rem;
+  border-radius: 20px 20px 0 0;
+  background: var(--pagina);
+}
+.quiz-pagina .quiz__enunciado {
+  font-family: var(--fonte-titulo);
+  font-size: clamp(1.45rem, 2.5vw, 1.7rem);
+  font-weight: 600;
+}
+.quiz-pagina .quiz__alternativas {
+  padding: 0 2.5rem 1.5rem;
+  background: var(--pagina);
+}
+.quiz-pagina .cronometro {
+  flex-basis: 6.5rem;
+  width: 6.5rem;
+  height: 6.5rem;
+}
+.quiz-pagina .cronometro circle {
+  stroke-width: 7;
+}
+.quiz-pagina .cronometro > span {
+  font-family: var(--fonte-titulo);
+  font-size: 2.1rem;
+  font-weight: 800;
+}
+.quiz-pagina .cronometro > small {
+  bottom: -1.2rem;
+}
+.quiz-pagina .res__cabeca {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 0.25rem 2rem;
+  align-items: center;
+  padding: 2rem;
+  border: 1px solid var(--linha);
+  border-radius: 20px;
+  background: var(--pagina);
+}
+.quiz-pagina .res__cabeca .chapeu,
+.quiz-pagina .res__cabeca .anel-resultado,
+.quiz-pagina .res__cabeca .res__nota {
+  grid-row: span 3;
+}
+.quiz-pagina .res__cabeca .anel-resultado {
+  grid-row: 1 / span 4;
+  grid-column: 1;
+  width: 170px;
+  margin: 0;
+}
+.quiz-pagina .res__cabeca .res__nota {
+  grid-row: 2;
+  grid-column: 1;
+  align-self: end;
+  margin: 0;
+  text-align: center;
+}
+.quiz-pagina .res__cabeca .res__nota strong {
+  display: none;
+}
+.quiz-pagina .res__cabeca .res__faixa,
+.quiz-pagina .res__cabeca .res__mensagem {
+  grid-column: 2;
+}
+.quiz-pagina .res__cabeca .res__mensagem {
+  font-family: var(--fonte-titulo);
+  font-size: 2rem;
+  color: var(--titulo);
+}
+.quiz-pagina .res__parte {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid var(--linha);
+  border-radius: 16px;
+  background: var(--pagina);
+}
+.quiz-pagina .res__parte h3 {
+  margin: -1rem -1rem 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 16px 16px 0 0;
+  background: var(--azul-fundo);
+  color: var(--azul-rotulo);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.quiz-pagina .res__grupo {
+  margin: 0.6rem 0;
+}
+@media (max-width: 47.5rem) {
+  .quiz-pagina .quiz__modos {
+    grid-template-columns: 1fr;
+  }
+  .quiz-pagina .quiz__modo {
+    min-height: 0;
+    padding: 1.5rem;
+  }
+  .quiz-pagina .quiz__modo > .botao-principal {
+    align-self: stretch;
+    width: 100%;
+  }
+  .quiz-pagina .quiz__enunciado-linha {
+    padding: 1.5rem 1.25rem 0.75rem;
+  }
+  .quiz-pagina .quiz__alternativas {
+    padding: 0 1.25rem 1.25rem;
+  }
+  .quiz-pagina .res__cabeca {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+  .quiz-pagina .res__cabeca .anel-resultado {
+    order: 0;
+  }
+  .quiz-pagina .res__cabeca .res__nota {
+    order: 1;
+  }
+  .quiz-pagina .res__cabeca .res__faixa {
+    order: 2;
+  }
+  .quiz-pagina .res__cabeca .res__mensagem {
+    order: 3;
+    font-size: 1.6rem;
+  }
 }

@@ -1,38 +1,47 @@
 ---
 import '../../styles/quiz.css';
 import Base from '../../layouts/Base.astro';
-import Livro from '../../components/livro/Livro.astro';
 import { getQuestoes } from '../../lib/conteudo/quiz';
 import { rotas } from '../../lib/rotas';
 
 const questoes = await getQuestoes();
 ---
-<Base titulo="Quiz" descricao="Quiz e Desafio de IPv6, com questões sorteadas, feedback e revisão no manual.">
-  <Livro chave="quiz">
-    <p class="chapeu">Apêndice B · Avaliar</p>
-    <h1 class="titulo-secao">Quiz</h1>
+<Base titulo="Quiz" descricao="Quiz e Desafio de IPv6, com questões sorteadas, feedback e revisão no manual." menu="quiz">
+  <div class="quiz-pagina">
+    <header class="quiz-cabecalho">
+      <a class="link-discreto" href={rotas.manual}>Voltar ao manual</a>
+      <span data-modo-cabecalho hidden></span>
+      <button type="button" class="link-discreto" data-encerrar hidden>Encerrar</button>
+    </header>
     <div class="quiz" data-quiz>
       <section data-tela="inicio" aria-label="Escolher modo">
-        <p class="quiz__intro">Escolha como quer praticar. O Quiz não tem tempo; o Desafio tem três dificuldades e tempo por questão.</p>
+        <p class="chapeu">Avalie o que você aprendeu</p>
+        <h1 class="quiz__titulo">Quiz</h1>
+        <p class="quiz__intro">Escolha como quer praticar. O Quiz não tem tempo e explica cada resposta. O Desafio tem dificuldade e tempo por questão.</p>
         <div class="quiz__modos">
           <article class="quiz__modo">
+            <div class="quiz__icone quiz__icone--quiz" aria-hidden="true">✓</div>
             <h2>Quiz</h2>
             <p>15 questões sorteadas de todas as partes, com feedback e explicação depois de cada resposta.</p>
-            <button type="button" class="botao-principal" data-iniciar="quiz">Começar Quiz</button>
+            <ul>
+              <li>15 questões · todas as partes</li>
+              <li>Feedback e explicação a cada resposta</li>
+              <li>Sem relógio</li>
+            </ul>
             <p class="quiz__melhor" data-melhor="quiz"></p>
+            <button type="button" class="botao-principal" data-iniciar="quiz">Começar Quiz</button>
           </article>
           <article class="quiz__modo">
+            <div class="quiz__icone quiz__icone--desafio" aria-hidden="true">◷</div>
             <h2>Desafio</h2>
-            <p>Escolha uma dificuldade e responda contra o relógio.</p>
+            <p>Escolha a dificuldade e responda contra o relógio. As explicações ficam para o final.</p>
             <div class="quiz__dificuldades">
-              <label><input type="radio" name="dificuldade" value="facil" checked /> Fácil <span>10 · 45 s</span></label>
-              <label><input type="radio" name="dificuldade" value="medio" /> Médio <span>15 · 30 s</span></label>
-              <label><input type="radio" name="dificuldade" value="dificil" /> Difícil <span>20 · 20 s</span></label>
+              <label><input type="radio" name="dificuldade" value="facil" /> <strong>Fácil</strong><span>10 questões · 45 s cada</span></label>
+              <label class="selecionada"><input type="radio" name="dificuldade" value="medio" checked /> <strong>Médio</strong><span>15 questões · 30 s cada</span></label>
+              <label><input type="radio" name="dificuldade" value="dificil" /> <strong>Difícil</strong><span>20 questões · 20 s cada</span></label>
             </div>
-            <button type="button" class="botao-principal" data-iniciar="desafio">Escolher dificuldade</button>
-            <p class="quiz__melhor" data-melhor="desafio-facil"></p>
-            <p class="quiz__melhor" data-melhor="desafio-medio"></p>
-            <p class="quiz__melhor" data-melhor="desafio-dificil"></p>
+            <p class="quiz__melhor" data-melhor-desafio></p>
+            <button type="button" class="botao-principal botao-principal--amarelo" data-iniciar="desafio">Começar Desafio</button>
           </article>
         </div>
         <button type="button" class="botao-texto" data-limpar hidden>Limpar melhores resultados</button>
@@ -49,24 +58,26 @@ const questoes = await getQuestoes();
       <section data-tela="questao" hidden aria-label="Questão">
         <div class="quiz__topo">
           <p class="quiz__contador" data-contador></p>
-          <span class="barra quiz__barra" aria-hidden="true"><span data-barra></span></span>
-          <button type="button" class="botao-texto quiz__encerrar" data-encerrar hidden>Encerrar</button>
+          <p class="quiz__parte" data-parte></p>
         </div>
+        <span class="barra quiz__barra" aria-hidden="true"><span data-barra></span></span>
+        <div class="quiz__passos" data-passos hidden aria-label="Progresso do desafio"></div>
+        <p class="quiz__legenda-passos" data-legenda-passos hidden>Acerto · erro · tempo esgotado · atual</p>
         <div class="quiz__enunciado-linha">
           <h2 class="quiz__enunciado" data-enunciado tabindex="-1"></h2>
-          <div class="cronometro" data-cronometro hidden aria-label="Tempo restante">
-            <svg viewBox="0 0 44 44" aria-hidden="true"><circle class="cronometro__trilho" cx="22" cy="22" r="19" /><circle class="cronometro__anel" data-anel cx="22" cy="22" r="19" /></svg>
+          <div class="cronometro" data-cronometro hidden role="img" aria-label="Tempo restante">
+            <svg viewBox="0 0 104 104" aria-hidden="true"><circle class="cronometro__trilho" cx="52" cy="52" r="46" /><circle class="cronometro__anel" data-anel cx="52" cy="52" r="46" /></svg>
             <span data-segundos>45</span>
+            <small>segundos</small>
           </div>
         </div>
         <ol class="quiz__alternativas" data-alternativas></ol>
         <div class="quiz__retorno" data-feedback aria-live="polite"></div>
         <div class="quiz__acoes"><button type="button" class="botao-principal" data-avancar hidden>Próxima questão</button></div>
-        <p class="quiz__dica">Dica: use as teclas A, B, C e D para responder.</p>
       </section>
       <section class="res" data-tela="resultado" hidden tabindex="-1" aria-label="Resultado"></section>
     </div>
-  </Livro>
+  </div>
 </Base>
 
 <script type="application/json" id="dados-quiz" set:html={JSON.stringify({ questoes, urlQuiz: rotas.quiz, urlManual: rotas.manual }).replace(/</g, '\\u003c')} />

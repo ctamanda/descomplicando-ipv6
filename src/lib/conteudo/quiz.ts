@@ -82,6 +82,7 @@ export async function getQuestoes(nivel?: NivelId): Promise<QuestaoDoSite[]> {
       return {
         id: q.id,
         parte: s.data.parte,
+        parteTitulo: s.data.parteTitulo,
         secao: q.secao,
         secaoTitulo: s.data.titulo,
         href: rotas.secao(s.data),

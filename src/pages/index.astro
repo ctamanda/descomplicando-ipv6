@@ -117,8 +117,16 @@ const etapas = [
     const aviso = document.querySelector<HTMLElement>('[data-progresso]');
     if (!botao || !aviso) return;
     const lidas = lerLidas();
-    if (!lidas.size) return;
     const ordem: { id: string; href: string }[] = JSON.parse(botao.dataset.ordem!);
+    try {
+      const ultima = localStorage.getItem('ipv6:ultima-secao');
+      const ultimaSecao = ordem.find((s) => s.id === ultima);
+      if (ultimaSecao) {
+        botao.href = ultimaSecao.href;
+        botao.textContent = 'Continuar de onde parei';
+      }
+    } catch {}
+    if (!lidas.size) return;
     const feitas = ordem.filter((s) => lidas.has(s.id)).length;
     const proxima = ordem.find((s) => !lidas.has(s.id));
     aviso.hidden = false;
