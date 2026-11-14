@@ -91,7 +91,7 @@ export default function remarkGlossario(opcoes: { base?: string } = {}) {
             hProperties: {
               type: 'button',
               className: ['termo'],
-              title: melhor.p.definicao,
+              'aria-label': `Ver definição de ${texto.slice(melhor.inicio, melhor.fim)}`,
               'data-definicao': melhor.p.definicao,
               'data-glossario-href': `${base}glossario/#${melhor.p.slug}`,
             },
