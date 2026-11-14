@@ -336,6 +336,8 @@
 }
 
 .controles__regua {
+  position: relative;
+  z-index: 1;
   width: 100%;
   min-width: 0;
   height: 2rem;
@@ -344,6 +346,8 @@
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
+  pointer-events: auto;
+  touch-action: none;
 }
 .controles__regua::-webkit-slider-runnable-track {
   height: 4px;

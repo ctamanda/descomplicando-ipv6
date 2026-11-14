@@ -85,6 +85,7 @@ export function iniciarLivro() {
   }
 
   function atualizarInterface() {
+    atualizarRegua(atual);
     const primeira = atual * colunas + 1;
     const ultima = Math.min(primeira + colunas - 1, totalPaginas);
     const paginas = ultima > primeira ? `págs. ${primeira} e ${ultima}` : `pág. ${primeira}`;
@@ -92,12 +93,6 @@ export function iniciarLivro() {
     statusParte.hidden = !livro!.dataset.parte;
     statusSecao.textContent = numero ?? '';
     statusPaginas.textContent = `${paginas} de ${totalPaginas}`;
-    regua.value = String(atual + 1);
-    regua.style.setProperty('--progresso', `${totalViradas > 1 ? (atual / (totalViradas - 1)) * 100 : 0}%`);
-    regua.style.setProperty('--paginas', String(totalViradas));
-    regua.setAttribute('aria-valuetext', `página ${paginas.replace('pág. ', '')} de ${totalPaginas}`);
-    tooltip.textContent = `${paginas} de ${totalPaginas}`;
-    posicionarTooltip();
     numEsq.textContent = String(primeira);
     numDir.textContent = colunas === 2 ? (ultima > primeira ? String(ultima) : '') : String(primeira);
 
@@ -110,10 +105,26 @@ export function iniciarLivro() {
     btnProx.dataset.borda = String(noFim);
   }
 
-  function posicionarTooltip() {
+  function textoPaginas(indice: number) {
+    const primeira = indice * colunas + 1;
+    const ultima = Math.min(primeira + colunas - 1, totalPaginas);
+    return ultima > primeira ? `págs. ${primeira} e ${ultima}` : `pág. ${primeira}`;
+  }
+
+  function atualizarRegua(indice: number) {
+    const paginas = textoPaginas(indice);
+    regua.value = String(indice + 1);
+    regua.style.setProperty('--progresso', `${totalViradas > 1 ? (indice / (totalViradas - 1)) * 100 : 0}%`);
+    regua.style.setProperty('--paginas', String(totalViradas));
+    regua.setAttribute('aria-valuetext', `página ${paginas.replace('pág. ', '')} de ${totalPaginas}`);
+    tooltip.textContent = `${paginas} de ${totalPaginas}`;
+    posicionarTooltip(indice);
+  }
+
+  function posicionarTooltip(indice = atual) {
     const faixa = regua.getBoundingClientRect();
     const caixa = controles.getBoundingClientRect();
-    const proporcao = totalViradas > 1 ? atual / (totalViradas - 1) : 0;
+    const proporcao = totalViradas > 1 ? indice / (totalViradas - 1) : 0;
     tooltip.style.left = `${faixa.left - caixa.left + proporcao * faixa.width}px`;
   }
 
@@ -273,33 +284,72 @@ export function iniciarLivro() {
   btnAnt.addEventListener('click', voltar);
   btnProx.addEventListener('click', avancar);
   let arrastandoRegua = false;
+  let previaRegua = atual;
+  let esconderRegua: number | undefined;
   const esconderTooltip = () => {
     arrastandoRegua = false;
     regua.classList.remove('controles__regua--arrastando');
-    tooltip.hidden = true;
+    window.clearTimeout(esconderRegua);
+    esconderRegua = window.setTimeout(() => {
+      tooltip.hidden = true;
+    }, 500);
+  };
+  const indiceDoPonteiro = (e: PointerEvent) => {
+    const faixa = regua.getBoundingClientRect();
+    const proporcao = Math.min(1, Math.max(0, (e.clientX - faixa.left) / faixa.width));
+    return Math.round(proporcao * (totalViradas - 1));
+  };
+  const atualizarPorPonteiro = (e: PointerEvent) => {
+    previaRegua = indiceDoPonteiro(e);
+    atualizarRegua(previaRegua);
   };
   regua.addEventListener('pointerdown', (e) => {
+    e.preventDefault();
     arrastandoRegua = true;
+    window.clearTimeout(esconderRegua);
     regua.classList.add('controles__regua--arrastando');
     tooltip.hidden = false;
-    posicionarTooltip();
+    atualizarPorPonteiro(e);
     regua.setPointerCapture?.(e.pointerId);
   });
-  regua.addEventListener('pointermove', () => {
-    if (arrastandoRegua) posicionarTooltip();
+  regua.addEventListener('pointermove', (e) => {
+    if (arrastandoRegua) {
+      e.preventDefault();
+      atualizarPorPonteiro(e);
+    }
   });
-  regua.addEventListener('pointerup', esconderTooltip);
-  regua.addEventListener('pointercancel', esconderTooltip);
+  regua.addEventListener('pointerup', (e) => {
+    if (arrastandoRegua) {
+      atualizarPorPonteiro(e);
+      irPara(previaRegua, false);
+    }
+    esconderTooltip();
+  });
+  regua.addEventListener('pointercancel', () => {
+    if (arrastandoRegua) irPara(previaRegua, false);
+    esconderTooltip();
+  });
   regua.addEventListener('input', () => {
-    irPara(Number(regua.value) - 1, false);
-    if (arrastandoRegua) posicionarTooltip();
+    if (arrastandoRegua) {
+      previaRegua = Math.min(Math.max(Number(regua.value) - 1, 0), totalViradas - 1);
+      atualizarRegua(previaRegua);
+    } else {
+      irPara(Number(regua.value) - 1, false);
+    }
   });
   regua.addEventListener('keydown', () => {
+    window.clearTimeout(esconderRegua);
     tooltip.hidden = false;
     posicionarTooltip();
     window.setTimeout(() => {
-      if (!arrastandoRegua && document.activeElement !== regua) tooltip.hidden = true;
+      if (!arrastandoRegua && document.activeElement !== regua) esconderTooltip();
     }, 900);
+  });
+  regua.addEventListener('change', () => {
+    if (!arrastandoRegua) {
+      irPara(Number(regua.value) - 1, false);
+      esconderTooltip();
+    }
   });
 
   document.addEventListener('keydown', (e) => {
